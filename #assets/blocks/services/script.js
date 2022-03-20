@@ -1,189 +1,118 @@
-"use strict";
+'use strict';
 
 grummer.services = {
-	sliderList: [],
-	sliderTemplate: null,
-	currentServicesList: [],
-	currentCategory: null,
+	category: '',
+	animal: '',
 
-	async init() {
-		await this.getServices()
-		this.sliderList = $("._services__slider");
-		this.sliderTemplate = $.trim($("#services__slider-temp").html());
-		this.setSlides(null, this.sliderList, this.sliderTemplate);
-		this.initSlider();
+	init() {
+		this.initSlider(this.getSliderOptions());
 	},
-	async getServices() {
-		const services = await fetch("/api/services-list", {
-			method: "GET",
-		})
-			.then(response => response.json())
-			.catch(e => console.log('getCategories exeption:', e))
-
-		grummer.servicesList = services
+	initSlider(options = {}) {
+		$('._services__slider')
+			.slick({
+				...options,
+				infinite: true,
+				prevArrow: `<div class="prev-arrow slider-arrow">${arrow}</div>`,
+				nextArrow: `<div class="next-arrow slider-arrow">${arrow}</div>`,
+			})
+			.on('setPosition', () => {
+				const options = this.getSliderOptions();
+				$('._services__slider').slick('slickSetOption', options);
+			});
 	},
-	initSlider() {
-		$(".services__slider").slick({
-			infinite: true,
-			slidesToShow: 6,
-			slidesToScroll: 6,
-			// prevArrow: '<div class="prev-arrow slider-arrow"><img src="img/arrow.svg"/></div>',
-			// nextArrow: '<div class="next-arrow slider-arrow"><img src="img/arrow.svg"/></div>',
-			prevArrow: `<div class="prev-arrow slider-arrow">${arrow}</div>`,
-			nextArrow: `<div class="next-arrow slider-arrow">${arrow}</div>`,
-			responsive: [
-				{
-					breakpoint: 993,
-					settings: {
-						slidesToShow: 4,
-						slidesToScroll: 4,
-					},
-				},
-				{
-					breakpoint: 768,
-					settings: {
-						slidesToShow: 3,
-						slidesToScroll: 3,
-						arrows: false,
-					},
-				},
-				{
-					breakpoint: 480,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 2,
-						arrows: false,
-					},
-				},
-			],
-		});
-	},
-	setSlides(arr, list, template) {
-		list.html("");
-		let frag = "";
+	getSliderOptions() {
+		const viewport_width = window.innerWidth;
 
-		let slides = arr ? arr : null;
-
-		// if (!slides) {
-		// 	if (grummer.animal) {
-		// 		this.currentServicesList = [
-		// 			...grummer.servicesList[grummer.animal],
-		// 			...grummer.servicesList.additional,
-		// 		];
-		// 	} else {
-		// 		this.currentServicesList = Object.keys(
-		// 			grummer.servicesList
-		// 		).reduce((acc, key) => {
-		// 			return [...acc, ...grummer.servicesList[key]];
-		// 		}, []);
-		// 	}
-
-		// 	slides = this.currentServicesList;
-		// }
-
-		slides = grummer.servicesList;
-
-		// if (this.currentCategory) {
-		// 	slides = slides.filter((service) => {
-		// 		return service.category === this.currentCategory;
-		// 	});
-		// }
-
-		const templatedSlides = slides.map((slide, i) => {
-			return template
-				.replace(/{title}/gi, slide.title)
-				.replace(/{text}/gi, slide.text)
-				.replace(/{price}/gi, slide.price)
-				.replace(/{time}/gi, slide.time)
-				.replace(/{img}/gi, slide.img)
-		})
-
-		list.append(templatedSlides.join());
-		// list.append(frag);
-	},
-
-	setBreed(val) {
-		this.breed = val;
-	},
-
-	filter(arr) {
-		this.setSlides(arr, this.sliderList, this.sliderTemplate);
-		this.sliderList.removeClass("slick-initialized slick-slider");
-		this.initSlider();
-	},
-
-	filterServices(val, type = "category") {
-		if (!val) {
-			return this.currentServicesList;
+		if (viewport_width > 993) {
+			return {
+				slidesToShow: 6,
+				slidesToScroll: 6,
+				arrows: true,
+			};
+		} else if (viewport_width > 768) {
+			return {
+				slidesToShow: 4,
+				slidesToScroll: 4,
+				arrows: true,
+			};
+		} else if (viewport_width > 480) {
+			return {
+				slidesToShow: 3,
+				slidesToScroll: 3,
+				arrows: false,
+			};
+		} else {
+			return {
+				slidesToShow: 2,
+				slidesToScroll: 2,
+				arrows: false,
+			};
 		}
+	},
+	filter({animal = '', category = ''}) {
+		$('._services__slider').slick('slickUnfilter');
 
-		return this.currentServicesList.filter(
-			(service) => service[type] === val
-		);
+		if (!animal && !category) return;
+
+		$('._services__slider').slick('slickFilter', (_, slide) => {
+			if (animal && category) {
+				return $(slide).find(
+					`._services__slide.${category}.${animal},._services__slide.all`,
+				).length;
+			}
+
+			if (animal) {
+				return $(slide).find(
+					`._services__slide.${animal},._services__slide.all`,
+				).length;
+			}
+
+			if (category) {
+				return $(slide).find(`._services__slide.${category}`).length;
+			}
+
+			return true;
+		});
+
+		$('._services__slider').slick('slickGoTo', 0);
 	},
 	filterServicesByBreed(el, animal = null) {
 		const $el = $(el);
-		if ($el.hasClass("active")) return;
+		if ($el.hasClass('active')) return;
+		$el.parent().children('div').removeClass('active');
+		$el.addClass('active');
 
-		$el.parent().children("div").removeClass("active");
+		this.animal = animal;
 
-		$el.addClass("active");
-
-		grummer.animal = animal;
-
-		this.filter();
+		this.filter({
+			animal: this.animal,
+			category: this.category,
+		});
 	},
 	clearBreedFilter(el, e) {
 		e.stopPropagation();
-		$(el).parent().removeClass("active");
-		grummer.animal = null;
-		this.filter();
-	},
+		$(el).parent().removeClass('active');
+		this.animal = '';
 
+		this.filter({
+			animal: this.animal,
+			category: this.category,
+		});
+	},
 	filterServicesByCategory(category) {
-		this.currentCategory = category;
-		const filteredServicesByCategory = this.filterServices(category);
+		this.category = category;
 
-		if (
-			filteredServicesByCategory.length ===
-			this.currentServicesList.length
-		) {
-			this.cleanFilter();
-		} else {
-			// this.showCleaner();
-			$(".services__categories._select").addClass("active");
-		}
-
-		this.filter([
-			...filteredServicesByCategory,
-			...grummer.servicesList.additional,
-		]);
+		this.filter({
+			animal: this.animal,
+			category: this.category,
+		});
 	},
-
-	cleanFilter() {
-		this.currentCategory = null;
-		this.filter();
-		// this.hideCleaner();
-
-		const $categories = $(".services__categories");
-		$categories.find("._selected-text").html("Выберите категорию");
-
-		$categories.find("._option").removeClass("active");
-		$(".services__categories._select").removeClass("active");
-	},
-
-	// showCleaner() {
-	//   $(".services__filters-cleaner").addClass("active");
-	// },
-	// hideCleaner() {
-	//   $(".services__filters-cleaner").removeClass("active");
-	// },
 
 	openPopup(title) {
-		const service = this.currentServicesList.find((obj) => {
+		const service = this.currentServicesList.find(obj => {
 			return obj.title === title;
 		});
-		const breed = grummer.breeds.find((obj) => {
+		const breed = grummer.breeds.find(obj => {
 			return obj.value === this.breed;
 		});
 
