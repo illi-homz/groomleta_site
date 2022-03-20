@@ -7,13 +7,14 @@
 @import "./settings/air-datepicker";
 @import "./settings/datepicker";
 @import "./settings/form";
+@import "./settings/fonts";
 
 @import "../components/header/style";
 @import "../components/footer/style";
 
-@import "./fonts";
-@import "./about";
-@import "./services";
+@import "../blocks/about/style";
+@import "../blocks/services/style";
+
 @import "./zootaxi";
 @import "./ourworks";
 @import "./questions";

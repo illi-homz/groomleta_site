@@ -1,0 +1,77 @@
+{% load static %}
+
+<section class="services" id="services">
+    <div class="services__wrap container">
+        <h1>Услуги</h1>
+        <div class="services__nav">
+            <div class="services__filters">
+                <div class="services__filter">
+                    <div class="services__categories g-select _select">
+                        <input type="hidden" class="_select-input"
+                            onchange="grummer.services.filterServicesByCategory(this.value)" />
+                        <div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
+                            <span class="_selected-text">Выберите категорию</span>
+                        </div>
+                        <div class="g-select__body _options">
+                            <ul class="g-select__items">
+								{% for category in services.categories %}
+								<li
+									class="g-select__item _option"
+									data-value="{{category.value}}"
+									onclick="grummer.gSelect.selectItem(this)">
+									{{category.title}}
+								</li>
+								{% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="services__nav-btns">
+                <div class="services__nav-btn btn-costom" onclick="grummer.services.filterServicesByBreed(this, 'dog')">
+					{% include '#img/cat.svg' %}
+
+                    <span>Для кошек</span>
+
+                    <button onclick="grummer.services.clearBreedFilter(this, event)">
+						{% include '#img/close-circle.svg' %}
+					</button>
+                </div>
+                <div class="services__nav-btn btn-costom" onclick="grummer.services.filterServicesByBreed(this, 'cat')">
+					{% include '#img/dog.svg' %}
+
+                    <span>Для собак</span>
+
+                    <button onclick="grummer.services.clearBreedFilter(this, event)">
+						{% include '#img/close-circle.svg' %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container services__slider _services__slider">
+        <script id="services__slider-temp" type="tuts/template">
+            <div class="services__slide">
+                <div class="services__slide-wrapper">
+                    <div>
+                        <div class="services__slide-img">
+                            <img src="{% static 'img/services/' %}{img}" alt="">
+                        </div>
+                    </div>
+                    <div class="services__slide-data">
+                        <div class="services__slide-title">{title}</div>
+                        <div class="services__slide-desc">
+                            {text}
+                        </div>
+                        <div class="services__slide-price">{price}</div>
+                        <div class="services__slide-time">{time}</div>
+                        <!--<button class="services__slide-btn btn-outlined" onclick="grummer.popupMain.open('{title}')">-->
+                        <button class="services__slide-btn btn-outlined" onclick="grummer.services.openPopup('{title}')">
+                            Записаться
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+</section>

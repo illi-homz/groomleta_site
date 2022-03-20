@@ -1,0 +1,8 @@
+<section class="about container" id="about">
+    <div class="about__wrapper">
+        <h1 class="text-center">О салоне</h1>
+		{% for text in about.texts %}
+			<p class="text-center">{{text}}</p>
+		{% endfor %}
+    </div>
+</section>

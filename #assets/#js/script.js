@@ -38,6 +38,8 @@ const grummer = {
 @@include('@@webRoot/#assets/#js/g-select.js');
 @@include('@@webRoot/#assets/components/header/script.js');
 
+@@include('@@webRoot/#assets/blocks/services/script.js');
+
 grummer.init = function () {
 	this.store.init();
 
@@ -48,7 +50,7 @@ grummer.init = function () {
 	// this.popupServices.init()
 
 	this.header.init();
-	// this.services.init();
+	this.services.init();
 	// this.ourworks.init();
 	// this.questions.init();
 	// this.feedbacks.init();

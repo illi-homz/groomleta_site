@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 from . import data
@@ -18,3 +18,7 @@ def handle_page_not_found(request, exception):
     response = HttpResponse(render(request, 'Page404.html', current_data))
 
     return response
+
+def services_list(request):
+	response_data = data.Index.data['services']['services_list']
+	return JsonResponse(response_data, safe=False)
