@@ -1,0 +1,99 @@
+.air-datepicker {
+  box-shadow: none;
+  border: none;
+  border-radius: 12px;
+  filter: drop-shadow(0px 4px 8px rgba(50, 50, 71, 0.06));
+  z-index: 2000;
+  width: 100%;
+  padding-bottom: 8px;
+
+  * {
+    font-family: "SFPro", "Raleway", sans-serif;
+  }
+}
+
+.air-datepicker--pointer {
+  display: none;
+}
+
+.air-datepicker-nav {
+  min-height: 45px;
+  // border-bottom-color: #CDD7DC;
+  border: none;
+  filter: drop-shadow(0px 4px 8px rgba(50, 50, 71, 0.06));
+}
+
+.air-datepicker-nav--title {
+  font-family: "SFProDisplay-Regular", sans-serif;
+  color: #243138;
+  font-weight: 500;
+  @include fontSet(15, 20, 600);
+
+  &:hover {
+    background-color: #fff;
+  }
+}
+
+.air-datepicker-nav--action {
+  &:hover {
+    background-color: #fff;
+  }
+
+  svg {
+    width: 6px;
+    height: 12px;
+  }
+}
+
+.air-datepicker-body--day-names {
+  height: 16px;
+  margin-bottom: 18px;
+}
+.air-datepicker-body--day-name {
+  color: rgba(36, 49, 56, 0.5);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.air-datepicker-cell {
+  @include fontSet(13, 18, 400);
+  font-family: "SFProDisplay-Regular", sans-serif;
+  color: #243138;
+
+  &.-other-month- {
+    color: #cdd7dc;
+  }
+
+  &.-focus-,
+  &.-selected-,
+  &.-selected-.-current-,
+  &.-selected-.-focus- {
+    background-color: #fec71a;
+    color: white;
+  }
+
+  &.-day-,
+  &.-selected-.-day- {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  &.-current- {
+    color: #fec71a;
+  }
+
+  &.-focus-::before {
+    background-color: #cdd7dc;
+  }
+}
+
+.air-datepicker-nav--title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}

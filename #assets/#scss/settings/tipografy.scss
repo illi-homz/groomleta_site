@@ -1,0 +1,7 @@
+h1
+{
+  @include fontSet(30, 32, 800);
+  @include tablet {
+    @include fontSet(45, 47, 800);
+  }
+}

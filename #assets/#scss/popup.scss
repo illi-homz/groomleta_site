@@ -1,0 +1,81 @@
+.popup {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease 0s;
+
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &__body {
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__content {
+        background-color: #fff;
+        // background-color: #f8f8f8;
+        padding: 25px 15px;
+        border-radius: 12px;
+        width: 100%;
+        position: relative;
+
+        @include tablet {
+            max-width: 850px;
+            padding: 30px 105px 45px;
+        }
+    }
+    &__close {
+        position: absolute;
+        width: 52px;
+        height: 52px;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: "";
+            width: 17px;
+            height: 2px;
+            background-color: #243138;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+        &::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        &::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+    }
+    &__back {
+        @extend %arrows;
+        position: absolute;
+        left: 16px;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+
+        @include tablet {
+            left: 20px;
+            width: 65px;
+            height: 65px;
+            border-radius: 12px;
+        }
+    }
+}

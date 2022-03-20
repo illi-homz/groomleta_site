@@ -1,0 +1,50 @@
+{% load static %}
+
+<footer class="footer" id="footer">
+    <div class="container footer__wrapper">
+        <div class="footer__logo">
+            <a href="#header" onclick="grummer.goToBlock(this, event)">
+				<img src="{% static 'img/logo.svg' %}">
+			</a>
+        </div>
+        <div class="footer__links">
+            <ul class="footer__links-on-bloks">
+                <li><a href="#about" onclick="grummer.goToBlock(this, event)">О нас</a></li>
+                <li><a href="#services" onclick="grummer.goToBlock(this, event)">Услуги</a></li>
+                <li><a href="#questions" onclick="grummer.goToBlock(this, event)">Ответы на вопросы</a></li>
+            </ul>
+            <ul class="footer__links-on-social">
+                <li>
+                    <a href="https://vk.com/" target="_blank">
+                        <img src="{% static 'img/social/vk.png' %}">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/" target="_blank">
+                        <img src="{% static 'img/social/insta.png' %}">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer__contacts">
+            <h5>Контакты</h5>
+            <ul>
+                <li class="footer__contacts-map">
+                    <a href="https://yandex.ru/maps/-/CCU5BLx5~B" target="_blank">
+                        <img src="{% static 'img/social/maps.png' %}">ул. Некрасова 38
+                    </a>
+                </li>
+                <li>
+                    <a href="tel:8 900 000 00 00">
+                        <img src="{% static 'img/social/tel.png' %}">8 900 000 00 00
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:groomleta@mail.ru">
+                        <img src="{% static 'img/social/mail.png' %}">groomleta@mail.ru
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>

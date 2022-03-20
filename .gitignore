@@ -32,18 +32,6 @@ media
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
-# Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
-
-# File-based project format
-*.iws
-
-# IntelliJ
-out/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
 
 # Python # 
 *.py[cod] 
@@ -89,11 +77,10 @@ coverage.xml
 
 # pyenv 
 .python-version 
-__pycache__
 
 # Environments 
 .env 
-env/ 
+env/
 
 # Visual Studio Code # 
 .vscode/* 
@@ -106,12 +93,7 @@ env/
 # node
 node_modules/
 
-images/*.jpg
-images/*.png
-images/*.svg
-images/*.gif
-images/*.ico
-images/*.webp
-
+images/**/*
 media/**/*
-.sqlite3
+staticfiles/**/*
+migrations/

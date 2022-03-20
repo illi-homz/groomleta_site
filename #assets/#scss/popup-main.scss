@@ -1,0 +1,355 @@
+.popup-main {
+  &__datepicker {
+    position: relative;
+
+    input {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    &::after {
+      content: "";
+      width: 20px;
+      height: 22px;
+      background-image: url(../img/calendar.svg);
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      cursor: pointer;
+    }
+  }
+  &__form {
+    margin-top: 35px;
+
+    textarea {
+      height: 120px;
+
+      @include tablet {
+        height: 110px;
+      }
+    }
+    .btn {
+      width: 100%;
+      height: 65px;
+      margin-bottom: 25px;
+
+      @include tablet {
+        max-width: 245px;
+        margin-right: 80px;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__form-services {
+    @include tablet {
+      &.one {
+        .popup-main__form-service-remove {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__form-services-ul {
+  }
+
+  &__form-service {
+    border: 1px solid #ebf1f4;
+    border-radius: 12px;
+    box-shadow: 0px 2px 4px rgba(205, 215, 220, 0.19),
+      3px 3px 12px rgba(205, 215, 220, 0.2);
+    display: flex;
+    align-items: center;
+    height: 104px;
+    margin-bottom: 16px;
+    padding: 0 26px;
+    position: relative;
+
+    &-img {
+      margin-right: 20px;
+
+      img {
+        height: 50px;
+        object-fit: cover;
+      }
+    }
+
+    &-title {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 25px;
+      color: $textColor40;
+      margin-bottom: 8px;
+    }
+
+    &-price {
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 16px;
+      color: $textColor40;
+    }
+
+    &-remove {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      border: 2px solid #ecefef;
+      cursor: pointer;
+      user-select: none;
+      transition: all ease 0.3s;
+
+      &::before,
+      &::after {
+        content: "";
+        width: 10px;
+        height: 2px;
+        background-color: #ecefef;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transition: all ease 0.3s;
+      }
+      &::before {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+      &::after {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      &:hover {
+        transform: rotate(45deg);
+        border-color: $yellow;
+
+        &::before,
+        &::after {
+          background-color: $yellow;
+        }
+      }
+    }
+  }
+  &__form-add-service {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+
+    span {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }
+  &__form-add-service-btn {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 2px solid $textColor;
+    position: relative;
+    margin-left: 18px;
+
+    &::before,
+    &::after {
+      content: "";
+      width: 10px;
+      height: 2px;
+      background-color: $textColor;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+    }
+    &::before {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    &::after {
+      transform: translate(-50%, -50%);
+    }
+  }
+  &__form-wrapper {
+    .popup-main__form-field {
+      margin-right: 0;
+    }
+
+    &-footer {
+      margin-top: 32px;
+      align-items: center;
+    }
+
+    @include tablet {
+      display: flex;
+
+      .popup-main__form-field:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      &.cols-3 {
+        & > div {
+          max-width: calc(33.333% - 13.333px);
+        }
+      }
+    }
+  }
+  &__form-field {
+    margin-bottom: 20px;
+    position: relative;
+
+    @include tablet {
+      flex: 1 0;
+    }
+  }
+  // &__form-breeds {
+  //   background: #fff;
+
+  //   .g-select {
+  //     &__header {
+  //       padding-right: 50px;
+
+  //       span {
+  //         color: #243138;
+  //         white-space: nowrap;
+  //         overflow: hidden;
+  //         text-overflow: ellipsis;
+  //       }
+  //     }
+  //   }
+  // }
+  &__form-price,
+  &__form-price * {
+    @include fontSet(25, 40, 700);
+  }
+  &__form-price {
+    margin-top: 43px;
+    margin-bottom: 32px;
+    @include tablet {
+      margin-top: 20px;
+    }
+  }
+  &__form-info {
+    @include fontSet(16, 23, 600);
+    text-align: left;
+    color: #cdd7dc;
+  }
+
+  &__form-field-counter {
+    position: absolute;
+    bottom: 4px;
+    right: 12px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: $textColor40;
+
+    span {
+      color: inherit;
+    }
+  }
+
+  &__form-img-loader {
+    &.active {
+      ._popup-main__form-add-img {
+        display: none;
+      }
+      .popup-main__form-imgs {
+        display: flex;
+      }
+    }
+  }
+  &__form-add-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px dashed $gray;
+    border-radius: 12px;
+    padding: 16px 0;
+    cursor: pointer;
+    user-select: none;
+  }
+  &__form-add-img-title {
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-right: 20px;
+    }
+  }
+  &__form-add-img-info {
+    color: $textColor40;
+    margin-top: 12px;
+  }
+
+  &__form-imgs {
+    // display: flex;
+    display: none;
+  }
+  &__form-image-wrapper {
+    width: 69px;
+    height: 69px;
+    border-radius: 12px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-right: 8px;
+
+    &:nth-child(4) ~ div {
+      display: none;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__form-image-remove {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 50%;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      content: "";
+      width: 12px;
+      height: 2px;
+      // background-color: $textColor;
+      border: 1px solid $textColor;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 3px;
+    }
+    &::before {
+      transform: translate(-50%) rotate(45deg);
+    }
+    &::after {
+      transform: translate(-50%) rotate(-45deg);
+    }
+  }
+
+  &__form-imgs-add {
+    width: 69px;
+    height: 69px;
+    border-radius: 12px;
+    border: 1px dashed $gray;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  // #datepicker {
+  //     text-transform: lowercase;
+  // }
+}

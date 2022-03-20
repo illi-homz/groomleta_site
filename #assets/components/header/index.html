@@ -1,0 +1,57 @@
+{% load static %}
+
+<header class="header" id="header">
+    {% for banner in header.banners %}
+        <div
+            class="header__bg _header__bg {% if forloop.counter == 1 %}active{% endif %}"
+            style="background-image: url({{banner.img.url}});"
+        ></div>
+    {% endfor %}
+
+    <nav class="header__mobile-menu">
+        <ul class="header__mobile-menu-links">
+            {% for link in header.links %}
+                <li>
+                    <a
+                        href="#{{link.value}}"
+                        onclick="grummer.goToBlock(this, event, true)">
+                        {{link.title}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <nav class="header__nav">
+        <div class="container header__nav-wrapper">
+            <a href="#header" class="header__logo">
+                <img src="{% static '/img/logo.svg' %}" alt="logo">
+            </a>
+            <ul class="header__links">
+                {% for link in header.links %}
+                    <li>
+                        <a
+                            href="#{{link.value}}"
+                            onclick="grummer.goToBlock(this, event, false)">
+                            {{link.title}}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="nav-btn header__burger-btn" onclick="grummer.header.toggleMenu()">
+                <div class="header__burger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="header__content container">
+        <h1>Стрижка<br>домашних<br>животных</h1>
+        <p>Ваша благодарность питомцу<br>за его любовь без остатка</p>
+        <a
+            class="btn header__call-btn yellow"
+            href="#callback"
+            onclick="grummer.goToBlock(this, event)">
+            Заказать звонок
+        </a>
+    </div>
+</header>

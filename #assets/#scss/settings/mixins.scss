@@ -1,0 +1,34 @@
+@mixin fontSet ($fsz:14, $lh:16, $fw:400, $space:.15, $style:'normal') {
+    font-size: $fsz+px;
+    line-height: $lh+px;
+    font-weight: $fw;
+    letter-spacing: $space+px;
+    font-style: $style;
+}
+
+@mixin font($font_name, $file_name, $weight, $style) {
+    @font-face {
+        font-family: $font_name;
+        font-display: swap;
+        src: url('../fonts/#{$file_name}.woff') format('woff'), url('../fonts/#{file_name}.woff2') format('woff2');
+        font-weight: #{$weight};
+    }
+}
+
+@mixin mobile {
+    @media ($mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media ($tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media ($desctop) {
+        @content;
+    }
+}

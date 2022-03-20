@@ -1,0 +1,113 @@
+.ourworks {
+    padding: 20px 0 35px;
+
+    @include tablet {
+        padding: 50px 0 80px;
+    }
+
+    h1 {
+        margin-bottom: 40px;
+        @include tablet {
+            margin-bottom: 80px;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+
+        @include tablet {
+            flex-direction: row;
+        }
+    }
+
+    &__slider {
+        // flex: 2 0;
+        position: relative;
+        height: 234px;
+        width: 100%;
+
+        &:hover {
+            .slick-arrow {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        @include tablet {
+            height: 535px;
+        }
+        &-item {
+            img {
+                height: 100%;
+                // width: 100%;
+                object-fit: cover;
+            }
+        }
+        .slick-list {
+            height: 100%;
+            padding: 0 !important;
+            overflow: hidden;
+            // width: 300px;
+            margin: 0 auto;
+            transition: all ease .3s;
+            // overflow: hidden;
+        }
+        .slick-track {
+            display: flex;
+            height: 100%;
+        }
+        .slick-slide {
+            height: 100%;
+
+            & > div {height: 100%;}
+
+            @include tablet {
+                padding: 0 50px;
+            }
+        }
+    }
+
+    &__slider-item {
+        height: 100%;
+        overflow: hidden;
+        text-align: center;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    .slick-arrow {
+        @extend %arrows;
+        transform: translateY(-50%);
+        transition: all ease .3s;
+        position: absolute;
+        top: 50%;
+
+        @include desktop {
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+    .prev-arrow {
+        left: 12px;
+
+        svg {
+            transform: rotate(180deg);
+        }
+    }
+    .next-arrow {
+        right: 12px;
+    }
+    .slick-dots {
+        @extend %dots;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) translateY(100%);
+        bottom: -12;
+    }
+}

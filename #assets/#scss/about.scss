@@ -1,0 +1,36 @@
+.about {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  @include tablet {
+    padding-top: 50px;
+  }
+
+  h1 {
+    padding-bottom: 40px;
+    @include fontSet(30, 32, 800);
+
+    @include tablet {
+      @include fontSet(45, 47, 800);
+      padding-bottom: 70px;
+    }
+  }
+  p {
+    @include fontSet(16, 22, 600);
+
+    &:first-of-type {
+      margin-bottom: 22px;
+    }
+
+    @include tablet {
+      @include fontSet(25, 30, 600, -0.2);
+      &:first-of-type {
+        margin-bottom: 25px;
+      }
+    }
+  }
+
+  &__wrapper {
+    max-width: 730px;
+  }
+}

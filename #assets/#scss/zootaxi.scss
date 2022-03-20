@@ -1,0 +1,68 @@
+.zootaxi {
+    &__wrapper {
+        height: 100vh;
+        max-height: 340px;
+        background-color: #cdd7dc;
+        display: flex;
+    }
+    &__content {
+        height: 100%;
+        flex: 1 0;
+        padding-left: 110px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding-right: 50px;
+    }
+    &__title {
+        @include fontSet(80, 80, 800);
+        padding-bottom: 25px;
+    }
+    &__text {
+        @include fontSet(20, 25, 500);
+    }
+    &__img {
+        height: 100%;
+        flex: 1 0;
+        max-width: 520px;
+        background: url("../img/zootaxi.jpg") center / cover no-repeat;
+    }
+}
+
+@media (max-width: $md+px) {
+    .zootaxi {
+        &__wrapper {
+        }
+        &__content {
+            padding-left: 50px;
+        }
+    }
+}
+
+@media (max-width: $sm+px) {
+    .zootaxi {
+        &__wrapper {
+            flex-direction: column;
+            height: auto;
+            max-height: none;
+        }
+        &__content {
+            padding: 60px 0;
+        }
+        &__title {
+            @include fontSet(40, 40, 800);
+            text-align: center;
+            padding: 0 10px 16px;
+        }
+        &__text {
+            @include fontSet(16, 25, 500);
+            text-align: center;
+            padding: 0 10px;
+        }
+        &__img {
+            min-height: 190px;
+            flex: 1 0;
+            max-width: none;
+        }
+    }
+}

@@ -1,0 +1,62 @@
+.promo {
+    padding-top: 20px;
+
+    @include tablet {
+        padding-top: 50px;
+    }
+
+    .container {
+        padding: 0;
+
+        @include tablet {
+            padding: 0 15px;
+        }
+    }
+    h1 {
+        margin-bottom: 55px;
+        text-align: center;
+        @include tablet {
+            text-align: left;
+        }
+    }
+
+    &__slider {
+        position: relative;
+        width: 100%;
+
+        &-item {
+            width: 100%;
+
+            img {
+                content: var(--m-image);
+                width: 100%;
+                height: auto;
+
+                @include tablet {
+                    content: var(--t-image);
+                }
+            }
+
+
+        }
+        .slick-list {
+            height: 100%;
+            padding: 0 !important;
+            overflow: hidden;
+            margin: 0 auto;
+            transition: all ease .3s;
+        }
+        .slick-track {
+            display: flex;
+            height: 100%;
+        }
+        .slick-slide {
+            height: 100%;
+
+            & > div {height: 100%;}
+        }
+        .slick-arrow {
+            display: none !important;
+        }
+    }
+}
