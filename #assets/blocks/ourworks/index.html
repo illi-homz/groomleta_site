@@ -1,0 +1,16 @@
+<section class="ourworks" id="ourworks">
+    <h1 class="text-center container">Наши работы</h1>
+    <div class="ourworks__slider">
+        <!-- <script id="ourworks__slider-temp" type="tuts/template">
+            <div class="ourworks__slider-item">
+                <img src="img/ourworks/{{img}}">
+            </div>
+        </script> -->
+
+		{% for slide in ourworks  %}
+		<div class="ourworks__slider-item">
+			<img src="{{slide.img.url}}">
+		</div>
+		{% endfor %}
+    </div>
+</section>
