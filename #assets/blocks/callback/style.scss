@@ -1,0 +1,109 @@
+.callback {
+	background-color: #dddcd7;
+	position: relative;
+  
+	h1 {
+	  margin-bottom: 25px;
+	  text-align: center;
+	  letter-spacing: -1px;
+	  @include tablet {
+		letter-spacing: normal;
+		text-align: left;
+		margin-bottom: 15px;
+	  }
+	}
+  
+	&__wrapper {
+	  max-width: 1100px;
+	  padding: 40px 15px 175px;
+	  margin: 0 auto;
+	  position: relative;
+	  z-index: 5;
+  
+	  @include tablet {
+		padding: 50px 15px 63px;
+	  }
+	}
+	&__text {
+	  @include fontSet(18, 29, 500);
+	  margin-bottom: 15px;
+	  text-align: center;
+  
+	  @include tablet {
+		text-align: left;
+		@include fontSet(18, 23, 500);
+		margin-bottom: 50px;
+	  }
+	}
+	&__form {
+	  h4 {
+		@include fontSet(16, 22, 500);
+		margin-bottom: 10px;
+	  }
+	  &-field:not(:last-child) {
+		margin-bottom: 20px;
+		@include tablet {
+		  margin-bottom: 0;
+		  @include tablet {
+			margin-right: 20px;
+		  }
+		}
+	  }
+	  input {
+		height: 60px;
+		width: 100%;
+		border-radius: 11px;
+		padding: 0 20px;
+		@include fontSet(18, 28, 500);
+		border: 2px solid hsla(0, 0%, 0%, 0);
+		transition: border-color 0.3s ease;
+  
+		@include tablet {
+		  width: 305px;
+		  margin-bottom: 0;
+		}
+	  }
+	  label {
+		&.error {
+		  input {
+			border-color: #fe6868;
+		  }
+		  .error-msg {
+			display: block;
+		  }
+		}
+	  }
+	  &-inputs {
+		@include tablet {
+		  display: flex;
+		}
+	  }
+	  .error-msg {
+		color: #fe6868;
+		margin-top: 5px;
+		display: none;
+	  }
+	  .btn {
+		width: 100%;
+		height: 65px;
+		margin-top: 55px;
+		@include tablet {
+		  max-width: 250px;
+		  margin-top: 30px;
+		}
+	  }
+	}
+	&__img {
+	  position: absolute;
+	  width: 100%;
+	  left: 0;
+	  bottom: 0;
+  
+	  @include tablet {
+		width: auto;
+		left: auto;
+		right: 0;
+	  }
+	}
+  }
+  

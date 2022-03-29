@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="callback" id="callback">
+    <div class="callback__wrapper">
+        <h1>Получить консультацию</h1>
+        <div class="callback__text">Оставьте свой номер телефона и мы вам перезвоним</div>
+        <form class="callback__form" onsubmit="grummer.callback.submit(this, event)">
+			{% csrf_token %}
+            <div class="callback__form-inputs">
+                <div class="callback__form-field">
+                    <label class="field _field" data-call="empty" data-msg="Введите имя">
+                        <h4>Имя</h4>
+                        <input name="name" type="text" placeholder="Введите имя">
+                        <div class="error-msg _error-msg"></div>
+                    </label>
+                </div>
+                <div class="callback__form-field">
+                    <label class="field _field" data-call="empty phone" data-msg="Введите телефон">
+                        <h4>Телефон</h4>
+                        <input name="tel" class="_input-phone" type="text" placeholder="+7">
+                        <div class="error-msg _error-msg"></div>
+                    </label>
+                </div>
+            </div>
+            <button class="btn yellow" type="submit">Перезвоните мне</button>
+        </form>
+    </div>
+    <img src="{% static 'img/callback-bg.jpg' %}" class="callback__img">
+</div>

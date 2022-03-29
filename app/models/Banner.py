@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Banners(models.Model):
+class Banner(models.Model):
 	title = models.CharField(max_length=50, default='')
 	img = models.ImageField(upload_to='banners', verbose_name='Фото')
 	

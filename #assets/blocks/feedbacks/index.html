@@ -1,0 +1,39 @@
+{% load static %}
+
+<section class="feedbacks" id="feedbacks">
+    <div class="container">
+        <div class="feedbacks__container">
+            <h1 class="text-center">Отзывы</h1>
+            <div class="feedbacks__wrapper">
+                <div class="feedbacks__slider">
+					{% for feedback in feedbacks %}
+						<div class="feedbacks__item">
+							<div class="feedbacks__item-quotes feedbacks__item-quotes-g">
+								<img src="{% static 'img/quotes-g.svg' %}" alt="">
+							</div>
+							<div class="feedbacks__item-quotes feedbacks__item-quotes-y">
+								<img src="{% static 'img/quotes-y.svg' %}" alt="">
+							</div>
+							<div class="feedbacks__item-img">
+								{% if feedback.avatar %}
+									<img src="{{feedback.avatar.url}}" alt="">
+								{% else %}
+									<img src="{% static 'img/noavatar.png' %}" alt="">
+								{% endif %}
+							</div>
+							<div class="feedbacks__item-text">
+								{{feedback.text}}
+							</div>
+						</div>
+					{% endfor %}
+                </div>
+            </div>
+            <div
+                class="feedbacks__open-popup btn-outlined"
+                onclick="grummer.popupFeedback.open()"
+            >
+                Написать отзыв
+            </div>
+        </div>
+    </div>
+</section>

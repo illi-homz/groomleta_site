@@ -1,0 +1,166 @@
+.feedbacks {
+	padding-top: 20px;
+
+	@include tablet {
+		padding-top: 50px;
+	}
+
+	.container {
+		// padding-bottom: 120px;
+		max-width: $lg + px;
+		overflow: hidden;
+
+		@include tablet {
+			padding: 0;
+			padding-bottom: 32px;
+		}
+	}
+
+	&__container {
+		position: relative;
+	}
+
+	h1 {
+		margin-bottom: 85px;
+		@include tablet {
+			margin-bottom: 120px;
+		}
+	}
+	&__wrapper {
+		position: relative;
+		margin-bottom: 56px;
+
+		@include tablet {
+			margin-bottom: 0;
+		}
+	}
+	&__slider {
+		width: 100%;
+		margin: 0 auto;
+
+		@include tablet {
+			width: 66.666%;
+		}
+
+		@include desktop {
+			width: 33.333%;
+
+			&:hover .slick-arrow {
+				visibility: visible;
+				opacity: 1;
+			}
+		}
+
+		.slick-track {
+			display: flex;
+		}
+		.slick-arrow {
+			@extend %arrows;
+			position: absolute;
+			top: 50%;
+			visibility: hidden;
+			opacity: 0;
+			transform: translateY(-50%);
+			transition: all 0.2s ease;
+		}
+		.next-arrow {
+			right: 25px;
+		}
+		.prev-arrow {
+			left: 25px;
+			svg {
+				transform: rotate(180deg);
+			}
+		}
+		.slick-dots {
+			@extend %dots;
+			bottom: -30px;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+
+			@include tablet {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+	}
+
+	.slick-slide {
+		padding: 0 10px;
+
+		& > div {
+			height: 100%;
+		}
+
+		&.slick-active {
+			opacity: 1;
+
+			.feedbacks__item-quotes-g {
+				opacity: 0;
+			}
+			.feedbacks__item-quotes-y {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__item {
+		height: 100%;
+		border: 1px solid #ebebeb;
+		border-radius: 12px;
+		padding-top: 20px;
+		padding-bottom: 30px;
+		position: relative;
+		min-height: 290px;
+		transition: opacity 0.3s ease;
+
+		@include tablet {
+			min-height: 350px;
+		}
+
+		&-quotes {
+			position: absolute;
+			width: 90px;
+			height: 95px;
+			top: -47px;
+			left: 8px;
+			transition: opacity 0.6s ease;
+		}
+		&-quotes-y {
+			opacity: 0;
+		}
+		&-img {
+			display: flex;
+			justify-content: center;
+
+			img {
+				border-radius: 50%;
+				height: 105px;
+				width: 105px;
+			}
+		}
+		&-text {
+			margin-top: 25px;
+			text-align: center;
+			padding: 0 35px;
+			@include fontSet(16, 22, 500);
+
+			@include tablet {
+				@include fontSet(18, 25, 500);
+			}
+		}
+	}
+
+	& &__open-popup {
+		line-height: 56px;
+		padding: 0 44px;
+
+		@include tablet {
+			position: absolute;
+			right: 10px;
+			top: 0;
+		}
+	}
+}

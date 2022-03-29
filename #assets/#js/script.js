@@ -42,6 +42,8 @@ const grummer = {
 @@include('@@webRoot/#assets/blocks/ourworks/script.js');
 @@include('@@webRoot/#assets/blocks/questions/script.js');
 @@include('@@webRoot/#assets/blocks/promo/script.js');
+@@include('@@webRoot/#assets/blocks/feedbacks/script.js');
+@@include('@@webRoot/#assets/blocks/callback/script.js');
 
 grummer.init = function () {
 	this.store.init();
@@ -57,7 +59,8 @@ grummer.init = function () {
 	this.ourworks.init();
 	this.questions.init();
 	this.promo.init();
-	// this.feedbacks.init();
+	this.feedbacks.init();
+	this.callback.init();
 	// grummer.popupMain.init()
 };
 

@@ -9,18 +9,22 @@ def dublicate_ad(modeladmin, request, queryset):
 
 dublicate_ad.short_description = "Дублировать объект"
 
-@admin.register(models.Banners)
-class BannersAdmin(admin.ModelAdmin):
+@admin.register(models.Banner)
+class BannerAdmin(admin.ModelAdmin):
 	actions = [dublicate_ad]
 
-@admin.register(models.OurWorks)
-class OurWorksAdmin(admin.ModelAdmin):
+@admin.register(models.OurWork)
+class OurWorkAdmin(admin.ModelAdmin):
 	actions = [dublicate_ad]
 
-@admin.register(models.Questions)
-class QuestionsAdmin(admin.ModelAdmin):
+@admin.register(models.Question)
+class QuestionAdmin(admin.ModelAdmin):
 	actions = [dublicate_ad]
 
 @admin.register(models.Promo)
 class PromoAdmin(admin.ModelAdmin):
+	actions = [dublicate_ad]
+
+@admin.register(models.Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
 	actions = [dublicate_ad]

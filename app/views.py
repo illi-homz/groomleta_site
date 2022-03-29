@@ -1,4 +1,3 @@
-import string
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -7,11 +6,12 @@ from . import models
 
 def index(request):
     current_data = data.Index.data
-    current_data['header']['banners'] = models.Banners.objects.all()
-    current_data['ourworks'] = models.OurWorks.objects.all()
+    current_data['header']['banners'] = models.Banner.objects.all()
+    current_data['ourworks'] = models.OurWork.objects.all()
     current_data['promos'] = models.Promo.objects.all()
+    current_data['feedbacks'] = models.Feedback.objects.all()
 
-    questions = models.Questions.objects.all()
+    questions = models.Question.objects.all()
     for question in questions:
         punkts = question.punkts.split(';')
         punkts = [punkt.strip() for punkt in punkts if punkt]
