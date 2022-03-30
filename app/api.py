@@ -37,16 +37,16 @@ def send_callback(request):
     callback = models.Callback.objects.create(name=data['name'], phone=phone)
     callback.save()
 
-    # message = create_callback_msg(data)
-    # resp = requests.post(url, create_telegram_msg(message))
-    # response = {
-    #     'status': 'success' if resp.ok else 'error',
-    #     'code': resp.status_code,
-    #     'ok': resp.ok
-    # }
+    message = create_callback_msg(data)
+    resp = requests.post(url, create_telegram_msg(message))
+    response = {
+        'status': 'success' if resp.ok else 'error',
+        'code': resp.status_code,
+        'ok': resp.ok
+    }
 
-    # return JsonResponse(response)
-    return JsonResponse(mock_response)
+    return JsonResponse(response)
+    # return JsonResponse(mock_response)
 
 
 def send_message(request):
