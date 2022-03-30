@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.http import JsonResponse
 import json
 import requests
@@ -24,6 +25,21 @@ def create_callback_msg(data):
 
     return msg
 
+def create_feedback_msg(data):
+    msg = '*Отзыв*\n\n'
+    msg += f'#Клиент: ${data["name"]} ${data["lastname"]}\n'
+    msg += f'#Комментарий: ${data["comment"]}'
+
+    return msg
+
+def concatFio(data):
+    name = ''
+
+    if data["name"]: name += data["name"]
+    if data["lastname"]: name += data["lastname"]
+
+    return name
+
 mock_response = {
     'status': 'success',
     'code': 200,
@@ -48,6 +64,23 @@ def send_callback(request):
     return JsonResponse(response)
     # return JsonResponse(mock_response)
 
+def send_feedback(request):
+    data = json.loads(request.body)
+
+    feedback = models.Feedback.objects.create(nick=concatFio(data), text=data["comment"])
+    feedback.save()
+
+    message = create_feedback_msg(data)
+    # print('message', message)
+    resp = requests.post(url, create_telegram_msg(message))
+    response = {
+        'status': 'success' if resp.ok else 'error',
+        'code': resp.status_code,
+        'ok': resp.ok
+    }
+
+    return JsonResponse(response)
+    # return JsonResponse(mock_response)
 
 def send_message(request):
     message = json.loads(request.body)

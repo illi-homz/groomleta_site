@@ -1,0 +1,49 @@
+<div class="popup-feedback popup _popup-feedback">
+    <div class="popup__body">
+        <div class="popup__content">
+            <div class="popup__close" onclick="grummer.popup.close('_popup-feedback')"></div>
+            <h1>Оставить заявку</h1>
+
+            <form
+                onsubmit="grummer.popupFeedback.submit(this, event)"
+                class="form popup-feedback__form">
+				{% csrf_token %}
+
+                <div class="popup-feedback__form-wrapper">
+                    <div class="popup-feedback__form-field">
+                        <label class="field _field" data-call="empty" data-msg="Введите имя">
+                            <h3>*Имя</h3>
+                            <input name="name" type="text" placeholder="Введите имя">
+                            <div class="error-msg _error-msg"></div>
+                        </label>
+                    </div>
+                    <div class="popup-feedback__form-field">
+                        <label class="field _field" data-call="" data-msg="Введите фамилию">
+                            <h3>Фамилия</h3>
+                            <input name="lastname" type="text" placeholder="Введите фамилию">
+                            <div class="error-msg _error-msg"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="popup-main__form-field">
+                    <label class="field _field" data-call="empty" data-msg="Оставьте комментарий">
+                        <h3>*Комментарий</h3>
+                        <textarea
+                            name="comment"
+                            oninput="grummer.popupFeedback.changeCounter(this)"
+                            maxlength="200"
+                            placeholder="Особые пожелания, что нам следует учесть при работе с вашим питомцем"></textarea>
+                    </label>
+                    <div class="popup-main__form-field-counter _popup-main__form-field-counter">
+                        <span>0</span> / 200
+                    </div>
+                </div>
+
+                <div class="popup-main__form-wrapper popup-main__form-wrapper-footer">
+                    <button class="btn yellow" type="submit">Оставить отзыв</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

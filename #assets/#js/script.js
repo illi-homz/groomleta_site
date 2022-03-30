@@ -44,6 +44,7 @@ const grummer = {
 @@include('@@webRoot/#assets/blocks/promo/script.js');
 @@include('@@webRoot/#assets/blocks/feedbacks/script.js');
 @@include('@@webRoot/#assets/blocks/callback/script.js');
+@@include('@@webRoot/#assets/blocks/popup_feedback/script.js');
 
 grummer.init = function () {
 	this.store.init();

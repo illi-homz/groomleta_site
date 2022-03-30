@@ -16,11 +16,11 @@ grummer.callback = {
 		}
 		const res = await grummer.tlg.sendCallback(msg, csrf);
 
-		if (res.status === 'success') {
-			setTimeout(() => {
-				grummer.popup.open('_popup-ok');
-			}, 100);
-		}
+		// if (res.status === 'success') {
+		// 	setTimeout(() => {
+		// 		grummer.popup.open('_popup-ok');
+		// 	}, 100);
+		// }
 
 		form.reset();
 	},
