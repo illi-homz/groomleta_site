@@ -31,4 +31,7 @@ class FeedbackAdmin(admin.ModelAdmin):
 
 @admin.register(models.Callback)
 class CallbackAdmin(admin.ModelAdmin):
-	actions = [dublicate_ad]
+    list_display = ('create_date', 'name', 'phone', 'is_completed')
+    list_editable = ['is_completed']
+    list_filter = ['name', 'phone']
+    search_fields = ['name', 'phone']

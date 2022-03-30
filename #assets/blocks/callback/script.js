@@ -15,14 +15,13 @@ grummer.callback = {
 			tel: form.tel.value
 		}
 		const res = await grummer.tlg.sendCallback(msg, csrf);
-		console.log('res', res)
 
-		// if (res.status === 'success') {
-		// 	setTimeout(() => {
-		// 		grummer.popup.open('_popup-ok');
-		// 	}, 100);
-		// }
+		if (res.status === 'success') {
+			setTimeout(() => {
+				grummer.popup.open('_popup-ok');
+			}, 100);
+		}
 
-		// form.reset();
+		form.reset();
 	},
 };

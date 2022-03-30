@@ -2,6 +2,7 @@ from django.http import JsonResponse
 import json
 import requests
 import os
+import re
 from . import models
 
 botToken = os.getenv('BOT_TOKEN')
@@ -23,7 +24,7 @@ def create_callback_msg(data):
 
     return msg
 
-mock_request = {
+mock_response = {
     'status': 'success',
     'code': 200,
     'ok': True
@@ -32,18 +33,20 @@ mock_request = {
 def send_callback(request):
     data = json.loads(request.body)
 
-    callback = models.Callback.objects.create(name=data['name'], phone=data['tel'])
+    phone = re.sub('[^0-9]', '', data['tel'])
+    callback = models.Callback.objects.create(name=data['name'], phone=phone)
     callback.save()
 
-    message = create_callback_msg(data)
-    resp = requests.post(url, create_telegram_msg(message))
-    response = {
-        'status': 'success' if resp.ok else 'error',
-        'code': resp.status_code,
-        'ok': resp.ok
-    }
+    # message = create_callback_msg(data)
+    # resp = requests.post(url, create_telegram_msg(message))
+    # response = {
+    #     'status': 'success' if resp.ok else 'error',
+    #     'code': resp.status_code,
+    #     'ok': resp.ok
+    # }
 
-    return JsonResponse(response)
+    # return JsonResponse(response)
+    return JsonResponse(mock_response)
 
 
 def send_message(request):
