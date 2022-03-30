@@ -8,3 +8,7 @@ class Promo(models.Model):
 	
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Акции'
+        verbose_name_plural = 'Акции'

@@ -1,7 +1,5 @@
 grummer.callback = {
-	init() {
-		$('._input-phone').mask('+7(999)999-99-99');
-	},
+	init() {},
 	async submit(form, event) {
 		event.preventDefault();
 
@@ -12,18 +10,19 @@ grummer.callback = {
 		if (!v) return;
 
 		const csrf = form.csrfmiddlewaretoken.value
-
-		let msg = "*Заказ звонка*\n\n";
-		msg += grummer.tlg.createMsg(form).replace("name", "Клиент").replace("tel", "Тел");
-	
-		const res = await grummer.tlg.sendMessage(msg, csrf);
-
-		if (res.status === 'success') {
-			setTimeout(() => {
-				grummer.popup.open('_popup-ok');
-			}, 100);
+		const msg = {
+			name: form.name.value,
+			tel: form.tel.value
 		}
+		const res = await grummer.tlg.sendCallback(msg, csrf);
+		console.log('res', res)
 
-		form.reset();
+		// if (res.status === 'success') {
+		// 	setTimeout(() => {
+		// 		grummer.popup.open('_popup-ok');
+		// 	}, 100);
+		// }
+
+		// form.reset();
 	},
 };

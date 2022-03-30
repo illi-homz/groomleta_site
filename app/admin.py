@@ -28,3 +28,7 @@ class PromoAdmin(admin.ModelAdmin):
 @admin.register(models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
 	actions = [dublicate_ad]
+
+@admin.register(models.Callback)
+class CallbackAdmin(admin.ModelAdmin):
+	actions = [dublicate_ad]

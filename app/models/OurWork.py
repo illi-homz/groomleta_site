@@ -7,3 +7,7 @@ class OurWork(models.Model):
 	
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Наши работы'
+        verbose_name_plural = 'Наши работы'

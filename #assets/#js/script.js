@@ -60,7 +60,6 @@ grummer.init = function () {
 	this.questions.init();
 	this.promo.init();
 	this.feedbacks.init();
-	this.callback.init();
 	// grummer.popupMain.init()
 };
 
