@@ -10,13 +10,6 @@ grummer.popupFeedback = {
 		const v = validator.validate();
 		if (!v) return;
 
-		//   const msg =
-		// 	"*Отзыв*\n\n" +
-		// 	`#Клиент: ${form.name.value} ${form.lastname.value}\n` +
-		// 	`#Комментарий: ${form.comment.value}`;
-
-		//   const res = await grummer.tlg.sendMessage(msg);
-
 		const csrf = form.csrfmiddlewaretoken.value;
 		const msg = {
 			name: form.name.value,
@@ -24,14 +17,18 @@ grummer.popupFeedback = {
 			comment: form.comment.value,
 		};
 		const res = await grummer.tlg.sendFeedback(msg, csrf);
-		console.log('res', res)
 
-		// if (res.status === 'success') {
-		// 	setTimeout(() => {
-		// 		form.reset();
-		// 		grummer.popup.open('_popup-ok');
-		// 	}, 300);
-		// }
+		if (res.status === 'success') {
+			setTimeout(() => {
+				grummer.popupOk.setPopupOkData({
+					img: 'img/feedback.svg',
+					title: 'Спасибо за отзыв!',
+				});
+				grummer.popup.open('_popup-ok');
+			}, 300);
+		}
+
+		form.reset();
 	},
 
 	changeCounter(fieldInput) {

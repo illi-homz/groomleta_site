@@ -16,11 +16,16 @@ grummer.callback = {
 		}
 		const res = await grummer.tlg.sendCallback(msg, csrf);
 
-		// if (res.status === 'success') {
-		// 	setTimeout(() => {
-		// 		grummer.popup.open('_popup-ok');
-		// 	}, 100);
-		// }
+		if (res.status === 'success') {
+			setTimeout(() => {
+				grummer.popupOk.setPopupOkData({
+					img: 'img/ok.svg',
+					title: 'Заявка принята',
+					text: 'Ожидайте звонка в течение минуты',
+				});
+				grummer.popup.open('_popup-ok');
+			}, 100);
+		}
 
 		form.reset();
 	},

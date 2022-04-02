@@ -1,0 +1,23 @@
+{% load static %}
+
+<div class="popup-ok popup _popup-ok" id="popup-ok">
+    <div class="popup__body">
+        <div class="popup__content popup-ok__content">
+            <div
+                class="popup__close"
+                onclick="grummer.popup.close('_popup-ok')"></div>
+            <div class="popup-ok__data">
+                <div class="popup-ok__img">
+                    <img src="{% static 'img/ok.svg' %}" alt="ok" id="popup-ok__img-img" src-data="{% static '' %}">
+                </div>
+                <div class="popup-ok__title" id="popup-ok__img-title"></div>
+                <div class="popup-ok__text" id="popup-ok__img-text"></div>
+            </div>
+            <button
+                class="btn yellow popup-ok__btn"
+                onclick="grummer.popupOk.gotoMain()">
+                Вернуться на главную
+            </button>
+        </div>
+    </div>
+</div>

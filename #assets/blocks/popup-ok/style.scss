@@ -1,0 +1,54 @@
+.popup-ok {
+	&__content {
+	  display: flex;
+	  flex-direction: column;
+	  height: 75vh;
+	  padding: 40px 16px;
+	}
+	&__data {
+	  flex: 1 0;
+	  @include tablet {
+		padding-top: 10vh;
+	  }
+	}
+	&__img {
+	  text-align: center;
+	//   height: 184px;
+	  margin-bottom: 15px;
+  
+	  img {
+		// height: 100%;
+	  }
+  
+	  @include tablet {
+		// height: 124px;	
+	  }
+	}
+	&__title {
+	  @include fontSet(40, 47, 800);
+	  text-align: center;
+	  margin-bottom: 14px;
+  
+	  @include tablet {
+		@include fontSet(70, 82, 800);
+	  }
+	}
+	&__text {
+	  @include fontSet(16, 19, 500);
+	  text-align: center;
+  
+	  @include tablet {
+		@include fontSet(30, 35, 500);
+	  }
+	}
+
+	&__btn {
+	  height: 65px;
+  
+	  @include tablet {
+		width: 300px;
+		margin: 0 auto;
+	  }
+	}
+  }
+  
