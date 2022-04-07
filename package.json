@@ -16,7 +16,6 @@
     "url": "https://github.com/illi-homz/grummers/issues"
   },
   "homepage": "https://github.com/illi-homz/grummers#readme",
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/eslint-parser": "^7.17.0",
@@ -41,5 +40,8 @@
     "gulp-webp": "^4.0.1",
     "gulp-webp-css": "^1.1.0",
     "sass": "^1.49.9"
+  },
+  "dependencies": {
+    "gulp-livereload": "^4.0.2"
   }
 }

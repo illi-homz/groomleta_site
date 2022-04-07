@@ -29,9 +29,7 @@ const grummer = {
 @@include('@@webRoot/#assets/#js/fragments.js');
 @@include('@@webRoot/#assets/#js/lib/tlg.js');
 @@include('@@webRoot/#assets/#js/popup.js');
-@@include('@@webRoot/#assets/#js/popup-main.js');
 @@include('@@webRoot/#assets/#js/popup-services.js');
-@@include('@@webRoot/#assets/#js/popup-feedback.js');
 
 @@include('@@webRoot/#assets/#js/store.js');
 @@include('@@webRoot/#assets/#js/g-select.js');
@@ -45,6 +43,8 @@ const grummer = {
 @@include('@@webRoot/#assets/blocks/callback/script.js');
 @@include('@@webRoot/#assets/blocks/popup_feedback/script.js');
 @@include('@@webRoot/#assets/blocks/popup-ok/script.js');
+@@include('@@webRoot/#assets/blocks/popup-main/script.js');
+@@include('@@webRoot/#assets/blocks/popup-services/script.js');
 
 grummer.init = function () {
 	this.store.init();

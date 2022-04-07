@@ -37,3 +37,4 @@ class CallbackAdmin(admin.ModelAdmin):
     list_editable = ['is_completed']
     list_filter = ['name', 'phone']
     search_fields = ['name', 'phone']
+    actions = [dublicate_ad]

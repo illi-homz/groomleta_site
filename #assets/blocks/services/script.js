@@ -2,51 +2,51 @@ grummer.services = {
 	category: '',
 	animal: '',
 
-		init() {
-			this.initSlider(this.getSliderOptions());
-		},
-		initSlider(options = {}) {
-			$('._services__slider')
-				.slick({
-					...options,
-					infinite: true,
-					prevArrow: `<div class="prev-arrow slider-arrow">${arrow}</div>`,
-					nextArrow: `<div class="next-arrow slider-arrow">${arrow}</div>`,
-				})
-				.on('setPosition', () => {
-					const options = this.getSliderOptions();
-					$('._services__slider').slick('slickSetOption', options);
-				});
-		},
-		getSliderOptions() {
-			const viewport_width = window.innerWidth;
+	init() {
+		this.initSlider(this.getSliderOptions());
+	},
+	initSlider(options = {}) {
+		$('._services__slider')
+			.slick({
+				...options,
+				infinite: true,
+				prevArrow: `<div class="prev-arrow slider-arrow">${arrow}</div>`,
+				nextArrow: `<div class="next-arrow slider-arrow">${arrow}</div>`,
+			})
+			.on('setPosition', () => {
+				const options = this.getSliderOptions();
+				$('._services__slider').slick('slickSetOption', options);
+			});
+	},
+	getSliderOptions() {
+		const viewport_width = window.innerWidth;
 
-			if (viewport_width > 993) {
-				return {
-					slidesToShow: 6,
-					slidesToScroll: 6,
-					arrows: true,
-				};
-			} else if (viewport_width > 768) {
-				return {
-					slidesToShow: 4,
-					slidesToScroll: 4,
-					arrows: true,
-				};
-			} else if (viewport_width > 480) {
-				return {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-					arrows: false,
-				};
-			} else {
-				return {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-					arrows: false,
-				};
-			}
-		},
+		if (viewport_width > 993) {
+			return {
+				slidesToShow: 6,
+				slidesToScroll: 6,
+				arrows: true,
+			};
+		} else if (viewport_width > 768) {
+			return {
+				slidesToShow: 4,
+				slidesToScroll: 4,
+				arrows: true,
+			};
+		} else if (viewport_width > 480) {
+			return {
+				slidesToShow: 3,
+				slidesToScroll: 3,
+				arrows: false,
+			};
+		} else {
+			return {
+				slidesToShow: 2,
+				slidesToScroll: 2,
+				arrows: false,
+			};
+		}
+	},
 	filter({animal = '', category = ''}) {
 		$('._services__slider').slick('slickUnfilter');
 
@@ -106,16 +106,15 @@ grummer.services = {
 		});
 	},
 
-	openPopup(title) {
-		const service = this.currentServicesList.find(obj => {
-			return obj.title === title;
-		});
-		const breed = grummer.breeds.find(obj => {
-			return obj.value === this.breed;
-		});
+	openPopup(data) {
+		// const service = this.currentServicesList.find(obj => {
+		// 	return obj.title === title;
+		// });
+		// const breed = grummer.breeds.find(obj => {
+		// 	return obj.value === this.breed;
+		// });
 
-		grummer.currentServices = [service];
-		if (breed) grummer.currentBreed = breed.title;
+		grummer.currentServices = [data];
 
 		grummer.popupMain.open();
 	},

@@ -32,6 +32,17 @@ def create_feedback_msg(data):
 
     return msg
 
+def create_services_msg(data):
+    msg = '*Запись*\n\n'
+    msg += f'#Клиент: ${data["name"]} ${data["lastname"]}\n'
+    msg += f'#Тел: ${data["tel"]}\n'
+    msg += f'#Дата: ${data["date"]}\n'
+    msg += f'#Комментарий: ${data["comment"]}\n'
+    msg += f'#Услуги: ${data["services"]}\n'
+    msg += f'#Мин цена: ${data["price"]}'
+
+    return msg
+
 def concatFio(data):
     name = ''
 
@@ -81,6 +92,15 @@ def send_feedback(request):
 
     return JsonResponse(response)
     # return JsonResponse(mock_response)
+
+def send_services(request):
+    data = json.loads(request.body)
+    print('data', data)
+
+    message = create_services_msg(data)
+    print(message)
+    
+    return JsonResponse({'status': 'success'})
 
 def send_message(request):
     message = json.loads(request.body)

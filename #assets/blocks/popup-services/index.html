@@ -1,0 +1,72 @@
+{% load static %}
+
+<div class="popup-services popup _popup-services" id="popup-services">
+    <div class="popup__body" onclick="grummer.popupServices.close(event)">
+        <div class="popup__content">
+            <div class="popup-services__wrapper">
+                <!-- <div class="popup__back slider-arrow" onclick="grummer.popup.back('_popup-services', grummer.popupServices.)"> -->
+                <div class="popup__back btn" onclick="grummer.popupServices.goBack()">
+					{% include '../../#img/arrow-left.svg' %}
+                </div>
+                <div class="popup__close" onclick="grummer.popupServices.close()"></div>
+                <h1>Добавить услугу</h1>
+                <div class="popup-services__filter">
+                    <div class="popup-services__filter-title">Категоря</div>
+                    <div class="popup-services__categories g-select _select">
+                        <input
+                        type="hidden"
+                        class="_select-input"
+                        onchange="grummer.popupServices.filterServicesByCategory(this.value)"/>
+                        <div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
+                            <span class="_selected-text">Любая</span>
+                        </div>
+                        <div class="g-select__body _options">
+							{% for category in services.categories %}
+							<li
+								class="g-select__item _option"
+								data-value="{{category.value}}"
+								onclick="grummer.gSelect.selectItem(this)">
+								{{category.title}}
+							</li>
+							{% endfor %}
+                            <ul class="g-select__items"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-services__sliders">
+                <div class="popup-services__slider-wrapper">
+                    <div class="popup-services__slider popup-services__slider-services">
+						{% for service in services.services_list %}
+						<div class="services__slide _popup-services__slide {{service.animal}} {{service.category}}" data-id="{{service.id}}">
+							<div class="services__slide-wrapper">
+								<div>
+									<div class="services__slide-img">
+										<img src="{% static 'img/services/' %}{{service.img}}" alt="">
+									</div>
+								</div>
+								<div class="services__slide-data">
+									<div class="services__slide-title">{{service.title}}</div>
+									<div class="services__slide-desc">
+										{{service.text}}
+									</div>
+									<div class="services__slide-price">{{service.price}}</div>
+									<div class="services__slide-time">{{service.time}}</div>
+									<button class="services__slide-btn btn-outlined" onclick="grummer.popupServices.addService({{service}})">
+										Добавить
+									</button>
+
+									<div class="is-selected">
+										Добавлено
+										<img src="{% static 'img/ok.svg' %}" alt="">
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
