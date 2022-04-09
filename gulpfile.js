@@ -49,8 +49,7 @@ const {src, dest} = require('gulp'),
     ttf2woff = require('gulp-ttf2woff'),
     ttf2woff2 = require('gulp-ttf2woff2'),
     fonter = require('gulp-fonter'),
-    uglify = require('gulp-uglify-es').default,
-	livereload = require('gulp-livereload');
+    uglify = require('gulp-uglify-es').default;
     
 const css = () => {
     return src(path.src.css)
@@ -70,8 +69,7 @@ const css = () => {
         .pipe(rename({
             extname: ".min.css"
         }))
-        .pipe(dest(path.build.css))
-		.pipe(livereload());
+        .pipe(dest(path.build.css));
 }
 
 const js = () => {
@@ -102,8 +100,7 @@ const js = () => {
         .pipe(rename({
             extname: ".min.js"
         }))
-        .pipe(dest(path.build.js))
-		.pipe(livereload());
+        .pipe(dest(path.build.js));
 }
 
 const images = () => {
@@ -119,8 +116,7 @@ const images = () => {
             interlaced: true,
             optimizationLevel: 6 // 0 to 7
         }))
-        .pipe(dest(path.build.img))
-		.pipe(livereload());
+        .pipe(dest(path.build.img));
 }
 
 // const imagesDjango = () => {
@@ -136,8 +132,7 @@ const images = () => {
 //             interlaced: true,
 //             optimizationLevel: 6 // 0 to 7
 //         }))
-//         .pipe(dest(path.build.images))
-// 		.pipe(livereload());
+//         .pipe(dest(path.build.images));
 // }
 
 gulp.task('svgSprite', () => {
@@ -171,7 +166,6 @@ const fonts = () => {
 }
 
 const watchFiles = () => {
-	// livereload.listen();
 	gulp.watch([path.watch.css], css);
     gulp.watch([path.watch.js], js);
     gulp.watch([path.watch.img], images);

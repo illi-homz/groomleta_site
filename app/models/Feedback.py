@@ -8,6 +8,7 @@ class Feedback(models.Model):
     avatar = models.ImageField(upload_to='feedbacks', verbose_name='Аватарка', default='', blank=True)
     text = models.TextField(verbose_name='Текст отзыва')
     create_date = models.DateTimeField(verbose_name='Дата создания', default=now)
+    is_approved = models.BooleanField(verbose_name='Подтвержен', default=False)
 	
     def __str__(self):
         return self.nick

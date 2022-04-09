@@ -51,7 +51,7 @@ grummer.init = function () {
 
 	$("._input-phone").mask("+7(999)999-99-99");
 
-	this.tlg.init();
+	// this.tlg.init();
 	this.popup.init();
 	// this.popupServices.init()
 	

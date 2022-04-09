@@ -43,7 +43,7 @@ body.lock {
   padding-left: 15px;
   padding-right: 15px;
 
-  @include tablet {
+  @include desktop {
     padding-left: 80px;
     padding-right: 80px;
   }

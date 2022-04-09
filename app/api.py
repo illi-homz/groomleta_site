@@ -1,3 +1,4 @@
+from cmath import log
 from unicodedata import name
 from django.http import JsonResponse
 import json
@@ -5,12 +6,20 @@ import requests
 import os
 import re
 from . import models
+# from datetime import datetime
+from django.utils.timezone import datetime, localdate, now
 
 botToken = os.getenv('BOT_TOKEN')
 chat_id = os.getenv('CHAT_ID')
 url = f'https://api.telegram.org/bot{botToken}/sendMessage'
 url_photo = f'https://api.telegram.org/bot{botToken}/sendPhoto'
 url_media_group = f'https://api.telegram.org/bot{botToken}/sendMediaGroup'
+
+mock_reaponse = {
+    'status': 'success',
+    'code': 200,
+    'ok': True
+}
 
 
 def create_telegram_msg(msg):
@@ -27,19 +36,21 @@ def create_callback_msg(data):
 
 def create_feedback_msg(data):
     msg = '*Отзыв*\n\n'
-    msg += f'#Клиент: ${data["name"]} ${data["lastname"]}\n'
-    msg += f'#Комментарий: ${data["comment"]}'
+    msg += f'#Клиент: {data["name"]} {data["lastname"]}\n'
+    msg += f'#Комментарий: {data["comment"]}'
 
     return msg
 
 def create_services_msg(data):
+    [year, month, day] = data['date'].split('-')
+
     msg = '*Запись*\n\n'
-    msg += f'#Клиент: ${data["name"]} ${data["lastname"]}\n'
-    msg += f'#Тел: ${data["tel"]}\n'
-    msg += f'#Дата: ${data["date"]}\n'
-    msg += f'#Комментарий: ${data["comment"]}\n'
-    msg += f'#Услуги: ${data["services"]}\n'
-    msg += f'#Мин цена: ${data["price"]}'
+    msg += f'#Клиент: {data["name"]} {data["lastname"]}\n'
+    msg += f'#Тел: {data["tel"]}\n'
+    msg += f'#Дата: {day}.{month}.{year}\n'
+    msg += f'#Комментарий: {data["comment"]}\n'
+    msg += f'#Услуги: {data["services"]}\n'
+    msg += f'#Мин цена: {data["price"]}'
 
     return msg
 
@@ -47,9 +58,16 @@ def concatFio(data):
     name = ''
 
     if data["name"]: name += data["name"]
-    if data["lastname"]: name += data["lastname"]
+    if data["lastname"]: name += f' {data["lastname"]}'
 
     return name
+
+def create_response(resp):
+    return {
+        'status': 'success' if resp.ok else 'error',
+        'code': resp.status_code,
+        'ok': resp.ok
+    }
 
 mock_response = {
     'status': 'success',
@@ -66,76 +84,61 @@ def send_callback(request):
 
     message = create_callback_msg(data)
     resp = requests.post(url, create_telegram_msg(message))
-    response = {
-        'status': 'success' if resp.ok else 'error',
-        'code': resp.status_code,
-        'ok': resp.ok
-    }
 
-    return JsonResponse(response)
-    # return JsonResponse(mock_response)
+    return JsonResponse(create_response(resp))
 
 def send_feedback(request):
     data = json.loads(request.body)
 
-    feedback = models.Feedback.objects.create(nick=concatFio(data), text=data["comment"])
+    feedback = models.Feedback.objects.create(nick=concatFio(data), text=data['comment'])
     feedback.save()
 
     message = create_feedback_msg(data)
-    # print('message', message)
     resp = requests.post(url, create_telegram_msg(message))
-    response = {
-        'status': 'success' if resp.ok else 'error',
-        'code': resp.status_code,
-        'ok': resp.ok
-    }
 
-    return JsonResponse(response)
-    # return JsonResponse(mock_response)
+    return JsonResponse(create_response(resp))
 
 def send_services(request):
     data = json.loads(request.body)
     print('data', data)
 
+    service = models.Service.objects.create(
+        name=concatFio(data),
+        phone=data['tel'],
+        min_price=data['price'],
+        services=data['services'],
+        comment=data['comment'],
+        current_date=data['date']
+    )
+    service.save()
+
     message = create_services_msg(data)
-    print(message)
-    
-    return JsonResponse({'status': 'success'})
-
-def send_message(request):
-    message = json.loads(request.body)
     resp = requests.post(url, create_telegram_msg(message))
-    response = {
-        'status': 'success' if resp.ok else 'error',
-        'code': resp.status_code,
-        'ok': resp.ok
-    }
-
-    return JsonResponse(response)
+    
+    return JsonResponse(create_response(resp))
 
 
 def send_photo(request):
-    # photo = request.files.getlist('file')[0]
-    # params = {'chat_id': chat_id}
-    # files = {'photo': photo}
-    # r = requests.post(url_photo, params, files=files)
-    # print('photoSender', r.json())
-    return JsonResponse({'status': 'success'})
+    photo = request.FILES.getlist('file')[0]
+    params = {'chat_id': chat_id}
+    files = {'photo': photo}
+    resp = requests.post(url_photo, params, files=files)
+
+    return JsonResponse(create_response(resp))
 
 
 def send_photos(request):
-    # files = request.files.getlist('files')
-    # params = {
-    #     'chat_id': chat_id,
-    #     'media': [{'type': 'photo', 'media': f'attach://{file.filename}'} for file in files]
-    # }
+    files = request.FILES.getlist('files')
+    params = {
+        'chat_id': chat_id,
+        'media': [{'type': 'photo', 'media': f'attach://{file.name}'} for file in files]
+    }
+    params['media'] = json.dumps(params['media'])
+    current_files = {}
 
-    # params['media'] = json.dumps(params['media'])
+    for file in files:
+        current_files[file.name] = file
 
-    # current_files = {}
-    # for file in files:
-    #     current_files[file.filename] = file
+    resp = requests.post(url_media_group, params, files=current_files)
 
-    # r = requests.post(url_media_group, params, files=current_files)
-    # print('mediaGroupSender', r.json())
-    return JsonResponse({'status': 'success'})
+    return JsonResponse(create_response(resp))

@@ -9,7 +9,7 @@ def index(request):
     current_data['header']['banners'] = models.Banner.objects.all()
     current_data['ourworks'] = models.OurWork.objects.all()
     current_data['promos'] = models.Promo.objects.all()
-    current_data['feedbacks'] = models.Feedback.objects.all()
+    current_data['feedbacks'] = models.Feedback.objects.filter(is_approved=True)
 
     questions = models.Question.objects.all()
     for question in questions:

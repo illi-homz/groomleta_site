@@ -1,4 +1,4 @@
-const svg = (path) => `
+const svg = path => `
   <svg
     width="6"
     height="12"
@@ -13,235 +13,232 @@ const svg = (path) => `
 `;
 
 grummer.popupMain = {
-  images: [],
+	images: [],
 
-  init() {
-    new AirDatepicker("#datepicker", {
-      dateFormat: (date) => date.toLocaleDateString(),
-      prevHtml: svg("M7.04199 12.8713L1.04199 6.87134L7.04199 0.871338"),
-      nextHtml: svg("M1 12.8713L7 6.87134L1 0.871338"),
-      navTitles: {
-        days: "MMMM yyyy",
-      },
-      minDate: new Date(),
-      position({ $datepicker, $target, $pointer }) {
-        const coords = $target.getBoundingClientRect()
-        const top = coords.y + coords.height + window.scrollY + 4
-        const left = coords.x;
+	init() {
+		new AirDatepicker('#datepicker', {
+			dateFormat: date => date.toLocaleDateString(),
+			prevHtml: svg('M7.04199 12.8713L1.04199 6.87134L7.04199 0.871338'),
+			nextHtml: svg('M1 12.8713L7 6.87134L1 0.871338'),
+			navTitles: {
+				days: 'MMMM yyyy',
+			},
+			minDate: new Date(),
+			position({$datepicker, $target, $pointer}) {
+				const coords = $target.getBoundingClientRect();
+				const top = coords.y + coords.height + window.scrollY + 4;
+				const left = coords.x;
 
-        $datepicker.style.left = `${left}px`;
-        $datepicker.style.top = `${top}px`;
-        $datepicker.style.width = `${coords.width}px`;
+				$datepicker.style.left = `${left}px`;
+				$datepicker.style.top = `${top}px`;
+				$datepicker.style.width = `${coords.width}px`;
 
-        $pointer.style.display = "none";
-      },
-    });
-  },
+				$pointer.style.display = 'none';
+			},
+		});
+	},
 
-  open() {
-    this.init();
+	open() {
+		this.init();
 
-    this.$popupMain = $("._popup-main");
-    this.$services = this.$popupMain.find("._popup-main__form-services");
-    this.$servicesUl = this.$popupMain.find("._popup-main__form-services-ul");
+		this.$popupMain = $('._popup-main');
+		this.$services = this.$popupMain.find('._popup-main__form-services');
+		this.$servicesUl = this.$popupMain.find(
+			'._popup-main__form-services-ul',
+		);
 
-    const html = this.createServicesListHtml();
+		const html = this.createServicesListHtml();
 
-    this.$servicesUl.html(html);
+		this.$servicesUl.html(html);
 
-    grummer.currentServices.length > 1
-      ? this.$services.removeClass("one")
-      : this.$services.addClass("one");
+		grummer.currentServices.length > 1
+			? this.$services.removeClass('one')
+			: this.$services.addClass('one');
 
-    this.setFinalPrice(this.calculateFinalPrice());
+		this.setFinalPrice(this.calculateFinalPrice());
 
-    grummer.popup.open(this.$popupMain);
-  },
-  createServicesListHtml() {
-    const template = $.trim($("#popup-main__form-service").html());
+		grummer.popup.open(this.$popupMain);
+	},
+	createServicesListHtml() {
+		const template = $.trim($('#popup-main__form-service').html());
 
-    return grummer.currentServices.reduce((acc, service) => {
-      return (acc += template
-        .replace(/{id}/gi, service.id)
-        .replace(/{img}/gi, service.img)
-        .replace(/{title}/gi, service.title)
-        .replace(/{price}/gi, service.price));
-    }, "");
-  },
-  calculateFinalPrice() {
-    return grummer.currentServices.reduce((acc, el) => {
-      return el.price.includes("-")
-        ? (acc += +el.price.split("-")[0])
-        : el.price.includes("от")
-        ? (acc += +el.price.replace("от", ""))
-        : (acc += +el.price);
-    }, 0);
-  },
-  setFinalPrice(price) {
-    this.$popupMain.find("._final-price").html(price);
-    this.$popupMain.find("input#_final-price").val(price);
-  },
-  removeService(id) {
-    // because popup click outside....
-    setTimeout(() => {
-      grummer.currentServices = grummer.currentServices.filter((el) => {
-        return el.id !== id;
-      });
+		return grummer.currentServices.reduce((acc, service) => {
+			return (acc += template
+				.replace(/{id}/gi, service.id)
+				.replace(/{img}/gi, service.img)
+				.replace(/{title}/gi, service.title)
+				.replace(/{price}/gi, service.price));
+		}, '');
+	},
+	calculateFinalPrice() {
+		return grummer.currentServices.reduce((acc, el) => {
+			return el.price.includes('-')
+				? (acc += +el.price.split('-')[0])
+				: el.price.includes('от')
+				? (acc += +el.price.replace('от', ''))
+				: (acc += +el.price);
+		}, 0);
+	},
+	setFinalPrice(price) {
+		this.$popupMain.find('._final-price').html(price);
+		this.$popupMain.find('input#_final-price').val(price);
+	},
+	removeService(id) {
+		// because popup click outside....
+		setTimeout(() => {
+			grummer.currentServices = grummer.currentServices.filter(el => {
+				return el.id !== id;
+			});
 
-      if (grummer.currentServices.length === 1) this.$services.addClass("one");
+			if (grummer.currentServices.length === 1)
+				this.$services.addClass('one');
 
-      this.$servicesUl.html(this.createServicesListHtml());
+			this.$servicesUl.html(this.createServicesListHtml());
 
-      this.setFinalPrice(this.calculateFinalPrice());
-    }, 0);
-  },
-  createServicesStr(nodeList) {
-    return Array.from(nodeList)
-      .map((el) => {
-        return el.value;
-      })
-      .join(", ");
-  },
-  async submit(form, event) {
-    event.preventDefault();
+			this.setFinalPrice(this.calculateFinalPrice());
+		}, 0);
+	},
+	createServicesStr(nodeList) {
+		return Array.from(nodeList)
+			.map(el => {
+				return el.value;
+			})
+			.join(', ');
+	},
+	async submit(form, event) {
+		event.preventDefault();
 
-    const validator = new Validator(form);
-    const v = validator.validate();
-    if (!v) return;
+		const validator = new Validator(form);
+		const v = validator.validate();
+		if (!v) return;
 
-    let services;
+		let services;
 
-    form.services instanceof RadioNodeList
-      ? (services = this.createServicesStr(form.services))
-      : (services = form.services.value);
+		form.services instanceof RadioNodeList
+			? (services = this.createServicesStr(form.services))
+			: (services = form.services.value);
 
-    // const msg =
-    //   "*Запись*\n\n" +
-    //   `#Услуги: ${services}\n` +
-    //   `#Клиент: ${form.name.value} ${form.lastname.value}\n` +
-    //   `#Тел: ${form.tel.value}\n` +
-    //   `#Дата: ${form.date.value}\n` +
-    //   `#Комментарий: ${form.comment.value}\n` +
-    //   `#Мин цена: ${form.price.value}\n`;
+		const [day, month, year] = form.date.value.split('.')
 
-	const csrf = form.csrfmiddlewaretoken.value
-	const msg = {
-		name: form.name.value,
-		lastname: form.lastname.value,
-		tel: form.tel.value,
-		date: form.date.value,
-		comment: form.comment.value,
-		price: form.price.value,
-		services,
-	}
+		const csrf = form.csrfmiddlewaretoken.value;
+		const msg = {
+			name: form.name.value,
+			lastname: form.lastname.value,
+			tel: form.tel.value,
+			date: `${year}-${month}-${day}`,
+			comment: form.comment.value,
+			price: form.price.value,
+			services,
+		};
 
-    const res = await grummer.tlg.sendServices(msg, csrf);
+		const msgResponse = await grummer.tlg.sendServices(msg, csrf);
+		console.log('msgResponse', msgResponse);
 
-	console.log('res', res)
+		const files = Array.from(form.images.files);
 
-    // const files = Array.from(form.images.files);
+		if (files.length) {
+			if (files.length === 1) {
+				const photoResponse = grummer.tlg.sendPhoto(files[0], csrf);
+				console.log('photoResponse', photoResponse)
+			} else {
+				const photosResponse = grummer.tlg.sendPhotos(files, csrf);
+				console.log('photosResponse', photosResponse)
+			}
+		}
 
-    // if (files.length) {
-    //   if (files.length === 1) {
-    //     grummer.tlg.sendImg(files[0])
-    //   } else {
-    //     grummer.tlg.sendImgs(files);
-    //   }
-    // }
+		this.removeAllRenderedImages();
 
-    // this.removeAllRenderedImages();
+		if (msgResponse)
+		  setTimeout(() => {
+		    form.reset();
 
-    // if (res)
-    //   setTimeout(() => {
-    //     form.reset();
+		    grummer.popup.open("_popup-ok");
+		  }, 300);
+	},
 
-    //     grummer.popup.open("_popup-ok");
-    //   }, 300);
-  },
+	loadImages() {
+		$('#form-animals-imgs').focus().trigger('click');
+	},
+	onInputClick(el, event) {
+		event.stopPropagation();
+	},
+	onUploadImages(el) {
+		const imgs = Array.from(el.files)
+			.slice(0, 4 - this.images.length)
+			.filter(img => {
+				for (let i = 0; i < this.images.length; i++) {
+					if (img.name === this.images[i].name) {
+						return false;
+					}
+				}
 
-  loadImages() {
-    $("#form-animals-imgs").focus().trigger("click");
-  },
-  onInputClick(el, event) {
-    event.stopPropagation();
-  },
-  onUploadImages(el) {
-    const imgs = Array.from(el.files)
-      .slice(0, 4 - this.images.length)
-      .filter((img) => {
-        for (let i = 0; i < this.images.length; i++) {
-          if (img.name === this.images[i].name) {
-            return false;
-          }
-        }
+				return true;
+			});
 
-        return true;
-      });
+		if (!imgs.length) return;
 
-    if (!imgs.length) return;
+		this.images = [...this.images, ...imgs];
 
-    this.images = [...this.images, ...imgs];
+		const dt = new DataTransfer();
+		imgs.forEach(img => dt.items.add(img));
+		el.files = dt.files;
 
-    const dt = new DataTransfer();
-    imgs.forEach((img) => dt.items.add(img));
-    el.files = dt.files;
+		this.renderImages(imgs);
+	},
+	renderImages(files) {
+		files.forEach(this.renderImage);
+	},
+	renderImage(img, idx) {
+		const reader = new FileReader();
+		const imgNode = document.createElement('img');
+		reader.onloadend = () => {
+			imgNode.src = reader.result;
+		};
+		reader.readAsDataURL(img);
 
-    this.renderImages(imgs);
-  },
-  renderImages(files) {
-    files.forEach(this.renderImage);
-  },
-  renderImage(img, idx) {
-    const reader = new FileReader();
-    const imgNode = document.createElement("img");
-    reader.onloadend = () => {
-      imgNode.src = reader.result;
-    };
-    reader.readAsDataURL(img);
+		const $imageWrapper = $('<div"></div>')
+			.addClass('popup-main__form-image-wrapper')
+			.addClass('_popup-main__form-image-wrapper')
+			.attr('id', 'image-' + idx);
+		const $imageRemove = $('<div></div>').addClass(
+			'popup-main__form-image-remove',
+		);
+		$imageRemove.click(e => grummer.popupMain.removeImage(e, img.name));
 
-    const $imageWrapper = $('<div"></div>')
-      .addClass("popup-main__form-image-wrapper")
-      .addClass("_popup-main__form-image-wrapper")
-      .attr("id", "image-" + idx);
-    const $imageRemove = $("<div></div>").addClass(
-      "popup-main__form-image-remove"
-    );
-    $imageRemove.click((e) => grummer.popupMain.removeImage(e, img.name));
+		$imageWrapper.append(imgNode);
+		$imageWrapper.append($imageRemove);
 
-    $imageWrapper.append(imgNode);
-    $imageWrapper.append($imageRemove);
+		$('._popup-main__form-imgs-add').before($imageWrapper);
 
-    $("._popup-main__form-imgs-add").before($imageWrapper);
+		$('._popup-main__form-img-loader').addClass('active');
+	},
+	removeImage(event, name) {
+		event.stopPropagation();
+		const $input = $('#form-animals-imgs');
 
-    $("._popup-main__form-img-loader").addClass("active");
-  },
-  removeImage(event, name) {
-    event.stopPropagation();
-    const $input = $("#form-animals-imgs");
+		const dt = new DataTransfer();
 
-    const dt = new DataTransfer();
+		this.images = this.images.filter(img => img.name !== name);
+		this.images.forEach(img => dt.items.add(img));
 
-    this.images = this.images.filter((img) => img.name !== name);
-    this.images.forEach((img) => dt.items.add(img));
+		$input[0].files = dt.files;
 
-    $input[0].files = dt.files;
+		if (!this.images.length) {
+			$('._popup-main__form-img-loader').removeClass('active');
+		}
 
-    if (!this.images.length) {
-      $("._popup-main__form-img-loader").removeClass("active");
-    }
+		$(event.target).parent('._popup-main__form-image-wrapper').remove();
+	},
+	removeAllRenderedImages() {
+		$('._popup-main__form-image-wrapper').remove();
+	},
 
-    $(event.target).parent("._popup-main__form-image-wrapper").remove();
-  },
-  removeAllRenderedImages() {
-    $("._popup-main__form-image-wrapper").remove();
-  },
-
-  changeCounter(fieldInput) {
-    const textLength = fieldInput.value.length;
-    $(fieldInput)
-      .parent("._field")
-      .siblings("._popup-main__form-field-counter")
-      .find("span")
-      .html(textLength);
-  },
+	changeCounter(fieldInput) {
+		const textLength = fieldInput.value.length;
+		$(fieldInput)
+			.parent('._field')
+			.siblings('._popup-main__form-field-counter')
+			.find('span')
+			.html(textLength);
+	},
 };

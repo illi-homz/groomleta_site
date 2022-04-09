@@ -42,6 +42,5 @@
     "sass": "^1.49.9"
   },
   "dependencies": {
-    "gulp-livereload": "^4.0.2"
   }
 }
