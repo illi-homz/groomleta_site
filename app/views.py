@@ -19,12 +19,9 @@ def index(request):
         punkts = question.punkts.split(';')
         punkts = [punkt.strip() for punkt in punkts if punkt]
         question.punkts = punkts
-    
     current_data['questions'] = questions
 
-    response = HttpResponse(render(request, 'Index.html', current_data))
-
-    return response
+    return HttpResponse(render(request, 'Index.html', current_data))
 
 def handle_page_not_found(request, exception):
     current_data = {
