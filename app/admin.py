@@ -31,6 +31,13 @@ class QuestionAdmin(admin.ModelAdmin):
 class PromoAdmin(admin.ModelAdmin):
     actions = [dublicate_ad]
 
+@admin.register(models.Сategory)
+class СategoryAdmin(admin.ModelAdmin):
+    actions = [dublicate_ad]
+
+@admin.register(models.Service)
+class ServiceAdmin(admin.ModelAdmin):
+    actions = [dublicate_ad]
 
 @admin.register(models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
@@ -44,7 +51,6 @@ class FeedbackAdmin(admin.ModelAdmin):
         'create_date',
     ]
     actions = [dublicate_ad]
-
 
 @admin.register(models.Callback)
 class CallbackAdmin(admin.ModelAdmin):
@@ -60,8 +66,8 @@ class CallbackAdmin(admin.ModelAdmin):
     actions = [dublicate_ad]
 
 
-@admin.register(models.Service)
-class ServiceAdmin(admin.ModelAdmin):
+@admin.register(models.ServiceRecord)
+class ServiceRecordAdmin(admin.ModelAdmin):
     list_display = ('current_date', 'name', 'phone',
                     'services', 'min_price', 'is_processed')
     list_editable = ['is_processed']

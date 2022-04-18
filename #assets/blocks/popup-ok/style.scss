@@ -1,54 +1,99 @@
 .popup-ok {
+	.popup__close {
+		visibility: hidden;
+		opacity: 0;
+		transition: all ease .3s;
+	}
+
+	&.show-close .popup__close {
+		visibility: visible;
+		opacity: 1;
+	}
+
 	&__content {
-	  display: flex;
-	  flex-direction: column;
-	  height: 75vh;
-	  padding: 40px 16px;
+		display: flex;
+		flex-direction: column;
+		height: 75vh;
+		padding: 40px 16px;
 	}
 	&__data {
-	  flex: 1 0;
-	  @include tablet {
-		padding-top: 10vh;
-	  }
+		flex: 1 0;
+		@include tablet {
+			padding-top: 10vh;
+		}
 	}
 	&__img {
-	  text-align: center;
-	//   height: 184px;
-	  margin-bottom: 15px;
-  
-	  img {
-		// height: 100%;
-	  }
-  
-	  @include tablet {
-		// height: 124px;	
-	  }
+		text-align: center;
+		//   height: 184px;
+		margin-bottom: 15px;
+
+		img {
+			// height: 100%;
+		}
+
+		@include tablet {
+			// height: 124px;
+		}
 	}
 	&__title {
-	  @include fontSet(40, 47, 800);
-	  text-align: center;
-	  margin-bottom: 14px;
-  
-	  @include tablet {
-		@include fontSet(70, 82, 800);
-	  }
+		@include fontSet(35, 38, 800);
+		text-align: center;
+		margin-bottom: 14px;
+
+		@include tablet {
+			@include fontSet(45, 49, 800);
+		}
 	}
 	&__text {
-	  @include fontSet(16, 19, 500);
-	  text-align: center;
-  
-	  @include tablet {
-		@include fontSet(30, 35, 500);
-	  }
+		@include fontSet(18, 25, 500);
+		text-align: center;
+		color: rgba(36, 49, 56, 0.4);
+
+		@include tablet {
+			@include fontSet(25, 30, 600);
+		}
 	}
 
 	&__btn {
-	  height: 65px;
-  
-	  @include tablet {
-		width: 300px;
-		margin: 0 auto;
-	  }
+		height: 65px;
+
+		@include tablet {
+			width: 300px;
+			margin: 0 auto;
+		}
 	}
-  }
-  
+
+	&__timer {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 52px;
+		padding-right: 12px;
+		display: flex;
+		align-items: center;
+	}
+
+	&__timer-time {
+		@include fontSet(11, 16, 400);
+		color: gba(36, 49, 56, 0.4);
+		margin-right: 8px;
+	}
+
+	&__timer-spinner {
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		border: 2px solid #CDD7DC;
+		border-bottom-color: #243138;
+		animation: rotation 3s linear infinite;
+
+		@keyframes rotation {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+	}
+}

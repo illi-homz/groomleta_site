@@ -1,5 +1,3 @@
-{% load static %}
-
 <section class="services" id="services">
     <div class="services__wrap container">
         <h1>Услуги</h1>
@@ -14,10 +12,16 @@
                         </div>
                         <div class="g-select__body _options">
                             <ul class="g-select__items">
+								<li
+									class="g-select__item _option"
+									data-value=""
+									onclick="grummer.gSelect.selectItem(this)">
+									Все
+								</li>
 								{% for category in services.categories %}
 								<li
 									class="g-select__item _option"
-									data-value="{{category.value}}"
+									data-value="{{category.id}}"
 									onclick="grummer.gSelect.selectItem(this)">
 									{{category.title}}
 								</li>
@@ -51,11 +55,11 @@
     </div>
     <div class="container services__slider _services__slider">
 		{% for service in services.services_list %}
-		<div class="services__slide _services__slide {{service.animal}} {{service.category}}">
+		<div class="services__slide _services__slide {{service.animal}} category-{{service.category}}">
 			<div class="services__slide-wrapper">
 				<div>
 					<div class="services__slide-img">
-						<img src="{% static 'img/services/' %}{{service.img}}" alt="">
+						<img src="{{service.img.url}}" alt="">
 					</div>
 				</div>
 				<div class="services__slide-data">
@@ -66,7 +70,15 @@
 					<div class="services__slide-price">{{service.price}}</div>
 					<div class="services__slide-time">{{service.time}}</div>
 					<!-- <button class="services__slide-btn btn-outlined" onclick="grummer.services.openPopup('{{service.animal}}')"> -->
-					<button class="services__slide-btn btn-outlined" onclick="grummer.services.openPopup({{service}})">
+					<button
+						class="services__slide-btn btn-outlined"
+						onclick="grummer.services.openPopup({
+							id: {{service.id}},
+							price: '{{service.price}}',
+							title: '{{service.title}}',
+							img: '{{service.img.url}}',
+						})"
+					>
 						Записаться
 					</button>
 				</div>

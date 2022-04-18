@@ -102,7 +102,7 @@ def send_services(request):
     data = json.loads(request.body)
     print('data', data)
 
-    service = models.Service.objects.create(
+    service = models.ServiceRecord.objects.create(
         name=concatFio(data),
         phone=data['tel'],
         min_price=data['price'],

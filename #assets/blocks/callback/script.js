@@ -23,7 +23,7 @@ grummer.callback = {
 					title: 'Заявка принята',
 					text: 'Ожидайте звонка в течение минуты',
 				});
-				grummer.popup.open('_popup-ok');
+				grummer.popupOk.open();
 			}, 100);
 		}
 

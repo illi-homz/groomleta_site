@@ -24,7 +24,7 @@ grummer.popupFeedback = {
 					img: 'img/feedback.svg',
 					title: 'Спасибо за отзыв!',
 				});
-				grummer.popup.open('_popup-ok');
+				grummer.popupOk.open();
 			}, 300);
 		}
 

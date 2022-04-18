@@ -118,7 +118,7 @@ grummer.popupMain = {
 			? (services = this.createServicesStr(form.services))
 			: (services = form.services.value);
 
-		const [day, month, year] = form.date.value.split('.')
+		const [day, month, year] = form.date.value.split('.');
 
 		const csrf = form.csrfmiddlewaretoken.value;
 		const msg = {
@@ -134,26 +134,32 @@ grummer.popupMain = {
 		const msgResponse = await grummer.tlg.sendServices(msg, csrf);
 		console.log('msgResponse', msgResponse);
 
-		const files = Array.from(form.images.files);
+		// const files = Array.from(form.images.files);
+		const files = this.images;
 
 		if (files.length) {
 			if (files.length === 1) {
 				const photoResponse = grummer.tlg.sendPhoto(files[0], csrf);
-				console.log('photoResponse', photoResponse)
+				console.log('photoResponse', photoResponse);
 			} else {
 				const photosResponse = grummer.tlg.sendPhotos(files, csrf);
-				console.log('photosResponse', photosResponse)
+				console.log('photosResponse', photosResponse);
 			}
 		}
 
 		this.removeAllRenderedImages();
 
 		if (msgResponse)
-		  setTimeout(() => {
-		    form.reset();
+			setTimeout(() => {
+				form.reset();
 
-		    grummer.popup.open("_popup-ok");
-		  }, 300);
+				grummer.popupOk.setPopupOkData({
+					img: 'img/services.svg',
+					title: 'Заявка принята',
+					text: 'Ожидайте звонка в течение минуты',
+				});
+				grummer.popupOk.open();
+			}, 300);
 	},
 
 	loadImages() {
@@ -179,6 +185,8 @@ grummer.popupMain = {
 
 		this.images = [...this.images, ...imgs];
 
+		console.log('this.images', this.images);
+
 		const dt = new DataTransfer();
 		imgs.forEach(img => dt.items.add(img));
 		el.files = dt.files;
@@ -196,7 +204,7 @@ grummer.popupMain = {
 		};
 		reader.readAsDataURL(img);
 
-		const $imageWrapper = $('<div"></div>')
+		const $imageWrapper = $('<div></div>')
 			.addClass('popup-main__form-image-wrapper')
 			.addClass('_popup-main__form-image-wrapper')
 			.attr('id', 'image-' + idx);

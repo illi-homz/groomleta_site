@@ -10,6 +10,9 @@ def index(request):
     current_data['ourworks'] = models.OurWork.objects.all()
     current_data['promos'] = models.Promo.objects.all()
     current_data['feedbacks'] = models.Feedback.objects.filter(is_approved=True)
+    current_data['services'] = {}
+    current_data['services']['categories'] = models.Сategory.objects.all()
+    current_data['services']['services_list'] = models.Service.objects.all()
 
     questions = models.Question.objects.all()
     for question in questions:
@@ -25,7 +28,7 @@ def index(request):
 
 def handle_page_not_found(request, exception):
     current_data = {
-        'title': 'Hello World 404'
+        'title': 'Страница не найдена 404'
     }
     response = HttpResponse(render(request, 'Page404.html', current_data))
 

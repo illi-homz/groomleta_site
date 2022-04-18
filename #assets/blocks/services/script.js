@@ -50,12 +50,14 @@ grummer.services = {
 	filter({animal = '', category = ''}) {
 		$('._services__slider').slick('slickUnfilter');
 
-		if (!animal && !category) return;
+		if (!animal && !category) {
+			return
+		};
 
 		$('._services__slider').slick('slickFilter', (_, slide) => {
 			if (animal && category) {
 				return $(slide).find(
-					`._services__slide.${category}.${animal},._services__slide.all`,
+					`._services__slide.category-${category}.${animal},._services__slide.all`,
 				).length;
 			}
 
@@ -66,7 +68,7 @@ grummer.services = {
 			}
 
 			if (category) {
-				return $(slide).find(`._services__slide.${category}`).length;
+				return $(slide).find(`._services__slide.category-${category}`).length;
 			}
 
 			return true;
@@ -107,15 +109,7 @@ grummer.services = {
 	},
 
 	openPopup(data) {
-		// const service = this.currentServicesList.find(obj => {
-		// 	return obj.title === title;
-		// });
-		// const breed = grummer.breeds.find(obj => {
-		// 	return obj.value === this.breed;
-		// });
-
 		grummer.currentServices = [data];
-
 		grummer.popupMain.open();
 	},
 };

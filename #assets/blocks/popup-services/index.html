@@ -42,7 +42,7 @@
 							<div class="services__slide-wrapper">
 								<div>
 									<div class="services__slide-img">
-										<img src="{% static 'img/services/' %}{{service.img}}" alt="">
+										<img src="{{service.img.url}}" alt="">
 									</div>
 								</div>
 								<div class="services__slide-data">
@@ -52,7 +52,13 @@
 									</div>
 									<div class="services__slide-price">{{service.price}}</div>
 									<div class="services__slide-time">{{service.time}}</div>
-									<button class="services__slide-btn btn-outlined" onclick="grummer.popupServices.addService({{service}})">
+
+									<button class="services__slide-btn btn-outlined" onclick="grummer.popupServices.addService({
+										id: {{service.id}},
+										price: '{{service.price}}',
+										title: '{{service.title}}',
+										img: '{{service.img.url}}',
+									})">
 										Добавить
 									</button>
 
