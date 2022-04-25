@@ -1,0 +1,142 @@
+.navbar {
+	&__mobile-menu {
+		display: none;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: $defaultGray;
+		padding: 20px 15px;
+		z-index: 1;
+	}
+
+	&__mobile-menu-links {
+		padding-top: 60px;
+		li {
+			text-align: center;
+			margin-top: 40px;
+		}
+		a {
+			@include fontSet(18, 20, 700);
+		}
+	}
+
+
+	&__burger-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #fff;
+		width: 37px;
+		height: 34px;
+		border-radius: 8px;
+		position: relative;
+		z-index: 2;
+		cursor: pointer;
+
+		@include tablet {
+			display: none;
+		}
+	}
+
+	&__burger {
+		height: 2px;
+		width: 12px;
+		background-color: $textColor;
+		border-radius: 2px;
+		position: relative;
+		transition: all 0.3s ease;
+
+		&:before,
+		&:after {
+			content: '';
+			height: 2px;
+			width: 12px;
+			border-radius: 2px;
+			background-color: $textColor;
+			position: absolute;
+			transition-duration: 0.3s;
+		}
+		&:before {
+			top: -4px;
+		}
+		&:after {
+			bottom: -4px;
+		}
+
+		&.active {
+			background-color: #ffffff00;
+			&:before {
+				transform: rotate(-225deg);
+				top: 0;
+			}
+			&:after {
+				transform: rotate(225deg);
+				bottom: 0;
+			}
+		}
+	}
+
+
+	&__nav {
+		background: rgba(255, 255, 255, 0.6);
+		padding: 16px 0 16px;
+		backdrop-filter: blur(8px);
+
+		@include tablet {
+			padding-right: 80px;
+			padding: 20px 0 20px;
+		}
+
+		img {
+			height: 40px;
+	
+			@include tablet {
+				height: 79px;
+			}
+		}
+	}
+
+
+	&__nav-wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+
+	&__logo {
+		margin-right: 15px;
+	}
+
+
+	&__links {
+		display: none;
+
+		@include tablet {
+			flex: 1 0;
+			display: flex;
+			max-width: 654px;
+			justify-content: space-between;
+			padding-bottom: 3px;
+
+			a {
+				font-weight: bold;
+				letter-spacing: -0.1px;
+			}
+
+			li {
+				text-align: center;
+				margin-right: 10px;
+				border-bottom: 2px solid transparent;
+
+				&:hover {
+					// text-decoration: underline;\
+					border-bottom-color: #fec71a;
+				}
+			}
+		}
+	}
+
+}

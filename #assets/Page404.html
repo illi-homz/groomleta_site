@@ -1,1 +1,26 @@
-<div class=page404">Page not found</div>
+{% extends 'layouts/Base.html' %}
+
+{% block head %}
+<title>{{title}}</title>
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+<div class="page404">
+	{% include 'components/navbar/index.html' %}
+	<div class="page404__wrapper container">
+		<div class="page404__img">
+			{% include '#img/404.svg' %}
+		</div>
+		<div class="page404__title">404.</div>
+		<div class="page404__desсription">Возможно этой страницы уже не существует :(</div>
+	
+		<a class="btn yellow page404__btn" href="/">Вернуться на главную</a>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

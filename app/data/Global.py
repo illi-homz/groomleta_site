@@ -1,15 +1,16 @@
 from django.conf import settings
 static = settings.STATIC_URL
 
-data = {
-    'header': {
-        'links': [
-            {'title': 'О салоне', 'value': 'about'},
-            {'title': 'Услуги', 'value': 'services'},
-            {'title': 'Наши работы', 'value': 'ourworks'},
-            {'title': 'Акции', 'value': 'promo'},
-            {'title': 'Отзывы', 'value': 'feedbacks'},
-            {'title': 'Контакты', 'value': 'footer'}
-        ]
+def get_global_data(linkPrefix = ''):
+    return {
+        'header': {
+            'links': [
+                {'title': 'О салоне', 'value': f'{linkPrefix}about'},
+                {'title': 'Услуги', 'value': f'{linkPrefix}services'},
+                {'title': 'Наши работы', 'value': f'{linkPrefix}ourworks'},
+                {'title': 'Акции', 'value': f'{linkPrefix}promo'},
+                {'title': 'Отзывы', 'value': f'{linkPrefix}feedbacks'},
+                {'title': 'Контакты', 'value': f'{linkPrefix}footer'}
+            ]
+        }
     }
-}

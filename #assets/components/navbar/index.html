@@ -1,0 +1,37 @@
+{% load static %}
+
+<nav class="navbar__mobile-menu">
+	<ul class="navbar__mobile-menu-links">
+		{% for link in header.links %}
+			<li>
+				<a
+					href="{{link.value}}"
+					onclick="grummer.navbar.goToBlock(this, event)">
+					{{link.title}}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+</nav>
+
+<nav class="navbar__nav">
+	<div class="container navbar__nav-wrapper">
+		<a href="#navbar" class="navbar__logo">
+			<img src="{% static '/img/logo.svg' %}" alt="logo">
+		</a>
+		<ul class="navbar__links">
+			{% for link in header.links %}
+				<li>
+					<a
+						href="{{link.value}}"
+						onclick="grummer.navbar.goToBlock(this, event)">
+						{{link.title}}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<div class="nav-btn navbar__burger-btn" onclick="grummer.navbar.toggleMenu()">
+			<div class="navbar__burger"></div>
+		</div>
+	</div>
+</nav>

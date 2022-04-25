@@ -11,6 +11,7 @@
 
 @import "../components/header/style";
 @import "../components/footer/style";
+@import "../components/navbar/style";
 
 @import "../blocks/about/style";
 @import "../blocks/services/style";
@@ -24,8 +25,9 @@
 @import "../blocks/popup-main/style.scss";
 @import "../blocks/popup-services/style.scss";
 
-@import "./zootaxi";
 @import "./popup";
+
+@import "../pages/page404/style.scss";
 
 * {
   font-family: "Raleway", sans-serif;
@@ -33,8 +35,14 @@
   color: $textColor;
 }
 
-body.lock {
-  overflow: hidden !important;
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+
+	&.lock {
+		overflow: hidden;
+	}
 }
 
 .container {

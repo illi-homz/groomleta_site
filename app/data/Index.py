@@ -1,9 +1,12 @@
-from .Global import data as global_data
+from .Global import get_global_data
 from django.conf import settings
 static = settings.STATIC_URL
 
+global_data = get_global_data('#')
+
 data = {
     **global_data,
+    'title': 'Стрижка собак и кошек Вологда',
     'about': {
         'texts': [
             'Мы молодой вологодский груминг салон, но даём гарантию на качественное обслуживание у профессионалов своего дела, предоставляем полный спектр услуг, дорожим нашими клиентами и любим ваших четвероногих друзей',

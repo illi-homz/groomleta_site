@@ -2,13 +2,13 @@
 
 grummer.header = {
 	init() {
-		this.dataInit();
+		// this.dataInit();
 		this.changeBg();
 	},
-	dataInit() {
-		this.menu = $(".header__mobile-menu");
-		this.burger = $(".header__burger");
-	},
+	// dataInit() {
+	// 	this.menu = $(".header__mobile-menu");
+	// 	this.burger = $(".header__burger");
+	// },
 	changeBg() {
 		let count = 1;
 		const timeChange = 9000;
@@ -22,12 +22,12 @@ grummer.header = {
 			count++;
 		}, timeChange);
 	},
-	toggleMenu() {
-		this.menu.slideToggle(300);
-		this.burger.toggleClass("active");
+	// toggleMenu() {
+	// 	this.menu.slideToggle(300);
+	// 	this.burger.toggleClass("active");
 
-		$("body").css("overflow") === "visible"
-			? $("body").css({ overflow: "hidden" })
-			: $("body").css({ overflow: "auto" });
-	},
+	// 	$("body").css("overflow") === "visible"
+	// 		? $("body").css({ overflow: "hidden" })
+	// 		: $("body").css({ overflow: "auto" });
+	// },
 };

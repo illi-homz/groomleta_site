@@ -1,0 +1,6 @@
+{
+  "name": "Gruppers",
+  "description": "Груммер салон в Вологде",
+  "image": "heroku/python",
+  "keywords": ["python", "django", "grummers" ]
+}

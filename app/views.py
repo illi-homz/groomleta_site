@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from ctypes import resize
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 
 from . import data
@@ -24,9 +25,8 @@ def index(request):
     return HttpResponse(render(request, 'Index.html', current_data))
 
 def handle_page_not_found(request, exception):
-    current_data = {
-        'title': 'Страница не найдена 404'
-    }
+# def handle_page_not_found(request):
+    current_data = data.Page404.data
     response = HttpResponse(render(request, 'Page404.html', current_data))
 
     return response
