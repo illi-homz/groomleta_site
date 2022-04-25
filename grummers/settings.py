@@ -73,14 +73,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'grummers.wsgi.application'
 
 
-DB_DEV = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DB_DEV = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
-DB_PROD = {}
+# DB_PROD = {}
 
 DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
