@@ -15,10 +15,10 @@ grummer.navbar = {
 			: $('body').addClass('lock');
 	},
 	goToBlock(...args) {
-		this.toggleMenu();
 		const href = $(args[0]).attr('href')
 
 		if (!href.startsWith('/')) {
+			this.toggleMenu();
 			grummer.goToBlock(...args);
 		}
 	},
