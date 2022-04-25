@@ -4,6 +4,7 @@ from app import api, views
 
 urlpatterns = [
     path('', views.index),
+    path('404', views.handle_page_not_found),
 
     path('api/sendCallback', api.send_callback),
     path('api/sendFeedback', api.send_feedback),
