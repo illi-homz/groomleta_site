@@ -24,8 +24,8 @@ def index(request):
 
     return HttpResponse(render(request, 'Index.html', current_data))
 
-def handle_page_not_found(request, exception):
-# def handle_page_not_found(request):
+# def handle_page_not_found(request, exception):
+def handle_page_not_found(request):
     current_data = data.Page404.data
     response = HttpResponse(render(request, 'Page404.html', current_data))
 
