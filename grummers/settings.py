@@ -111,7 +111,8 @@ USE_L10N = True
 USE_TZ = False
 
 
-STATIC_URL = '/staticfiles/'
+# STATIC_URL = '/staticfiles/'
+STATIC_URL = '/static/'
 MEDIA_URL = '/mediafiles/'
 
 STATICFILES_DIRS = [
