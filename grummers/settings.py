@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'grummers.wsgi.application'
 DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 # DATABASES = DB_DEV if DEBUG else DB_PROD
-# DATABASES = DB_PROD_HEROKU
+DATABASES = DB_PROD_HEROKU
 
 
 
