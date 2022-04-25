@@ -6,7 +6,7 @@
 			<li>
 				<a
 					href="{{link.value}}"
-					onclick="grummer.navbar.goToBlock(this, event)">
+					onclick="grummer.navbar.goToBlock(this, event, true)">
 					{{link.title}}
 				</a>
 			</li>
@@ -24,7 +24,7 @@
 				<li>
 					<a
 						href="{{link.value}}"
-						onclick="grummer.navbar.goToBlock(this, event)">
+						onclick="grummer.navbar.goToBlock(this, event, false)">
 						{{link.title}}
 					</a>
 				</li>

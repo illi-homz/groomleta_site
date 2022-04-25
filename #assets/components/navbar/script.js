@@ -14,12 +14,10 @@ grummer.navbar = {
 			? $('body').removeClass('lock')
 			: $('body').addClass('lock');
 	},
-	goToBlock(...args) {
-		const href = $(args[0]).attr('href')
+	goToBlock(target, event, isMobile) {
+		const href = $(target).attr('href')
 
-		if (!href.startsWith('/')) {
-			this.toggleMenu();
-			grummer.goToBlock(...args);
-		}
+		isMobile && this.toggleMenu();
+		!href.startsWith('/') && grummer.goToBlock(target, event);
 	},
 };
