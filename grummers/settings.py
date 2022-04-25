@@ -25,7 +25,8 @@ SECRET_KEY = env('SECRET_KEY')
 # DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'grummers-test.herokuapp.com', '*', 'https://grummers-test.herokuapp.com']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -110,9 +111,9 @@ USE_TZ = False
 STATIC_URL = '/staticfiles/'
 MEDIA_URL = '/mediafiles/'
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "staticfiles"),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "/staticfiles"),
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
