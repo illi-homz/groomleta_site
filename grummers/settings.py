@@ -26,7 +26,8 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -78,10 +79,12 @@ DB_DEV = {
     }
 }
 
-DB_PROD = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+DB_PROD = {}
+
+DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 # DATABASES = DB_DEV if DEBUG else DB_PROD
-DATABASES = DB_PROD
+DATABASES = DB_PROD_HEROKU
 
 
 
@@ -112,7 +115,7 @@ STATIC_URL = '/staticfiles/'
 MEDIA_URL = '/mediafiles/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "/staticfiles"),
+    os.path.join(BASE_DIR, "staticfiles"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
