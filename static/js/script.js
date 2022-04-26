@@ -7697,13 +7697,10 @@ grummer.navbar = {
     $('body').hasClass('lock') ? $('body').removeClass('lock') : $('body').addClass('lock');
   },
 
-  goToBlock() {
-    this.toggleMenu();
-    var href = $(arguments.length <= 0 ? undefined : arguments[0]).attr('href');
-
-    if (!href.startsWith('/')) {
-      grummer.goToBlock(...arguments);
-    }
+  goToBlock(target, event, isMobile) {
+    var href = $(target).attr('href');
+    isMobile && this.toggleMenu();
+    !href.startsWith('/') && grummer.goToBlock(target, event);
   }
 
 };

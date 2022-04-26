@@ -14,8 +14,8 @@ const grummer = {
 		$("html,body").animate({
 			scrollTop:
 			typeof target === "string"
-			? target
-			: $(target.hash).offset().top,
+				? target
+				: $(target.hash).offset().top,
 		});
 	},
 };
