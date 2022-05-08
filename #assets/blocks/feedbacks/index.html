@@ -5,7 +5,7 @@
         <div class="feedbacks__container">
             <h1 class="text-center">Отзывы</h1>
             <div class="feedbacks__wrapper">
-				{% if feedbacks.length %}
+				{% if feedbacks|length %}
                 <div class="feedbacks__slider">
 					{% for feedback in feedbacks %}
 						<div class="feedbacks__item">

@@ -9,15 +9,15 @@
 {% include 'blocks/about/index.html' %}
 {% include 'blocks/services/index.html' %}
 
-{% if ourworks.length %}
+{% if ourworks|length %}
 {% include 'blocks/ourworks/index.html' %}
 {% endif %}
 
-{% if questions.length %}
+{% if questions|length %}
 {% include 'blocks/questions/index.html' %}
 {% endif %}
 
-{% if promos.length %}
+{% if promos|length %}
 {% include 'blocks/promo/index.html' %}
 {% endif %}
 

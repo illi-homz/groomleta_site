@@ -15,6 +15,8 @@ def index(request):
     current_data['services']['categories'] = models.Сategory.objects.all()
     current_data['services']['services_list'] = models.Service.objects.all()
 
+    print(current_data['feedbacks'])
+
     questions = models.Question.objects.all()
     for question in questions:
         punkts = question.punkts.split(';')
