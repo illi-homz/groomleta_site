@@ -8,6 +8,11 @@ grummer.ourworks = {
 	},
 	initSlider() {
 	  this.slider = $(".ourworks__slider");
+	  console.log('this.slider', )
+
+	  if (!this.slider.length) {
+		  return
+	  }
   
 	  const slickParams = {
 		mobileFirst: true,
