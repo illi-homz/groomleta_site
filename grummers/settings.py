@@ -23,8 +23,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://grummers-test.herokuapp.com']
@@ -84,7 +84,7 @@ DB_PROD = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'grummers_db',
-        'USER': 'www',
+        'USER': 'dbms',
         'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -138,4 +138,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True
-CSRF_TRUSTED_ORIGINS = ['https://*.herokuapp.com']
+CSRF_TRUSTED_ORIGINS = ['http://188.68.220.145']
