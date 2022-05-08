@@ -21,10 +21,16 @@
                             <span class="_selected-text">Любая</span>
                         </div>
                         <div class="g-select__body _options">
+							<li
+								class="g-select__item _option"
+								data-value=""
+								onclick="grummer.gSelect.selectItem(this)">
+								Любая
+							</li>
 							{% for category in services.categories %}
 							<li
 								class="g-select__item _option"
-								data-value="{{category.value}}"
+								data-value="{{category.id}}"
 								onclick="grummer.gSelect.selectItem(this)">
 								{{category.title}}
 							</li>
@@ -38,7 +44,7 @@
                 <div class="popup-services__slider-wrapper">
                     <div class="popup-services__slider popup-services__slider-services">
 						{% for service in services.services_list %}
-						<div class="services__slide _popup-services__slide {{service.animal}} {{service.category}}" data-id="{{service.id}}">
+						<div class="services__slide _popup-services__slide {{service.animal}} {{service.category.id}}" data-id="{{service.id}}">
 							<div class="services__slide-wrapper">
 								<div>
 									<div class="services__slide-img">

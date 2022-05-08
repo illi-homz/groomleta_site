@@ -1,19 +1,7 @@
 grummer.feedbacks = {
 	init() {
-		//   this.initSlides()
 		this.initSlider();
 	},
-	// initSlides()
-	// {
-	//   const template = $.trim( $('#feedbacks__slider-temp').html() )
-
-	//   const html = grummer.feedbacksList.reduce((acc, item) => {
-	// 	return acc += template
-	// 	.replace(/{{img}}/ig, item.img)
-	// 	.replace(/{{text}}/ig, item.text)
-	//   }, '')
-	//   $('.feedbacks__slider').html(html)
-	// },
 	initSlider() {
 		$('.feedbacks__slider').slick({
 			mobileFirst: true,

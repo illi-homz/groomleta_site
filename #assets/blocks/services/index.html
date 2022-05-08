@@ -16,7 +16,7 @@
 									class="g-select__item _option"
 									data-value=""
 									onclick="grummer.gSelect.selectItem(this)">
-									Все
+									Любая
 								</li>
 								{% for category in services.categories %}
 								<li
@@ -55,7 +55,7 @@
     </div>
     <div class="container services__slider _services__slider">
 		{% for service in services.services_list %}
-		<div class="services__slide _services__slide {{service.animal}} category-{{service.category}}">
+		<div class="services__slide _services__slide {{service.animal}} category-{{service.category.id}}">
 			<div class="services__slide-wrapper">
 				<div>
 					<div class="services__slide-img">
@@ -73,7 +73,7 @@
 					<button
 						class="services__slide-btn btn-outlined"
 						onclick="grummer.services.openPopup({
-							id: {{service.id}},
+							id: '{{service.id}}',
 							price: '{{service.price}}',
 							title: '{{service.title}}',
 							img: '{{service.img.url}}',

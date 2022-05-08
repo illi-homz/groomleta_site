@@ -8,9 +8,19 @@
 
 {% include 'blocks/about/index.html' %}
 {% include 'blocks/services/index.html' %}
+
+{% if ourworks.length %}
 {% include 'blocks/ourworks/index.html' %}
+{% endif %}
+
+{% if questions.length %}
 {% include 'blocks/questions/index.html' %}
+{% endif %}
+
+{% if promos.length %}
 {% include 'blocks/promo/index.html' %}
+{% endif %}
+
 {% include 'blocks/feedbacks/index.html' %}
 {% include 'blocks/callback/index.html' %}
 {% include 'blocks/popup_feedback/index.html' %}

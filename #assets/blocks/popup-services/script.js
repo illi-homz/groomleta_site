@@ -58,6 +58,7 @@ grummer.popupServices = {
 		$('.popup-services__slider-services').slick('slickGoTo', 0);
 	},
 	filterServicesByCategory(category) {
+		console.log('category', category)
 		this.category = category;
 
 		this.filter({

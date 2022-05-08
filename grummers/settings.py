@@ -73,19 +73,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'grummers.wsgi.application'
 
 
-# DB_DEV = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DB_DEV = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
-# DB_PROD = {}
+DB_PROD = {}
 
-# DATABASES = DB_DEV if DEBUG else DB_PROD
+DATABASES = DB_DEV if DEBUG else DB_PROD
 
-DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
-DATABASES = DB_PROD_HEROKU
+# DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+# DATABASES = DB_PROD_HEROKU
 
 
 
@@ -112,17 +112,17 @@ USE_L10N = True
 USE_TZ = False
 
 
-# STATIC_URL = '/staticfiles/'
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
+# STATIC_URL = '/static/'
 MEDIA_URL = '/mediafiles/'
 
 STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, "staticfiles"),
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "staticfiles"),
+    # os.path.join(BASE_DIR, "static"),
 ]
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

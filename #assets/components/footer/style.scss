@@ -65,11 +65,24 @@
             left: 50%;
             transform: translateX(-50%);
 
+			li {
+				svg path {
+					transition: all .2s ease;
+				}
+				
+				&:hover {
+					svg path {
+						stroke: $yellow;
+					}
+				}
+			}
+
             li:not(:last-child) {
                 margin-right: 8px;
             }
 
             @include tablet {
+				justify-content: flex-end;
                 position: static;
                 transform: translateX(0);
             }
@@ -83,17 +96,6 @@
             @include fontSet(14, 16, 700);
             margin-bottom: 25px;
         }
-        // &-map-m {
-        //     @include tablet {
-        //         display: none;
-        //     }
-        // }
-        // &-map-d {
-        //     display: none;
-        //     @include tablet {
-        //         display: block;
-        //     }
-        // }
         li {
             &:not(:last-child) {
                 margin-bottom: 8px;
@@ -103,19 +105,25 @@
             display: inline-flex;
             align-items: center;
 
-            img {
+            svg {
                 margin-right: 10px;
             }
 
             @include tablet {
-                img {
+                svg {
                     margin-right: 16px;
                 }
             }
 
             @media ($desctop) {
                 &:hover {
-                    text-decoration: underline;
+                    // text-decoration: underline;
+					color: $yellow;
+
+					// svg path {
+					// 	fill: $yellow;
+					// 	stroke: $yellow;
+					// }
                 }
             }
         }

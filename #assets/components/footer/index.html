@@ -16,12 +16,17 @@
             <ul class="footer__links-on-social">
                 <li>
                     <a href="https://vk.com/" target="_blank">
-                        <img src="{% static 'img/social/vk.png' %}">
+						{% include '#img/social/vk.svg' %}
                     </a>
                 </li>
                 <li>
                     <a href="https://www.instagram.com/" target="_blank">
-                        <img src="{% static 'img/social/insta.png' %}">
+						{% include '#img/social/insta.svg' %}
+                    </a>
+                </li>
+				<li>
+                    <a href="https://t.me/nice_aat" target="_blank">
+						{% include '#img/social/telegram.svg' %}
                     </a>
                 </li>
             </ul>
@@ -31,17 +36,17 @@
             <ul>
                 <li class="footer__contacts-map">
                     <a href="https://yandex.ru/maps/-/CCU5BLx5~B" target="_blank">
-                        <img src="{% static 'img/social/maps.png' %}">ул. Некрасова 38
+                        {% include '#img/social/maps.svg' %}ул. Некрасова 38
                     </a>
                 </li>
                 <li>
-                    <a href="tel:8 900 000 00 00">
-                        <img src="{% static 'img/social/tel.png' %}">8 900 000 00 00
+                    <a href="tel:+7 963 314 96 69">
+                        {% include '#img/social/tel.svg' %}+7 963 314 96 69
                     </a>
                 </li>
                 <li>
                     <a href="mailto:groomleta@mail.ru">
-                        <img src="{% static 'img/social/mail.png' %}">groomleta@mail.ru
+                        {% include '#img/social/mail.svg' %}groomleta@mail.ru
                     </a>
                 </li>
             </ul>

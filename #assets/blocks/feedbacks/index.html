@@ -5,6 +5,7 @@
         <div class="feedbacks__container">
             <h1 class="text-center">Отзывы</h1>
             <div class="feedbacks__wrapper">
+				{% if feedbacks.length %}
                 <div class="feedbacks__slider">
 					{% for feedback in feedbacks %}
 						<div class="feedbacks__item">
@@ -27,6 +28,11 @@
 						</div>
 					{% endfor %}
                 </div>
+				{% else %}
+				<div class="feedbacks__nocontent">
+					Пока отзывов ни кто не оставил. Будь первым!
+				</div>
+				{% endif %}
             </div>
             <div
                 class="feedbacks__open-popup btn-outlined"

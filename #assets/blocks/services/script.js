@@ -104,7 +104,7 @@ grummer.services = {
 
 		this.filter({
 			animal: this.animal,
-			category: this.category,
+			category,
 		});
 	},
 

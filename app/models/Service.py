@@ -1,10 +1,15 @@
 from django.db import models
-from . import Сategory
 
 class Service(models.Model):
     CAT = 'cat'
     DOG = 'dog'
     ANY = 'any'
+
+    animals = {
+        CAT: 'Кошка',
+        DOG: 'Собака',
+        ANY: 'Любая',
+    }
 
     BREEDS = [  
         (CAT, 'Кошка'),
@@ -21,7 +26,7 @@ class Service(models.Model):
     category = models.ForeignKey('Сategory', on_delete=models.CASCADE, verbose_name='Категория')
 
     def __str__(self):
-        return self.title
+        return f'{self.title} - {self.animals[self.animal]} - {self.category}'
 
     class Meta:
         verbose_name = 'Услугу'
