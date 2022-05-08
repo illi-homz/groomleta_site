@@ -95,5 +95,4 @@ node_modules/
 
 images/**/*
 media/**/*
-staticfiles/**/*
 migrations/
