@@ -7591,33 +7591,33 @@ grummer.popup = {
 
 };
 ;
-"use strict";
+'use strict';
 
 grummer.gSelect = {
   open($select) {
-    $select.children("._options").first().slideDown(300);
-    $select.toggleClass("opened");
-    $(window).on("click", () => {
+    $select.children('._options').first().slideDown(300);
+    $select.toggleClass('opened');
+    $(window).on('click', () => {
       this.close($select);
     });
-    $select.on("click", e => {
+    $select.on('click', e => {
       e.stopPropagation();
     });
   },
 
   close($select) {
-    $select.children("._options").first().slideUp(300);
-    $select.toggleClass("opened");
-    $(window).off("click");
-    $select.off("click");
-    $select.find("._dog-select").addClass("hide");
-    $select.find("span._selected-text").removeClass("hide");
+    $select.children('._options').first().slideUp(300);
+    $select.toggleClass('opened');
+    $(window).off('click');
+    $select.off('click');
+    $select.find('._dog-select').addClass('hide');
+    $select.find('span._selected-text').removeClass('hide');
   },
 
   toggle(instance) {
-    var $select = $(instance).parents("._select");
+    var $select = $(instance).parents('._select');
 
-    if (!$select.hasClass("opened")) {
+    if (!$select.hasClass('opened')) {
       this.open($select);
     } else {
       this.close($select);
@@ -7625,21 +7625,21 @@ grummer.gSelect = {
   },
 
   setName($select, name) {
-    $select.find("._selected-text").html(name);
+    $select.find('._selected-text').html(name);
   },
 
   setInputValue($select, value) {
-    $select.find("._select-input").val(value).trigger("change");
+    $select.find('._select-input').val(value).trigger('change');
   },
 
   selectItem(instance) {
     var $inst = $(instance);
-    var $select = $inst.parents("._select");
-    $select.removeClass("error");
-    $select.find("._option").removeClass("active");
-    $inst.addClass("active");
+    var $select = $inst.parents('._select');
+    $select.removeClass('error');
+    $select.find('._option').removeClass('active');
+    $inst.addClass('active');
     var name = $inst.text();
-    var selectedValue = $inst.data("value");
+    var selectedValue = $inst.data('value');
     this.setName($select, name);
     this.setInputValue($select, selectedValue);
     this.close($select);
@@ -7812,7 +7812,7 @@ grummer.services = {
     this.category = category;
     this.filter({
       animal: this.animal,
-      category: this.category
+      category
     });
   },
 
@@ -7834,6 +7834,11 @@ grummer.ourworks = {
 
   initSlider() {
     this.slider = $(".ourworks__slider");
+
+    if (!this.slider.length) {
+      return;
+    }
+
     var slickParams = {
       mobileFirst: true,
       infinite: true,
@@ -7924,20 +7929,9 @@ grummer.promo = {
 ;
 grummer.feedbacks = {
   init() {
-    //   this.initSlides()
     this.initSlider();
   },
 
-  // initSlides()
-  // {
-  //   const template = $.trim( $('#feedbacks__slider-temp').html() )
-  //   const html = grummer.feedbacksList.reduce((acc, item) => {
-  // 	return acc += template
-  // 	.replace(/{{img}}/ig, item.img)
-  // 	.replace(/{{text}}/ig, item.text)
-  //   }, '')
-  //   $('.feedbacks__slider').html(html)
-  // },
   initSlider() {
     $('.feedbacks__slider').slick({
       mobileFirst: true,
@@ -8343,6 +8337,7 @@ grummer.popupServices = {
   },
 
   filterServicesByCategory(category) {
+    console.log('category', category);
     this.category = category;
     this.filter({
       category: this.category
