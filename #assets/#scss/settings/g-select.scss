@@ -1,7 +1,7 @@
 .g-select
 {
   position: relative;
-  border: 1px solid #ECEFEF;
+  border: 1px solid rgba(36, 49, 56, 0.2);
   border-radius: 11px;
   transition: all .3s ease;
 
@@ -22,9 +22,10 @@
     &:after
     {
       content: '';
-      width: 12px;
-      height: 1px;
-      background-color: #ECEFEF;
+      width: 8px;
+      height: 2px;
+	  border-radius: 2px;
+      background-color: rgba(36, 49, 56, 0.4);
       position: absolute;
       right: 0;
       top: 50%;
@@ -32,26 +33,26 @@
     }
     &:before
     {
-      right: 28px;
-      transform: rotate(45deg);
+      right: 25px;
+      transform: rotate(40deg);
     }
     &:after
     {
       right: 20px;
-      transform: rotate(-45deg);
+      transform: rotate(-40deg);
     }
   }
   &__body
   {
     display: none;
     padding: 20px 0;
-    border-top: 1px solid #ECEFEF;
+    border-top: 1px solid rgba(36, 49, 56, 0.2);
     max-height: 300px;
     width: calc(100% + 2px);
     // overflow-y: scroll;
     left: -1px;
     top: 100%;
-    border: 1px solid #ECEFEF;
+    border: 1px solid rgba(36, 49, 56, 0.2);
     border-radius: 11px;
     background-color: #fff;
     position: absolute;
@@ -70,7 +71,7 @@
     //   align-items: center;
     //   white-space: normal;
     //   padding: 0 23px;
-    //   &.active {background-color: #ECEFEF;}
+    //   &.active {background-color: rgba(36, 49, 56, 0.2);}
     // }
   }
   &__item {
@@ -81,7 +82,7 @@
     white-space: normal;
     padding: 0 23px;
 
-    &.active {background-color: #ECEFEF;}
+    &.active {background-color: rgba(36, 49, 56, 0.2);}
 
     &:hover {
       background-color: #DADADA;
@@ -93,8 +94,8 @@
     border-bottom-right-radius: 0px;
     .g-select__header
     {
-      &:before {transform: rotate(-45deg);}
-      &:after {transform: rotate(45deg);}
+      &:before {transform: rotate(-40deg);}
+      &:after {transform: rotate(40deg);}
     }
     .g-select__body
     {
