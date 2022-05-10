@@ -8117,7 +8117,15 @@ grummer.popupMain = {
 
   calculateFinalPrice() {
     return grummer.currentServices.reduce((acc, el) => {
-      return el.price.includes('-') ? acc += +el.price.split('-')[0] : el.price.includes('от') ? acc += +el.price.replace('от', '') : acc += +el.price;
+      if (el.price.includes('-')) {
+        return acc += +el.price.split('-')[0].replaceAll(' ', '');
+      } else {
+        if (el.price.includes('от')) {
+          return acc += +el.price.replace('от', '').replaceAll(' ', '');
+        } else {
+          return acc += +el.price.replaceAll(' ', '');
+        }
+      }
     }, 0);
   },
 
