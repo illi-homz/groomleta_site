@@ -37,6 +37,8 @@ class СategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Service)
 class ServiceAdmin(admin.ModelAdmin):
+    list_filter = ['title', 'animal', 'category']
+    search_fields = ['title']
     actions = [dublicate_ad]
 
 @admin.register(models.Feedback)
@@ -50,7 +52,6 @@ class FeedbackAdmin(admin.ModelAdmin):
         'text',
         'create_date',
     ]
-    actions = [dublicate_ad]
 
 @admin.register(models.Callback)
 class CallbackAdmin(admin.ModelAdmin):
