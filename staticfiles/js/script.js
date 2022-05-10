@@ -8179,8 +8179,6 @@ grummer.popupMain = {
         services
       };
       var msgResponse = yield grummer.tlg.sendServices(msg, csrf);
-      console.log('msgResponse', msgResponse); // const files = Array.from(form.images.files);
-
       var files = _this.images;
 
       if (files.length) {
@@ -8301,7 +8299,7 @@ grummer.popupServices = {
     $('._popup-services__slide').removeClass('is-selected');
     grummer.currentServices.forEach(el => {
       $('._popup-services__slide').each(function () {
-        if ($(this).data().id === el.id) {
+        if (+$(this).data().id === +el.id) {
           $(this).addClass('is-selected');
         }
       });
@@ -8337,7 +8335,6 @@ grummer.popupServices = {
   },
 
   filterServicesByCategory(category) {
-    console.log('category', category);
     this.category = category;
     this.filter({
       category: this.category
@@ -8370,6 +8367,7 @@ grummer.popupServices = {
 
   addService() {
     var service = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+    console.log('service', service);
     grummer.currentServices = [...grummer.currentServices, service];
     grummer.popupMain.open();
     $('.popup-services__slider-services').slick('unslick');

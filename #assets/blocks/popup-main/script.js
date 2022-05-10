@@ -132,9 +132,7 @@ grummer.popupMain = {
 		};
 
 		const msgResponse = await grummer.tlg.sendServices(msg, csrf);
-		console.log('msgResponse', msgResponse);
 
-		// const files = Array.from(form.images.files);
 		const files = this.images;
 
 		if (files.length) {

@@ -18,7 +18,7 @@ grummer.popupServices = {
 
 		grummer.currentServices.forEach(el => {
 			$('._popup-services__slide').each(function () {
-				if ($(this).data().id === el.id) {
+				if (+$(this).data().id === +el.id) {
 					$(this).addClass('is-selected');
 				}
 			});
@@ -58,7 +58,6 @@ grummer.popupServices = {
 		$('.popup-services__slider-services').slick('slickGoTo', 0);
 	},
 	filterServicesByCategory(category) {
-		console.log('category', category)
 		this.category = category;
 
 		this.filter({
@@ -89,6 +88,7 @@ grummer.popupServices = {
 		}
 	},
 	addService(service = '') {
+		console.log('service', service)
 		grummer.currentServices = [...grummer.currentServices, service];
 		grummer.popupMain.open();
 		$('.popup-services__slider-services').slick('unslick');
