@@ -3194,6 +3194,16 @@ h1 {
   padding-right: 0;
 }
 
+.popup-services .services__nav-btns {
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.popup-services .services__filters {
+  padding: 0;
+  margin-bottom: 10px;
+}
+
 .popup-services__wrapper {
   padding-left: 16px;
   padding-right: 16px;
@@ -3201,6 +3211,7 @@ h1 {
 
 .popup-services__filter {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .popup-services__filter-title {
@@ -3325,7 +3336,7 @@ h1 {
   transition: all 0.3s ease 0s;
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
   top: 0;
   left: 0;
@@ -3483,7 +3494,7 @@ body {
 }
 
 body.lock {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .container {
@@ -4157,6 +4168,14 @@ body.lock {
     padding: 48px 0 70px;
   }
 
+  .popup-services .services__nav-btns {
+    margin-bottom: 0;
+  }
+
+  .popup-services .services__filters {
+    margin-bottom: 0;
+  }
+
   .popup-services__wrapper {
     padding-left: 105px;
     padding-right: 105px;
@@ -4169,6 +4188,7 @@ body.lock {
 
   .popup-services__filter {
     max-width: 305px;
+    margin-right: 20px;
   }
 
   .popup-services .slick-arrow {

@@ -40,12 +40,28 @@ grummer.popupServices = {
 				);
 			});
 	},
-	filter({category = ''}) {
+	filter({animal = '', category = ''}) {
 		$('.popup-services__slider-services').slick('slickUnfilter');
+
+		if (!animal && !category) {
+			return
+		};
 
 		$('.popup-services__slider-services').slick(
 			'slickFilter',
 			(_, slide) => {
+				if (animal && category) {
+					return $(slide).find(
+						`._popup-services__slide.category-${category}.${animal},._popup-services__slide.any`,
+					).length;
+				}
+			
+				if (animal) {
+					return $(slide).find(
+						`._popup-services__slide.${animal},._popup-services__slide.any`,
+					).length;
+				}
+				
 				if (category) {
 					return $(slide).find(`._popup-services__slide.${category}`)
 						.length;
@@ -102,5 +118,29 @@ grummer.popupServices = {
 		
 		$('.popup-services__slider-services').slick('unslick');
 		grummer.popup.close('_popup-services')
-	}
+	},
+
+	filterServicesByBreed(el, animal = null) {
+		const $el = $(el);
+		if ($el.hasClass('active')) return;
+		$el.parent().children('div').removeClass('active');
+		$el.addClass('active');
+
+		this.animal = animal;
+
+		this.filter({
+			animal: this.animal,
+			category: this.category,
+		});
+	},
+	clearBreedFilter(el, e) {
+		e.stopPropagation();
+		$(el).parent().removeClass('active');
+		this.animal = '';
+
+		this.filter({
+			animal: this.animal,
+			category: this.category,
+		});
+	},
 };

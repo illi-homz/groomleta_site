@@ -78,6 +78,7 @@ grummer.popup = {
 		}, this.timeOut);
 
 		this.unlock = false;
+
 		setTimeout(() => {
 			this.unlock = true;
 		}, this.timeOut);

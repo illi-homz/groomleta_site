@@ -13,7 +13,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var grummer = {
   animal: null,
   currentServices: [],
-  currentBreed: undefined,
+  currentAnimal: null,
   breesTemplate: null,
 
   goToBlock(target, event) {
@@ -8321,10 +8321,25 @@ grummer.popupServices = {
 
   filter(_ref4) {
     var {
+      animal = '',
       category = ''
     } = _ref4;
     $('.popup-services__slider-services').slick('slickUnfilter');
+
+    if (!animal && !category) {
+      return;
+    }
+
+    ;
     $('.popup-services__slider-services').slick('slickFilter', (_, slide) => {
+      if (animal && category) {
+        return $(slide).find("._popup-services__slide.category-".concat(category, ".").concat(animal, ",._popup-services__slide.any")).length;
+      }
+
+      if (animal) {
+        return $(slide).find("._popup-services__slide.".concat(animal, ",._popup-services__slide.any")).length;
+      }
+
       if (category) {
         return $(slide).find("._popup-services__slide.".concat(category)).length;
       }
@@ -8382,6 +8397,29 @@ grummer.popupServices = {
     if (e && $(e.target).closest('.popup__content')[0]) return;
     $('.popup-services__slider-services').slick('unslick');
     grummer.popup.close('_popup-services');
+  },
+
+  filterServicesByBreed(el) {
+    var animal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var $el = $(el);
+    if ($el.hasClass('active')) return;
+    $el.parent().children('div').removeClass('active');
+    $el.addClass('active');
+    this.animal = animal;
+    this.filter({
+      animal: this.animal,
+      category: this.category
+    });
+  },
+
+  clearBreedFilter(el, e) {
+    e.stopPropagation();
+    $(el).parent().removeClass('active');
+    this.animal = '';
+    this.filter({
+      animal: this.animal,
+      category: this.category
+    });
   }
 
 };

@@ -10,35 +10,58 @@
                 </div>
                 <div class="popup__close" onclick="grummer.popupServices.close()"></div>
                 <h1>Добавить услугу</h1>
-                <div class="popup-services__filter">
-                    <div class="popup-services__filter-title">Категоря</div>
-                    <div class="popup-services__categories g-select _select">
-                        <input
-                        type="hidden"
-                        class="_select-input"
-                        onchange="grummer.popupServices.filterServicesByCategory(this.value)"/>
-                        <div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
-                            <span class="_selected-text">Любая</span>
-                        </div>
-                        <div class="g-select__body _options">
-							<li
-								class="g-select__item _option"
-								data-value=""
-								onclick="grummer.gSelect.selectItem(this)">
-								Любая
-							</li>
-							{% for category in services.categories %}
-							<li
-								class="g-select__item _option"
-								data-value="{{category.id}}"
-								onclick="grummer.gSelect.selectItem(this)">
-								{{category.title}}
-							</li>
-							{% endfor %}
-                            <ul class="g-select__items"></ul>
-                        </div>
-                    </div>
-                </div>
+				<div class="services__filters">
+					<div class="popup-services__filter">
+						<div class="popup-services__filter-title">Категоря</div>
+						<div class="popup-services__categories g-select _select">
+							<input
+								type="hidden"
+								class="_select-input"
+								onchange="grummer.popupServices.filterServicesByCategory(this.value)"/>
+							<div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
+								<span class="_selected-text">Любая</span>
+							</div>
+							<div class="g-select__body _options">
+								<li
+									class="g-select__item _option"
+									data-value=""
+									onclick="grummer.gSelect.selectItem(this)">
+									Любая
+								</li>
+								{% for category in services.categories %}
+								<li
+									class="g-select__item _option"
+									data-value="{{category.id}}"
+									onclick="grummer.gSelect.selectItem(this)">
+									{{category.title}}
+								</li>
+								{% endfor %}
+								<ul class="g-select__items"></ul>
+							</div>
+						</div>
+					</div>
+					<div class="services__nav-btns">
+						<div class="services__nav-btn btn-costom" onclick="grummer.popupServices.filterServicesByBreed(this, 'cat')">
+							{% include '#img/cat.svg' %}
+		
+							<span>Для кошек</span>
+		
+							<button onclick="grummer.popupServices.clearBreedFilter(this, event)">
+								{% include '#img/close-circle.svg' %}
+							</button>
+						</div>
+						<div class="services__nav-btn btn-costom" onclick="grummer.popupServices.filterServicesByBreed(this, 'dog')">
+							{% include '#img/dog.svg' %}
+		
+							<span>Для собак</span>
+		
+							<button onclick="grummer.popupServices.clearBreedFilter(this, event)">
+								{% include '#img/close-circle.svg' %}
+							</button>
+						</div>
+					</div>
+				</div>
+				
             </div>
             <div class="popup-services__sliders">
                 <div class="popup-services__slider-wrapper">

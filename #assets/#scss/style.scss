@@ -41,7 +41,7 @@ body {
 	flex-direction: column;
 
 	&.lock {
-		overflow: hidden;
+		overflow: hidden !important;
 	}
 }
 

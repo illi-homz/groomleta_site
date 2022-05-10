@@ -5,7 +5,7 @@
 const grummer = {
 	animal: null,
 	currentServices: [],
-	currentBreed: undefined,
+	currentAnimal: null,
 	breesTemplate: null,
 	
 	goToBlock(target, event) {

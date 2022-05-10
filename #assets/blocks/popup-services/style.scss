@@ -13,6 +13,7 @@
 		@include fontSet(20, 21, 700);
 		margin-bottom: 20px;
 	}
+
 	.popup__content {
 		background-color: #fff;
 		padding-left: 0;
@@ -22,6 +23,24 @@
 			max-width: 1064px;
 			padding: 48px 0 70px;
 			// padding: 48px 105px 70px;
+		}
+	}
+
+	.services__nav-btns {
+		padding: 0;
+		margin-bottom: 20px;
+
+		@include tablet {
+			margin-bottom: 0;
+		}
+	}
+
+	.services__filters {
+		padding: 0;
+		margin-bottom: 10px;
+
+		@include tablet {
+			margin-bottom: 0;
 		}
 	}
 
@@ -50,8 +69,11 @@
 
 	&__filter {
 		margin-bottom: 20px;
+		width: 100%;
+
 		@include tablet {
 			max-width: 305px;
+			margin-right: 20px;
 		}
 	}
 
