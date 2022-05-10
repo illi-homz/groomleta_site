@@ -249,12 +249,13 @@
 		justify-content: space-between;
 	}
 	&__slide-img {
-		height: 90px;
+		height: 120px;
 		margin-bottom: 16px;
 		text-align: center;
 
-		@include tablet {
-			height: 120px;
+		img {
+			height: 100%;
+			object-fit: cover;
 		}
 	}
 	&__slide-data {
@@ -272,16 +273,9 @@
 	&__slide-desc {
 		@include fontSet(11, 15, 400);
 		flex: 1;
-		// height: 50px;
 		margin-bottom: 3px;
 		text-align: center;
 		color: rgba(36, 49, 56, 0.4);
-
-		// @include tablet {
-		// 	@include fontSet(11, 16, 400);
-		// 	// height: 65px;
-		// 	margin-bottom: 10px;
-		// }
 	}
 	&__slide-price {
 		text-align: center;
@@ -298,10 +292,6 @@
 		color: #cdd7dc;
 		margin-bottom: 32px;
 		color: rgba(36, 49, 56, 0.4);
-
-		// @include tablet {
-		// 	margin-bottom: 20px;
-		// }
 	}
 	&__slide-btn {
 		width: 100%;

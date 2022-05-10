@@ -2048,9 +2048,15 @@ h1 {
 }
 
 .services__slide-img {
-  height: 90px;
+  height: 120px;
   margin-bottom: 16px;
   text-align: center;
+}
+
+.services__slide-img img {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .services__slide-data {
@@ -3902,10 +3908,6 @@ body.lock {
     background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(#ffffff));
     background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
     background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
-  }
-
-  .services__slide-img {
-    height: 120px;
   }
 
   .ourworks {
