@@ -1,6 +1,6 @@
 from django.db import models
 
-help_text = '!!!Тезисы разделять точкой с запятой ";". Это важно. Иначе будет один сплошной текст.'
+help_text = '!!!Каждый тезис писать на новой строке. Это важно. Иначе будет один сплошной текст.'
 
 class Question(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок')

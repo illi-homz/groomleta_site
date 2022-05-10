@@ -17,7 +17,7 @@ def index(request):
 
     questions = models.Question.objects.all()
     for question in questions:
-        punkts = question.punkts.split(';')
+        punkts = question.punkts.split('\n')
         punkts = [punkt.strip() for punkt in punkts if punkt]
         question.punkts = punkts
     current_data['questions'] = questions
