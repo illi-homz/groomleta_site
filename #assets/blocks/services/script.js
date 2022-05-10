@@ -57,13 +57,13 @@ grummer.services = {
 		$('._services__slider').slick('slickFilter', (_, slide) => {
 			if (animal && category) {
 				return $(slide).find(
-					`._services__slide.category-${category}.${animal},._services__slide.all`,
+					`._services__slide.category-${category}.${animal},._services__slide.any`,
 				).length;
 			}
 
 			if (animal) {
 				return $(slide).find(
-					`._services__slide.${animal},._services__slide.all`,
+					`._services__slide.${animal},._services__slide.any`,
 				).length;
 			}
 
