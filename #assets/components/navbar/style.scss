@@ -11,6 +11,16 @@
 		z-index: 1;
 	}
 
+	&__mobile-menu-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		img {
+			height: 42px;
+		}
+	}
+
 	&__mobile-menu-links {
 		padding-top: 60px;
 		li {
@@ -31,8 +41,8 @@
 		width: 37px;
 		height: 34px;
 		border-radius: 8px;
-		position: relative;
-		z-index: 2;
+		// position: relative;
+		// z-index: 2;
 		cursor: pointer;
 
 		@include tablet {

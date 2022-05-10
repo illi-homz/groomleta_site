@@ -7651,14 +7651,9 @@ grummer.gSelect = {
 
 grummer.header = {
   init() {
-    // this.dataInit();
     this.changeBg();
   },
 
-  // dataInit() {
-  // 	this.menu = $(".header__mobile-menu");
-  // 	this.burger = $(".header__burger");
-  // },
   changeBg() {
     var count = 1;
     var timeChange = 9000;
@@ -7670,14 +7665,7 @@ grummer.header = {
       $bgs[count].classList.add("active");
       count++;
     }, timeChange);
-  } // toggleMenu() {
-  // 	this.menu.slideToggle(300);
-  // 	this.burger.toggleClass("active");
-  // 	$("body").css("overflow") === "visible"
-  // 		? $("body").css({ overflow: "hidden" })
-  // 		: $("body").css({ overflow: "auto" });
-  // },
-
+  }
 
 };
 ;
@@ -7687,13 +7675,12 @@ grummer.navbar = {
   },
 
   dataInit() {
-    this.menu = $('.navbar__mobile-menu');
-    this.burger = $('.navbar__burger');
+    this.menu = $('.navbar__mobile-menu'); // this.burger = $('.navbar__burger');
   },
 
   toggleMenu() {
-    this.menu.slideToggle(300);
-    this.burger.toggleClass('active');
+    this.menu.slideToggle(300); // this.burger.toggleClass('active');
+
     $('body').hasClass('lock') ? $('body').removeClass('lock') : $('body').addClass('lock');
   },
 

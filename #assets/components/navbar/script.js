@@ -4,11 +4,11 @@ grummer.navbar = {
 	},
 	dataInit() {
 		this.menu = $('.navbar__mobile-menu');
-		this.burger = $('.navbar__burger');
+		// this.burger = $('.navbar__burger');
 	},
 	toggleMenu() {
 		this.menu.slideToggle(300);
-		this.burger.toggleClass('active');
+		// this.burger.toggleClass('active');
 
 		$('body').hasClass('lock')
 			? $('body').removeClass('lock')

@@ -1,6 +1,12 @@
 {% load static %}
 
 <nav class="navbar__mobile-menu">
+	<div class="navbar__mobile-menu-header">
+		<img src="{% static '/img/logo.svg' %}" alt="logo">
+		<div class="nav-btn navbar__burger-btn" onclick="grummer.navbar.toggleMenu()">
+			<div class="navbar__burger active"></div>
+		</div>
+	</div>
 	<ul class="navbar__mobile-menu-links">
 		{% for link in header.links %}
 			<li>

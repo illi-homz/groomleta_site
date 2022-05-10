@@ -1630,6 +1630,22 @@ h1 {
   z-index: 1;
 }
 
+.navbar__mobile-menu-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbar__mobile-menu-header img {
+  height: 42px;
+}
+
 .navbar__mobile-menu-links {
   padding-top: 60px;
 }
@@ -1661,8 +1677,6 @@ h1 {
   width: 37px;
   height: 34px;
   border-radius: 8px;
-  position: relative;
-  z-index: 2;
   cursor: pointer;
 }
 
