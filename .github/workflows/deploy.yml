@@ -12,12 +12,12 @@ jobs:
       - uses: fifsky/ssh-action@master
         with:
           command: |
-            cd /home/www/grummers
+            cd ~/grummers
             git pull
             source env/bin/activate
             rm -rf static/*
             ./manage.py collectstatic
-            service supervisor restart
+            sudo /etc/init.d/supervisor start
           host: ${{secrets.HOST}}
           user: root
           key: ${{secrets.SSH_PRIVATE_KEY}}
