@@ -17,6 +17,7 @@ jobs:
             source env/bin/activate
             rm -rf static/*
             ./manage.py collectstatic
+            sudo service supervisor restart
           host: ${{secrets.HOST}}
           user: www
           key: ${{secrets.SSH_PRIVATE_KEY}}
