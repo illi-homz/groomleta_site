@@ -17,7 +17,6 @@ jobs:
             git pull
             rm -rf static/*
             ./manage.py collectstatic
-            git pull
           host: 188.68.220.145
           user: www
           key: ${{secrets.SSH_PRIVATE_KEY}}
