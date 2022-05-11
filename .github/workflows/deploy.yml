@@ -14,6 +14,9 @@ jobs:
           command: |
             cd ~/grummers
             git pull
+            source env/bin/activate
+            rm -rf static/*
+            ./manage.py collectstatic
           host: ${{secrets.HOST}}
           user: www
           key: ${{secrets.SSH_PRIVATE_KEY}}
