@@ -4,7 +4,6 @@
 *.pyc
 __pycache__
 db.sqlite3
-media
 
 # Backup files # 
 *.bak 
@@ -95,4 +94,5 @@ node_modules/
 
 images/**/*
 media/**/*
+static/**/*
 migrations/
