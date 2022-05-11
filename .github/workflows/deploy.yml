@@ -12,7 +12,7 @@ jobs:
       - uses: fifsky/ssh-action@master
         with:
           command: |
-            cd /var/www/grummers
+            cd ~/grummers
             git pull
           host: ${{secrets.HOST}}
           user: www
