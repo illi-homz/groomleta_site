@@ -13,10 +13,7 @@ jobs:
         with:
           command: |
             cd /var/www/grummers
-            source env/bin/activate
             git pull
-            rm -rf static/*
-            ./manage.py collectstatic
           host: ${{secrets.HOST}}
           user: www
           key: ${{secrets.SSH_PRIVATE_KEY}}
