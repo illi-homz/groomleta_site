@@ -1,0 +1,24 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd /var/www/grummers
+			source env/bin/activate
+			git pull
+			rm -rf static/*
+			./manage.py collectstatic
+			git pull
+          host: 188.68.220.145
+          user: www
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          args: "-tt"
