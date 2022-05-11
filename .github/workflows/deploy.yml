@@ -19,6 +19,6 @@ jobs:
             ./manage.py collectstatic
             sudo /etc/init.d/supervisor start
           host: ${{secrets.HOST}}
-          user: root
+          user: www
           key: ${{secrets.SSH_PRIVATE_KEY}}
           args: "-tt"
