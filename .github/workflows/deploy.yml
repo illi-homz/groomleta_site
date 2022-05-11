@@ -17,7 +17,7 @@ jobs:
             source env/bin/activate
             rm -rf ~/grummers/static/*
             ./manage.py collectstatic
-            sudo /etc/init.d/supervisor restart
+            killall gunicorn
           host: ${{secrets.HOST}}
           user: www
           key: ${{secrets.SSH_PRIVATE_KEY}}
