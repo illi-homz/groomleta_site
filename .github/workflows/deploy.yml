@@ -15,7 +15,7 @@ jobs:
             cd ~/grummers
             git pull
             source env/bin/activate
-            rm -rf static/*
+            rm -rf ~/grummers/static/*
             ./manage.py collectstatic
             sudo /etc/init.d/supervisor restart
           host: ${{secrets.HOST}}
