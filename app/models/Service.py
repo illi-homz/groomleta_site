@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.html import mark_safe
 
 class Service(models.Model):
     CAT = 'cat'
@@ -24,6 +25,13 @@ class Service(models.Model):
     time = models.CharField(max_length=20, default='', verbose_name='Продолжительность', blank=True)
     img = models.FileField(upload_to='services', verbose_name='Картинка')
     category = models.ForeignKey('Сategory', on_delete=models.CASCADE, verbose_name='Категория')
+
+    # def img_tag(self):
+    #     return u'<img src="%s" />' % mark_safe(f'<img src="/services/{self.img}" width="150" height="150" />')
+
+    # img_tag.short_description = 'Image'
+    # img_tag.allow_tags = True
+
 
     def __str__(self):
         return f'{self.title} - {self.animals[self.animal]} - {self.category}'

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from . import models
 
 
@@ -14,9 +15,14 @@ dublicate_ad.short_description = "Дублировать объект"
 
 @admin.register(models.Banner)
 class BannerAdmin(admin.ModelAdmin):
-    list_display = ('title', 'img')
+    list_display = ('title', 'img', 'image_tag')
     list_editable = ['img']
     actions = [dublicate_ad]
+
+    def image_tag(self, obj):
+        return format_html('<img width="100" src="{}" />'.format(obj.img.url))
+
+    image_tag.short_description = 'Картинка'
 
 
 @admin.register(models.OurWork)
@@ -48,13 +54,18 @@ class СategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'category', 'animal', 'price', 'img')
+    list_display = ('id', 'title', 'category', 'animal', 'price', 'image_tag')
     list_editable = ['title', 'category', 'animal', 'price']
     list_filter = ['title', 'animal', 'category']
     search_fields = ['title']
     actions = [dublicate_ad]
     list_per_page = 10
     ordering = ('id',)
+
+    def image_tag(self, obj):
+        return format_html('<img width="50" src="{}" />'.format(obj.img.url))
+
+    image_tag.short_description = 'Картинка'
 
 @admin.register(models.Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
