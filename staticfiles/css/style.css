@@ -2034,7 +2034,7 @@ h1 {
   border-radius: 12px;
   overflow: hidden;
   margin: 0 10px;
-  padding: 0 13px 24px;
+  padding: 24px 12px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3339,8 +3339,7 @@ h1 {
 .popup-services__slider-wrapper {
   overflow: hidden;
   position: relative;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 24px 12px;
 }
 
 .popup-services__slider-wrapper:hover .slick-arrow {
