@@ -10,5 +10,5 @@ class Question(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Вопросы и ответы'
+        verbose_name = 'Вопрос и ответ'
         verbose_name_plural = 'Вопросы и ответы'
