@@ -1,16 +1,14 @@
 {% load static %}
 
 <div class="popup-main popup _popup-main" id="popup-main">
-    <div class="popup__body">
-        <div class="popup__content">
-            <div class="popup__close" onclick="grummer.popup.close('_popup-main')"></div>
-            <h1>Оставить заявку</h1>
-            <form
-                onsubmit="grummer.popupMain.submit(this, event)"
-                enctype="multipart/form-data"
-                class="form popup-main__form">
+	<div class="popup__body">
+		<div class="popup__content">
+			<div class="popup__close" onclick="grummer.popup.close('_popup-main')"></div>
+			<h1>Оставить заявку</h1>
+			<form onsubmit="grummer.popupMain.submit(this, event)" enctype="multipart/form-data"
+				class="form popup-main__form">
 				{% csrf_token %}
-                <script id="popup-main__form-service" type="tuts/template">
+				<script id="popup-main__form-service" type="tuts/template">
                     <li class="popup-main__form-service">
                         <div
                             onclick="grummer.popupMain.removeService({id})"
@@ -27,106 +25,101 @@
                         </div>
                     </li>
                 </script>
-                <div class="popup-main__form-field popup-main__form-services _popup-main__form-services one">
-                    <ul class="popup-main__form-services-ul _popup-main__form-services-ul"></ul>
+				<div class="popup-main__form-field popup-main__form-services _popup-main__form-services one">
+					<ul class="popup-main__form-services-ul _popup-main__form-services-ul"></ul>
 
-                    <div
-                        class="popup-main__form-add-service"
-                        onclick="grummer.popupServices.open()">
-                        <span>Добавить услугу</span>
-                        <div class="popup-main__form-add-service-btn"></div>
-                    </div>
-                </div>
-                <div class="popup-main__form-price">
-                    <input name="price" type="hidden" id="_final-price">
-                    Итого: <span class="_final-price">1800</span>
-                </div>
-                <div class="popup-main__form-wrapper">
-                    <div class="popup-main__form-field">
-                        <label class="field _field" data-call="empty" data-msg="Введите фамилию">
-                            <h3>Фамилия</h3>
-                            <input name="lastname" type="text" placeholder="Введите фамилию">
-                            <div class="error-msg _error-msg"></div>
-                        </label>
-                    </div>
-                    <div class="popup-main__form-field">
-                        <label class="field _field" data-call="empty" data-msg="Введите имя">
-                            <h3>Имя</h3>
-                            <input name="name" type="text" placeholder="Введите имя">
-                            <div class="error-msg _error-msg"></div>
-                        </label>
-                    </div>
-                </div>
-                <div class="popup-main__form-wrapper cols-2">
-                    <div class="popup-main__form-field">
-                        <label class="field _field" data-call="empty" data-msg="Введите телефон">
-                            <h3>Телефон</h3>
-                            <input name="tel" class="_input-phone" type="text" placeholder="+7">
-                            <div class="error-msg _error-msg"></div>
-                        </label>
-                    </div>
-                    <div class="popup-main__form-field">
-                        <label class="field _field" data-call="empty" data-msg="Выберите дату">
-                            <h3>Дата</h3>
-                            <div class="popup-main__datepicker">
-                                <input name="date" type="text" id="datepicker" readonly placeholder="Выберите дату">
-                            </div>
-                            <div class="error-msg _error-msg"></div>
-                        </label>
-                    </div>
-                </div>
-                <div class="popup-main__form-field">
-                    <div class="popup-main__form-img-loader _popup-main__form-img-loader">
-                        <input
-                            type="file"
-                            id="form-animals-imgs"
-                            name="images" multiple accept=".jpg,.png"
-                            hidden
-                            onchange="grummer.popupMain.onUploadImages(this)"
-                            onclick="grummer.popupMain.onInputClick(this, event)"
-                        >
-                        <div class="popup-main__form-imgs _popup-main__form-imgs">
-                            <div
-                                class="popup-main__form-imgs-add _popup-main__form-imgs-add"
-                                onclick="grummer.popupMain.loadImages()"
-                            >
-                                <img src="{% static 'img/img-icon-add.svg' %}" alt="">
-                            </div>
-                        </div>
-                        <div
-                            class="popup-main__form-add-img _popup-main__form-add-img"
-                            onclick="grummer.popupMain.loadImages()"
-                        >
-                            <div class="popup-main__form-add-img-title">
-                                <span>Прикрепить фото</span>
-                                <img src="{% static 'img/img-icon.svg' %}" alt="">
-                            </div>
-                            <div class="popup-main__form-add-img-info">
-                                (макс. 4, до 10Мб., JPEG, PNG)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="popup-main__form-field">
-                    <label class="field _field" data-call="" data-msg="">
-                        <h3>Комментарий</h3>
-                        <textarea
-                            name="comment"
-                            oninput="grummer.popupMain.changeCounter(this)"
-                            maxlength="100"
-                            placeholder="Особые пожелания, что нам следует учесть при работе с вашим питомцем"></textarea>
-                    </label>
-                    <div class="popup-main__form-field-counter _popup-main__form-field-counter">
-                        <span>0</span> / 100
-                    </div>
-                </div>
-                <div class="popup-main__form-wrapper popup-main__form-wrapper-footer">
-                    <button class="btn yellow" type="submit">Отправить заявку</button>
-                    <div class="popup-main__form-info">
-                        *Оставьте заявку и мы перезвоним<br>в течение минуты
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+					<div class="popup-main__form-add-service" onclick="grummer.popupServices.open()">
+						<span>Добавить услугу</span>
+						<div class="popup-main__form-add-service-btn"></div>
+					</div>
+				</div>
+				<div class="popup-main__info">
+					<div class="popup-main__info-wrapper">
+						<div class="popup-main__info-text">
+							Собаки весом от <b>5 до 20кг +200₽</b>, от <b>20кг и больше +400₽</b>, сложность работы по времени <b>дополнительный час +200₽, щенки - скидка 30%</b> от стоимости процедуры.<br><br>
+							 Кошки весом <b>5 кг и больше +300₽</b>, сложность работы по времени <b>дополнительный час +200₽</b>
+
+						</div>
+					</div>
+				</div>
+				<div class="popup-main__form-price">
+					<input name="price" type="hidden" id="_final-price">
+					Итого: <span class="_final-price">1800</span>
+				</div>
+				<div class="popup-main__form-wrapper">
+					<div class="popup-main__form-field">
+						<label class="field _field" data-call="empty" data-msg="Введите фамилию">
+							<h3>Фамилия</h3>
+							<input name="lastname" type="text" placeholder="Введите фамилию">
+							<div class="error-msg _error-msg"></div>
+						</label>
+					</div>
+					<div class="popup-main__form-field">
+						<label class="field _field" data-call="empty" data-msg="Введите имя">
+							<h3>Имя</h3>
+							<input name="name" type="text" placeholder="Введите имя">
+							<div class="error-msg _error-msg"></div>
+						</label>
+					</div>
+				</div>
+				<div class="popup-main__form-wrapper cols-2">
+					<div class="popup-main__form-field">
+						<label class="field _field" data-call="empty" data-msg="Введите телефон">
+							<h3>Телефон</h3>
+							<input name="tel" class="_input-phone" type="text" placeholder="+7">
+							<div class="error-msg _error-msg"></div>
+						</label>
+					</div>
+					<div class="popup-main__form-field">
+						<label class="field _field" data-call="empty" data-msg="Выберите дату">
+							<h3>Дата</h3>
+							<div class="popup-main__datepicker">
+								<input name="date" type="text" id="datepicker" readonly placeholder="Выберите дату">
+							</div>
+							<div class="error-msg _error-msg"></div>
+						</label>
+					</div>
+				</div>
+				<div class="popup-main__form-field">
+					<div class="popup-main__form-img-loader _popup-main__form-img-loader">
+						<input type="file" id="form-animals-imgs" name="images" multiple accept=".jpg,.png" hidden
+							onchange="grummer.popupMain.onUploadImages(this)"
+							onclick="grummer.popupMain.onInputClick(this, event)">
+						<div class="popup-main__form-imgs _popup-main__form-imgs">
+							<div class="popup-main__form-imgs-add _popup-main__form-imgs-add"
+								onclick="grummer.popupMain.loadImages()">
+								<img src="{% static 'img/img-icon-add.svg' %}" alt="">
+							</div>
+						</div>
+						<div class="popup-main__form-add-img _popup-main__form-add-img"
+							onclick="grummer.popupMain.loadImages()">
+							<div class="popup-main__form-add-img-title">
+								<span>Прикрепить фото</span>
+								<img src="{% static 'img/img-icon.svg' %}" alt="">
+							</div>
+							<div class="popup-main__form-add-img-info">
+								(макс. 4, до 10Мб., JPEG, PNG)
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="popup-main__form-field">
+					<label class="field _field" data-call="" data-msg="">
+						<h3>Комментарий</h3>
+						<textarea name="comment" oninput="grummer.popupMain.changeCounter(this)" maxlength="100"
+							placeholder="Особые пожелания, что нам следует учесть при работе с вашим питомцем"></textarea>
+					</label>
+					<div class="popup-main__form-field-counter _popup-main__form-field-counter">
+						<span>0</span> / 100
+					</div>
+				</div>
+				<div class="popup-main__form-wrapper popup-main__form-wrapper-footer">
+					<button class="btn yellow" type="submit">Отправить заявку</button>
+					<div class="popup-main__form-info">
+						*Оставьте заявку и мы перезвоним<br>в течение минуты
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
