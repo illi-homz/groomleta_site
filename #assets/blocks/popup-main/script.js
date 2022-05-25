@@ -93,7 +93,7 @@ grummer.popupMain = {
 		// because popup click outside....
 		setTimeout(() => {
 			grummer.currentServices = grummer.currentServices.filter(el => {
-				return el.id !== id;
+				return +el.id !== +id;
 			});
 
 			if (grummer.currentServices.length === 1)
