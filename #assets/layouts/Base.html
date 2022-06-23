@@ -3,21 +3,38 @@
 <!DOCTYPE html>
 <!-- <html lang="ru" theme="dark"> -->
 <html lang="ru" theme="light">
-<head>
-    </script>
-    {% block head %}
-    <title>Title</title>
-    {% endblock %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="вологда зоосалон стрижка кошек собак тримминг груминг">
-    <meta name="description" content="Стрижка собак и кошек в Вологде.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
 
-    <link type="image/x-icon" rel="shortcut icon" href="{% static '/img/favicon.webp' %}">
-    <!-- <link rel="apple-touch-icon" sizes="57x57" href="{% static '/img/favicons/apple-icon-57x57.png' %}">
+<head>
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (m, e, t, r, i, k, a)
+		{
+			m[ i ] = m[ i ] || function () { (m[ i ].a = m[ i ].a || []).push(arguments); };
+			m[ i ].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[ 0 ], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a);
+		})
+			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(89284402, "init", {
+			clickmap: true,
+			trackLinks: true,
+			accurateTrackBounce: true
+		});
+	</script>
+	<!-- /Yandex.Metrika counter -->
+	</script>
+	{% block head %}
+	<title>Title</title>
+	{% endblock %}
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="вологда зоосалон стрижка кошек собак тримминг груминг">
+	<meta name="description" content="Стрижка собак и кошек в Вологде.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+
+	<link type="image/x-icon" rel="shortcut icon" href="{% static '/img/favicon.webp' %}">
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="{% static '/img/favicons/apple-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static '/img/favicons/apple-icon-60x60.png' %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static '/img/favicons/apple-icon-72x72.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static '/img/favicons/apple-icon-76x76.png' %}">
@@ -30,19 +47,24 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static '/img/favicons/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="96x96" href="{% static '/img/favicons/favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static '/img/favicons/favicon-16x16.png' %}"> -->
-    {% block scripts %}{% endblock %}
+	{% block scripts %}{% endblock %}
 </head>
+
 <body>
-    {% block header %}
-        {% include 'components/header/index.html' %}
-    {% endblock %}
+	<noscript>
+		<div><img src="https://mc.yandex.ru/watch/89284402" style="position:absolute; left:-9999px;" alt="" /></div>
+	</noscript>
+	{% block header %}
+	{% include 'components/header/index.html' %}
+	{% endblock %}
 
-    {% block content %}{% endblock %}
+	{% block content %}{% endblock %}
 
-    {% block footer %}
-        {% include 'components/footer/index.html' %}
-    {% endblock %}
+	{% block footer %}
+	{% include 'components/footer/index.html' %}
+	{% endblock %}
 
-    <script src="{% static 'js/script.min.js' %}"></script>
+	<script src="{% static 'js/script.min.js' %}"></script>
 </body>
+
 </html>
