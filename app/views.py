@@ -1,6 +1,6 @@
-from ctypes import resize
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.http import require_GET
 
 from . import data
 from . import models
@@ -29,3 +29,18 @@ def handle_page_not_found(request, exception):
     response = HttpResponse(render(request, 'Page404.html', current_data))
 
     return response
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Crawl-delay: 5",
+        "Host: groomleta.ru",
+        "Disallow: /admin/",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+@require_GET
+def manifest(request):
+    return JsonResponse(data.manifest.data)
