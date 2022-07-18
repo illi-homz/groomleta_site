@@ -6,13 +6,15 @@ class Validator {
 
 	validate() {
 		this.errors = [];
-		var $formFields = $(this.$form).find('._field');
-		var hasErrors = false;
+		let $formFields = $(this.$form).find('._field');
+		let hasErrors = false;
 		$formFields.each((fieldIndex, field) => {
-			var $field = $(field);
+			const $field = $(field);
 			$field.removeClass('error');
-			var callbacks = $field.data('call');
+			let callbacks = $field.data('call');
+
 			if (!callbacks) return true;
+
 			callbacks = callbacks.replace(/ +/g, ' ').trim().split(' ');
 			callbacks.forEach(callback => {
 				if (!this.callbacks[callback].call(this, $field)) {
@@ -21,6 +23,7 @@ class Validator {
 				}
 			});
 		});
+
 		return !hasErrors;
 	}
 
@@ -30,10 +33,9 @@ class Validator {
 			 * @return bool
 			 */
 			phone($field) {
-				var $input = $field.find('input');
-				var regex =
+				let $input = $field.find('input');
+				const regex =
 					/^((\+7|7|8)+\([0-9]{3}\)[0-9]{3}\-[0-9]{2}\-[0-9]{2})$/;
-
 				if (regex.test($input.val())) {
 					$field.find('._error-msg').slideUp();
 					return true;
@@ -44,33 +46,27 @@ class Validator {
 			},
 
 			empty($field) {
-				var $input = $field.find('input');
-				var $textarea = $field.find('textarea');
-
+				let $input = $field.find('input');
+				let $textarea = $field.find('textarea');
 				if ($input.val() == '' || $textarea.val() == '') {
 					this.setMessage($field);
 					return false;
 				}
-
 				$field.find('._error-msg').slideUp();
 				return true;
 			},
-
 			selected($field) {
-				var $input = $field.find('input');
-
+				let $input = $field.find('input');
 				if ($input.val() == '') {
 					this.setMessage($field);
 					return false;
 				}
-
 				$field.find('._error-msg').slideUp();
 				return true;
 			},
-
 			checked($field) {
-				var $input = $field.find('input');
-				var checker = false;
+				let $input = $field.find('input');
+				let checker = false;
 				$input.each(function () {
 					if ($(this).prop('checked')) checker = true;
 				});
@@ -87,7 +83,7 @@ class Validator {
 	}
 
 	setMessage($field) {
-		var $errorMsg = $field.find('._error-msg');
+		const $errorMsg = $field.find('._error-msg');
 		$errorMsg.html($field.data('msg'));
 		$errorMsg.slideDown();
 	}
