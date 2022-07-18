@@ -1,14 +1,14 @@
 "use strict";
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator2(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var grummer = {
   animal: null,
@@ -4072,14 +4072,12 @@ var grummer = {
 \__ \ | | (__|   < _ | \__ \
 |___/_|_|\___|_|\_(_)/ |___/
                    |__/
-
  Version: 1.9.0
   Author: Ken Wheeler
  Website: http://kenwheeler.github.io
     Docs: http://kenwheeler.github.io/slick
     Repo: http://github.com/kenwheeler/slick
   Issues: http://github.com/kenwheeler/slick/issues
-
  */
 
 (function (i) {
@@ -4424,6 +4422,7 @@ var grummer = {
         e = 0,
         t = 0,
         o = 0;
+
     if (i.options.infinite === !0) {
       if (i.slideCount <= i.options.slidesToShow) ++o;else for (; e < i.slideCount;) {
         ++o, e = t + i.options.slidesToScroll, t += i.options.slidesToScroll <= i.options.slidesToShow ? i.options.slidesToScroll : i.options.slidesToShow;
@@ -4431,6 +4430,7 @@ var grummer = {
     } else if (i.options.centerMode === !0) o = i.slideCount;else if (i.options.asNavFor) for (; e < i.slideCount;) {
       ++o, e = t + i.options.slidesToScroll, t += i.options.slidesToScroll <= i.options.slidesToShow ? i.options.slidesToScroll : i.options.slidesToShow;
     } else o = 1 + Math.ceil((i.slideCount - i.options.slidesToShow) / i.options.slidesToScroll);
+
     return o - 1;
   }, e.prototype.getLeft = function (i) {
     var e,
@@ -4928,7 +4928,7 @@ function testWebP(callback) {
     callback(webP.height == 2);
   };
 
-  webP.src = "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
+  webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
 }
 
 testWebP(function (support) {
@@ -4948,18 +4948,18 @@ class Validator {
 
   validate() {
     this.errors = [];
-    var $formFields = $(this.$form).find("._field");
+    var $formFields = $(this.$form).find('._field');
     var hasErrors = false;
     $formFields.each((fieldIndex, field) => {
       var $field = $(field);
-      $field.removeClass("error");
-      var callbacks = $field.data("call");
+      $field.removeClass('error');
+      var callbacks = $field.data('call');
       if (!callbacks) return true;
-      callbacks = callbacks.replace(/ +/g, " ").trim().split(" ");
+      callbacks = callbacks.replace(/ +/g, ' ').trim().split(' ');
       callbacks.forEach(callback => {
         if (!this.callbacks[callback].call(this, $field)) {
           hasErrors = true;
-          $field.addClass("error");
+          $field.addClass('error');
         }
       });
     });
@@ -4972,11 +4972,11 @@ class Validator {
        * @return bool
        */
       phone($field) {
-        var $input = $field.find("input");
+        var $input = $field.find('input');
         var regex = /^((\+7|7|8)+\([0-9]{3}\)[0-9]{3}\-[0-9]{2}\-[0-9]{2})$/;
 
         if (regex.test($input.val())) {
-          $field.find("._error-msg").slideUp();
+          $field.find('._error-msg').slideUp();
           return true;
         }
 
@@ -4985,39 +4985,39 @@ class Validator {
       },
 
       empty($field) {
-        var $input = $field.find("input");
-        var $textarea = $field.find("textarea");
+        var $input = $field.find('input');
+        var $textarea = $field.find('textarea');
 
-        if ($input.val() == "" || $textarea.val() == "") {
+        if ($input.val() == '' || $textarea.val() == '') {
           this.setMessage($field);
           return false;
         }
 
-        $field.find("._error-msg").slideUp();
+        $field.find('._error-msg').slideUp();
         return true;
       },
 
       selected($field) {
-        var $input = $field.find("input");
+        var $input = $field.find('input');
 
-        if ($input.val() == "") {
+        if ($input.val() == '') {
           this.setMessage($field);
           return false;
         }
 
-        $field.find("._error-msg").slideUp();
+        $field.find('._error-msg').slideUp();
         return true;
       },
 
       checked($field) {
-        var $input = $field.find("input");
+        var $input = $field.find('input');
         var checker = false;
         $input.each(function () {
-          if ($(this).prop("checked")) checker = true;
+          if ($(this).prop('checked')) checker = true;
         });
 
         if (checker) {
-          $field.find("._error-msg").slideUp();
+          $field.find('._error-msg').slideUp();
           return true;
         }
 
@@ -5029,8 +5029,8 @@ class Validator {
   }
 
   setMessage($field) {
-    var $errorMsg = $field.find("._error-msg");
-    $errorMsg.html($field.data("msg"));
+    var $errorMsg = $field.find('._error-msg');
+    $errorMsg.html($field.data('msg'));
     $errorMsg.slideDown();
   }
 
@@ -5045,7 +5045,7 @@ class Validator {
 */
 
 !function (a) {
-  "function" == typeof define && define.amd ? define(["jquery"], a) : a("object" == typeof exports ? require("jquery") : jQuery);
+  'function' == typeof define && define.amd ? define(['jquery'], a) : a('object' == typeof exports ? require('jquery') : jQuery);
 }(function (a) {
   var b,
       c = navigator.userAgent,
@@ -5054,25 +5054,25 @@ class Validator {
       f = /android/i.test(c);
   a.mask = {
     definitions: {
-      9: "[0-9]",
-      a: "[A-Za-z]",
-      "*": "[A-Za-z0-9]"
+      9: '[0-9]',
+      a: '[A-Za-z]',
+      '*': '[A-Za-z0-9]'
     },
     autoclear: !0,
-    dataName: "rawMaskFn",
-    placeholder: "_"
+    dataName: 'rawMaskFn',
+    placeholder: '_'
   }, a.fn.extend({
     caret: function caret(a, b) {
       var c;
-      if (0 !== this.length && !this.is(":hidden")) return "number" == typeof a ? (b = "number" == typeof b ? b : a, this.each(function () {
-        this.setSelectionRange ? this.setSelectionRange(a, b) : this.createTextRange && (c = this.createTextRange(), c.collapse(!0), c.moveEnd("character", b), c.moveStart("character", a), c.select());
-      })) : (this[0].setSelectionRange ? (a = this[0].selectionStart, b = this[0].selectionEnd) : document.selection && document.selection.createRange && (c = document.selection.createRange(), a = 0 - c.duplicate().moveStart("character", -1e5), b = a + c.text.length), {
+      if (0 !== this.length && !this.is(':hidden')) return 'number' == typeof a ? (b = 'number' == typeof b ? b : a, this.each(function () {
+        this.setSelectionRange ? this.setSelectionRange(a, b) : this.createTextRange && (c = this.createTextRange(), c.collapse(!0), c.moveEnd('character', b), c.moveStart('character', a), c.select());
+      })) : (this[0].setSelectionRange ? (a = this[0].selectionStart, b = this[0].selectionEnd) : document.selection && document.selection.createRange && (c = document.selection.createRange(), a = 0 - c.duplicate().moveStart('character', -1e5), b = a + c.text.length), {
         begin: a,
         end: b
       });
     },
     unmask: function unmask() {
-      return this.trigger("unmask");
+      return this.trigger('unmask');
     },
     mask: function mask(c, g) {
       var h, i, j, k, l, m, n, o;
@@ -5087,9 +5087,9 @@ class Validator {
         autoclear: a.mask.autoclear,
         placeholder: a.mask.placeholder,
         completed: null
-      }, g), i = a.mask.definitions, j = [], k = n = c.length, l = null, a.each(c.split(""), function (a, b) {
-        "?" == b ? (n--, k = a) : i[b] ? (j.push(new RegExp(i[b])), null === l && (l = j.length - 1), k > a && (m = j.length - 1)) : j.push(null);
-      }), this.trigger("unmask").each(function () {
+      }, g), i = a.mask.definitions, j = [], k = n = c.length, l = null, a.each(c.split(''), function (a, b) {
+        '?' == b ? (n--, k = a) : i[b] ? (j.push(new RegExp(i[b])), null === l && (l = j.length - 1), k > a && (m = j.length - 1)) : j.push(null);
+      }), this.trigger('unmask').each(function () {
         function h() {
           if (g.completed) {
             for (var a = l; m >= a; a++) {
@@ -5105,17 +5105,13 @@ class Validator {
         }
 
         function q(a) {
-          for (; ++a < n && !j[a];) {
-            ;
-          }
+          for (; ++a < n && !j[a];) {}
 
           return a;
         }
 
         function r(a) {
-          for (; --a >= 0 && !j[a];) {
-            ;
-          }
+          for (; --a >= 0 && !j[a];) {}
 
           return a;
         }
@@ -5175,7 +5171,7 @@ class Validator {
         }
 
         function w(a) {
-          if (!B.prop("readonly")) {
+          if (!B.prop('readonly')) {
             var b,
                 c,
                 e,
@@ -5185,7 +5181,7 @@ class Validator {
         }
 
         function x(b) {
-          if (!B.prop("readonly")) {
+          if (!B.prop('readonly')) {
             var c,
                 d,
                 e,
@@ -5219,7 +5215,7 @@ class Validator {
         }
 
         function z() {
-          B.val(C.join(""));
+          B.val(C.join(''));
         }
 
         function A(a) {
@@ -5245,45 +5241,45 @@ class Validator {
             } else C[b] === e.charAt(d) && d++, k > b && (f = b);
           }
 
-          return a ? z() : k > f + 1 ? g.autoclear || C.join("") === D ? (B.val() && B.val(""), y(0, n)) : z() : (z(), B.val(B.val().substring(0, f + 1))), k ? b : l;
+          return a ? z() : k > f + 1 ? g.autoclear || C.join('') === D ? (B.val() && B.val(''), y(0, n)) : z() : (z(), B.val(B.val().substring(0, f + 1))), k ? b : l;
         }
 
         var B = a(this),
-            C = a.map(c.split(""), function (a, b) {
-          return "?" != a ? i[a] ? p(b) : a : void 0;
+            C = a.map(c.split(''), function (a, b) {
+          return '?' != a ? i[a] ? p(b) : a : void 0;
         }),
-            D = C.join(""),
+            D = C.join(''),
             E = B.val();
         B.data(a.mask.dataName, function () {
           return a.map(C, function (a, b) {
             return j[b] && a != p(b) ? a : null;
-          }).join("");
-        }), B.one("unmask", function () {
-          B.off(".mask").removeData(a.mask.dataName);
-        }).on("focus.mask", function () {
-          if (!B.prop("readonly")) {
+          }).join('');
+        }), B.one('unmask', function () {
+          B.off('.mask').removeData(a.mask.dataName);
+        }).on('focus.mask', function () {
+          if (!B.prop('readonly')) {
             clearTimeout(b);
             var a;
             E = B.val(), a = A(), b = setTimeout(function () {
-              B.get(0) === document.activeElement && (z(), a == c.replace("?", "").length ? B.caret(0, a) : B.caret(a));
+              B.get(0) === document.activeElement && (z(), a == c.replace('?', '').length ? B.caret(0, a) : B.caret(a));
             }, 10);
           }
-        }).on("blur.mask", v).on("keydown.mask", w).on("keypress.mask", x).on("input.mask paste.mask", function () {
-          B.prop("readonly") || setTimeout(function () {
+        }).on('blur.mask', v).on('keydown.mask', w).on('keypress.mask', x).on('input.mask paste.mask', function () {
+          B.prop('readonly') || setTimeout(function () {
             var a = A(!0);
             B.caret(a), h();
           }, 0);
-        }), e && f && B.off("input.mask").on("input.mask", u), A();
+        }), e && f && B.off('input.mask').on('input.mask', u), A();
       });
     }
   });
 });
 ;
 !function (e, t) {
-  "object" == typeof exports && "object" == typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports ? exports.AirDatepicker = t() : e.AirDatepicker = t();
+  'object' == typeof exports && 'object' == typeof module ? module.exports = t() : 'function' == typeof define && define.amd ? define([], t) : 'object' == typeof exports ? exports.AirDatepicker = t() : e.AirDatepicker = t();
 }(this, function () {
   return function () {
-    "use strict";
+    'use strict';
 
     var e = {
       d: function d(t, i) {
@@ -5305,50 +5301,50 @@ class Validator {
       }
     });
     var i = {
-      days: "days",
-      months: "months",
-      years: "years",
-      day: "day",
-      month: "month",
-      year: "year",
-      eventChangeViewDate: "changeViewDate",
-      eventChangeCurrentView: "changeCurrentView",
-      eventChangeFocusDate: "changeFocusDate",
-      eventChangeSelectedDate: "changeSelectedDate",
-      eventChangeTime: "changeTime",
-      eventChangeLastSelectedDate: "changeLastSelectedDate",
-      actionSelectDate: "selectDate",
-      actionUnselectDate: "unselectDate",
-      cssClassWeekend: "-weekend-"
+      days: 'days',
+      months: 'months',
+      years: 'years',
+      day: 'day',
+      month: 'month',
+      year: 'year',
+      eventChangeViewDate: 'changeViewDate',
+      eventChangeCurrentView: 'changeCurrentView',
+      eventChangeFocusDate: 'changeFocusDate',
+      eventChangeSelectedDate: 'changeSelectedDate',
+      eventChangeTime: 'changeTime',
+      eventChangeLastSelectedDate: 'changeLastSelectedDate',
+      actionSelectDate: 'selectDate',
+      actionUnselectDate: 'unselectDate',
+      cssClassWeekend: '-weekend-'
     },
         s = {
-      classes: "",
+      classes: '',
       inline: !1,
       locale: {
-        days: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
-        daysShort: ["Вос", "Пон", "Вто", "Сре", "Чет", "Пят", "Суб"],
-        daysMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
-        months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
-        monthsShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
-        today: "Сегодня",
-        clear: "Очистить",
-        dateFormat: "dd.MM.yyyy",
-        timeFormat: "HH:mm",
+        days: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+        daysShort: ['Вос', 'Пон', 'Вто', 'Сре', 'Чет', 'Пят', 'Суб'],
+        daysMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+        months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+        today: 'Сегодня',
+        clear: 'Очистить',
+        dateFormat: 'dd.MM.yyyy',
+        timeFormat: 'HH:mm',
         firstDay: 1
       },
       startDate: new Date(),
-      firstDay: "",
+      firstDay: '',
       weekends: [6, 0],
-      dateFormat: "",
-      altField: "",
-      altFieldDateFormat: "T",
+      dateFormat: '',
+      altField: '',
+      altFieldDateFormat: 'T',
       toggleSelected: !0,
       keyboardNav: !0,
       selectedDates: !1,
-      container: "",
+      container: '',
       isMobile: !1,
       visible: !1,
-      position: "bottom left",
+      position: 'bottom left',
       offset: 12,
       view: i.days,
       minView: i.days,
@@ -5358,28 +5354,28 @@ class Validator {
       showOtherYears: !0,
       selectOtherYears: !0,
       moveToOtherYearsOnSelect: !0,
-      minDate: "",
-      maxDate: "",
+      minDate: '',
+      maxDate: '',
       disableNavWhenOutOfRange: !0,
       multipleDates: !1,
-      multipleDatesSeparator: ", ",
+      multipleDatesSeparator: ', ',
       range: !1,
       dynamicRange: !0,
       buttons: !1,
-      monthsField: "monthsShort",
-      showEvent: "focus",
+      monthsField: 'monthsShort',
+      showEvent: 'focus',
       autoClose: !1,
       prevHtml: '<svg><path d="M 17,12 l -5,5 l 5,5"></path></svg>',
       nextHtml: '<svg><path d="M 14,12 l 5,5 l -5,5"></path></svg>',
       navTitles: {
-        days: "MMMM, <i>yyyy</i>",
-        months: "yyyy",
-        years: "yyyy1 - yyyy2"
+        days: 'MMMM, <i>yyyy</i>',
+        months: 'yyyy',
+        years: 'yyyy1 - yyyy2'
       },
       timepicker: !1,
       onlyTimepicker: !1,
-      dateTimeSeparator: " ",
-      timeFormat: "",
+      dateTimeSeparator: ' ',
+      timeFormat: '',
       minHours: 0,
       maxHours: 24,
       minMinutes: 0,
@@ -5396,19 +5392,19 @@ class Validator {
 
     function a(e) {
       var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : document;
-      return "string" == typeof e ? t.querySelector(e) : e;
+      return 'string' == typeof e ? t.querySelector(e) : e;
     }
 
     function n() {
       var {
-        tagName: e = "div",
-        className: t = "",
-        innerHtml: i = "",
-        id: s = "",
+        tagName: e = 'div',
+        className: t = '',
+        innerHtml: i = '',
+        id: s = '',
         attrs: a = {}
       } = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {},
           n = document.createElement(e);
-      if (t && n.classList.add(...t.split(" ")), s && (n.id = s), i && (n.innerHTML = i), a) for (var _e2 in a) {
+      if (t && n.classList.add(...t.split(' ')), s && (n.id = s), i && (n.innerHTML = i), a) for (var _e2 in a) {
         n.setAttribute(_e2, a[_e2]);
       }
       return n;
@@ -5432,21 +5428,21 @@ class Validator {
       return {
         year: e.getFullYear(),
         month: e.getMonth(),
-        fullMonth: e.getMonth() + 1 < 10 ? "0" + (e.getMonth() + 1) : e.getMonth() + 1,
+        fullMonth: e.getMonth() + 1 < 10 ? '0' + (e.getMonth() + 1) : e.getMonth() + 1,
         date: e.getDate(),
-        fullDate: e.getDate() < 10 ? "0" + e.getDate() : e.getDate(),
+        fullDate: e.getDate() < 10 ? '0' + e.getDate() : e.getDate(),
         day: e.getDay(),
         hours: t,
         fullHours: l(t),
         hours12: i,
         fullHours12: l(i),
         minutes: e.getMinutes(),
-        fullMinutes: e.getMinutes() < 10 ? "0" + e.getMinutes() : e.getMinutes()
+        fullMinutes: e.getMinutes() < 10 ? '0' + e.getMinutes() : e.getMinutes()
       };
     }
 
     function l(e) {
-      return e < 10 ? "0" + e : e;
+      return e < 10 ? '0' + e : e;
     }
 
     function d(e) {
@@ -5462,10 +5458,10 @@ class Validator {
       }
 
       return i.forEach(t => {
-        if ("object" == typeof t) for (var _i3 in t) {
+        if ('object' == typeof t) for (var _i3 in t) {
           t[_i3] && e.push(_i3);
         } else t && e.push(t);
-      }), e.join(" ");
+      }), e.join(' ');
     }
 
     function u(e, t) {
@@ -5494,7 +5490,7 @@ class Validator {
     function g(e) {
       var t = !(arguments.length > 1 && void 0 !== arguments[1]) || arguments[1],
           i = new Date(e.getTime());
-      return "boolean" != typeof t || t || D(i), i;
+      return 'boolean' != typeof t || t || D(i), i;
     }
 
     function D(e) {
@@ -5522,7 +5518,7 @@ class Validator {
 
       return i.filter(e => e).forEach(t => {
         for (var [_i4, _s2] of Object.entries(t)) {
-          if (void 0 !== _s2 && "[object Object]" === _s2.toString()) {
+          if (void 0 !== _s2 && '[object Object]' === _s2.toString()) {
             var _t3 = void 0 !== e[_i4] ? e[_i4].toString() : void 0,
                 _a = _s2.toString(),
                 _n = Array.isArray(_s2) ? [] : {};
@@ -5539,8 +5535,8 @@ class Validator {
     }
 
     function k(e) {
-      var t = "\\s|\\.|-|/|\\\\|,|\\$|\\!|\\?|:|;";
-      return new RegExp("(^|>|" + t + ")(" + e + ")($|<|" + t + ")", "g");
+      var t = '\\s|\\.|-|/|\\\\|,|\\$|\\!|\\?|:|;';
+      return new RegExp('(^|>|' + t + ')(' + e + ')($|<|' + t + ')', 'g');
     }
 
     function C(e, t, i) {
@@ -5561,21 +5557,21 @@ class Validator {
           opts: s,
           body: a
         } = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
-        C(this, "focus", () => {
-          this.$cell.classList.add("-focus-"), this.focused = !0;
-        }), C(this, "removeFocus", () => {
-          this.$cell.classList.remove("-focus-"), this.focused = !1;
-        }), C(this, "select", () => {
-          this.$cell.classList.add("-selected-"), this.selected = !0;
-        }), C(this, "removeSelect", () => {
-          this.$cell.classList.remove("-selected-", "-range-from-", "-range-to-"), this.selected = !1;
-        }), C(this, "onChangeSelectedDate", () => {
+        C(this, 'focus', () => {
+          this.$cell.classList.add('-focus-'), this.focused = !0;
+        }), C(this, 'removeFocus', () => {
+          this.$cell.classList.remove('-focus-'), this.focused = !1;
+        }), C(this, 'select', () => {
+          this.$cell.classList.add('-selected-'), this.selected = !0;
+        }), C(this, 'removeSelect', () => {
+          this.$cell.classList.remove('-selected-', '-range-from-', '-range-to-'), this.selected = !1;
+        }), C(this, 'onChangeSelectedDate', () => {
           this.isDisabled || (this._handleSelectedStatus(), this.opts.range && this._handleRangeStatus());
-        }), C(this, "onChangeFocusDate", e => {
+        }), C(this, 'onChangeFocusDate', e => {
           if (!e) return void (this.focused && this.removeFocus());
           var t = u(e, this.date, this.type);
           t ? this.focus() : !t && this.focused && this.removeFocus(), this.opts.range && this._handleRangeStatus();
-        }), C(this, "render", () => (this.$cell.innerHTML = this._getHtml(), this.$cell.adpCell = this, this.$cell)), this.type = e, this.singleType = this.type.slice(0, -1), this.date = t, this.dp = i, this.opts = s, this.body = a, this.customData = !1, this.init();
+        }), C(this, 'render', () => (this.$cell.innerHTML = this._getHtml(), this.$cell.adpCell = this, this.$cell)), this.type = e, this.singleType = this.type.slice(0, -1), this.date = t, this.dp = i, this.opts = s, this.body = a, this.customData = !1, this.init();
       }
 
       init() {
@@ -5607,9 +5603,9 @@ class Validator {
         this.$cell = n({
           className: this._getClassName(),
           attrs: {
-            "data-year": e,
-            "data-month": t,
-            "data-date": i
+            'data-year': e,
+            'data-month': t,
+            'data-date': i
           }
         });
       }
@@ -5631,32 +5627,32 @@ class Validator {
         } = o(this.date),
             d = this._isOutOfMinMaxRange(),
             p = null === (e = this.customData) || void 0 === e ? void 0 : e.disabled,
-            m = c("air-datepicker-cell", "-".concat(this.singleType, "-"), {
-          "-current-": u(s, this.date, this.type),
-          "-min-date-": r && u(r, this.date, this.type),
-          "-max-date-": h && u(h, this.date, this.type)
+            m = c('air-datepicker-cell', '-'.concat(this.singleType, '-'), {
+          '-current-': u(s, this.date, this.type),
+          '-min-date-': r && u(r, this.date, this.type),
+          '-max-date-': h && u(h, this.date, this.type)
         }),
-            g = "";
+            g = '';
 
         switch (this.type) {
           case i.days:
             g = c({
-              "-weekend-": this.dp.isWeekend(l),
-              "-other-month-": this.isOtherMonth,
-              "-disabled-": this.isOtherMonth && !a || d || p
+              '-weekend-': this.dp.isWeekend(l),
+              '-other-month-': this.isOtherMonth,
+              '-disabled-': this.isOtherMonth && !a || d || p
             });
             break;
 
           case i.months:
             g = c({
-              "-disabled-": d || p
+              '-disabled-': d || p
             });
             break;
 
           case i.years:
             g = c({
-              "-other-decade-": this.isOtherDecade,
-              "-disabled-": d || this.isOtherDecade && !n || p
+              '-other-decade-': this.isOtherDecade,
+              '-disabled-': d || this.isOtherDecade && !n || p
             });
         }
 
@@ -5678,13 +5674,13 @@ class Validator {
 
         switch (this.type) {
           case i.days:
-            return !n && this.isOtherMonth ? "" : a;
+            return !n && this.isOtherMonth ? '' : a;
 
           case i.months:
             return this.dp.locale[this.opts.monthsField][s];
 
           case i.years:
-            return !r && this.isOtherDecade ? "" : t;
+            return !r && this.isOtherDecade ? '' : t;
         }
       }
 
@@ -5719,12 +5715,12 @@ class Validator {
           rangeDateTo: t
         } = this.dp,
             i = c({
-          "-in-range-": e && t && (s = this.date, a = e, n = t, p(s, a) && m(s, n)),
-          "-range-from-": e && u(this.date, e, this.type),
-          "-range-to-": t && u(this.date, t, this.type)
+          '-in-range-': e && t && (s = this.date, a = e, n = t, p(s, a) && m(s, n)),
+          '-range-from-': e && u(this.date, e, this.type),
+          '-range-to-': t && u(this.date, t, this.type)
         });
         var s, a, n;
-        this.$cell.classList.remove("-range-from-", "-range-to-", "-in-range-"), i && this.$cell.classList.add(...i.split(" "));
+        this.$cell.classList.remove('-range-from-', '-range-to-', '-in-range-'), i && this.$cell.classList.add(...i.split(' '));
       }
 
       _handleSelectedStatus() {
@@ -5738,7 +5734,7 @@ class Validator {
       }
 
       get isDisabled() {
-        return this.$cell.matches(".-disabled-");
+        return this.$cell.matches('.-disabled-');
       }
 
       get isOtherMonth() {
@@ -5773,8 +5769,8 @@ class Validator {
           type: s,
           opts: a
         } = e;
-        M(this, "handleClick", e => {
-          var t = y(e.target, ".air-datepicker-cell");
+        M(this, 'handleClick', e => {
+          var t = y(e.target, '.air-datepicker-cell');
           if (!t) return;
           var i = t.adpCell;
           if (i.isDisabled) return;
@@ -5783,24 +5779,24 @@ class Validator {
           var s = this.dp._checkIfDateIsSelected(i.date, i.type);
 
           s ? this.dp._handleAlreadySelectedDates(s, i.date) : this.dp.selectDate(i.date);
-        }), M(this, "onChangeCurrentView", e => {
+        }), M(this, 'onChangeCurrentView', e => {
           e !== this.type ? this.hide() : (this.show(), this.render());
-        }), M(this, "onMouseOverCell", e => {
-          var t = y(e.target, ".air-datepicker-cell");
+        }), M(this, 'onMouseOverCell', e => {
+          var t = y(e.target, '.air-datepicker-cell');
           this.dp.setFocusDate(!!t && t.adpCell.date);
-        }), M(this, "onMouseOutCell", () => {
+        }), M(this, 'onMouseOutCell', () => {
           this.dp.setFocusDate(!1);
-        }), M(this, "onClickCell", e => {
+        }), M(this, 'onClickCell', e => {
           this.handleClick(e);
-        }), M(this, "onMouseDown", e => {
+        }), M(this, 'onMouseDown', e => {
           this.pressed = !0;
-          var t = y(e.target, ".air-datepicker-cell"),
+          var t = y(e.target, '.air-datepicker-cell'),
               i = t && t.adpCell;
           u(i.date, this.dp.rangeDateFrom) && (this.rangeFromFocused = !0), u(i.date, this.dp.rangeDateTo) && (this.rangeToFocused = !0);
-        }), M(this, "onMouseMove", e => {
+        }), M(this, 'onMouseMove', e => {
           if (!this.pressed || !this.dp.isMinViewReached) return;
           e.preventDefault();
-          var t = y(e.target, ".air-datepicker-cell"),
+          var t = y(e.target, '.air-datepicker-cell'),
               i = t && t.adpCell,
               {
             selectedDates: s,
@@ -5829,9 +5825,9 @@ class Validator {
               r.setHours(_e4), r.setMinutes(_t5), this.dp.rangeDateTo = r, this.dp.replaceDate(a, r);
             }
           }
-        }), M(this, "onMouseUp", () => {
+        }), M(this, 'onMouseUp', () => {
           this.pressed = !1, this.rangeFromFocused = !1, this.rangeToFocused = !1;
-        }), M(this, "onChangeViewDate", (e, t) => {
+        }), M(this, 'onChangeViewDate', (e, t) => {
           if (!this.isVisible) return;
           var s = d(e),
               a = d(t);
@@ -5850,11 +5846,11 @@ class Validator {
           }
 
           this.render();
-        }), M(this, "render", () => {
+        }), M(this, 'render', () => {
           this.destroyCells(), this._generateCells(), this.cells.forEach(e => {
             this.$cells.appendChild(e.render());
           });
-        }), this.dp = t, this.type = s, this.opts = a, this.cells = [], this.$el = "", this.pressed = !1, this.isVisible = !0, this.init();
+        }), this.dp = t, this.type = s, this.opts = a, this.cells = [], this.$el = '', this.pressed = !1, this.isVisible = !0, this.init();
       }
 
       init() {
@@ -5866,7 +5862,7 @@ class Validator {
           range: e,
           dynamicRange: t
         } = this.opts;
-        v(this.$el, "mouseover", this.onMouseOverCell), v(this.$el, "mouseout", this.onMouseOutCell), v(this.$el, "click", this.onClickCell), e && t && (v(this.$el, "mousedown", this.onMouseDown), v(this.$el, "mousemove", this.onMouseMove), v(window.document, "mouseup", this.onMouseUp));
+        v(this.$el, 'mouseover', this.onMouseOverCell), v(this.$el, 'mouseout', this.onMouseOutCell), v(this.$el, 'click', this.onClickCell), e && t && (v(this.$el, 'mousedown', this.onMouseDown), v(this.$el, 'mousemove', this.onMouseMove), v(window.document, 'mouseup', this.onMouseUp));
       }
 
       _bindDatepickerEvents() {
@@ -5875,26 +5871,26 @@ class Validator {
 
       _buildBaseHtml() {
         this.$el = n({
-          className: "air-datepicker-body -".concat(this.type, "-"),
+          className: 'air-datepicker-body -'.concat(this.type, '-'),
           innerHtml: $[this.type]
-        }), this.$names = a(".air-datepicker-body--day-names", this.$el), this.$cells = a(".air-datepicker-body--cells", this.$el);
+        }), this.$names = a('.air-datepicker-body--day-names', this.$el), this.$cells = a('.air-datepicker-body--cells', this.$el);
       }
 
       _getDayNamesHtml() {
         var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.dp.locale.firstDay,
-            t = "",
+            t = '',
             s = this.dp.isWeekend,
             a = e,
             n = 0;
 
         for (; n < 7;) {
           var _e5 = a % 7,
-              _r2 = c("air-datepicker-body--day-name", {
+              _r2 = c('air-datepicker-body--day-name', {
             [i.cssClassWeekend]: s(_e5)
           }),
               _h = this.dp.locale.daysMin[_e5];
 
-          t += '<div class="'.concat(_r2, '">').concat(_h, "</div>"), n++, a++;
+          t += '<div class="'.concat(_r2, '">').concat(_h, '</div>'), n++, a++;
         }
 
         return t;
@@ -6006,15 +6002,15 @@ class Validator {
       }
 
       show() {
-        this.isVisible = !0, this.$el.classList.remove("-hidden-");
+        this.isVisible = !0, this.$el.classList.remove('-hidden-');
       }
 
       hide() {
-        this.isVisible = !1, this.$el.classList.add("-hidden-");
+        this.isVisible = !1, this.$el.classList.add('-hidden-');
       }
 
       destroyCells() {
-        this.cells.forEach(e => e.destroy()), this.cells = [], this.$cells.innerHTML = "";
+        this.cells.forEach(e => e.destroy()), this.cells = [], this.$cells.innerHTML = '';
       }
 
       destroy() {
@@ -6038,32 +6034,32 @@ class Validator {
           dp: t,
           opts: i
         } = e;
-        T(this, "onClickNav", e => {
-          var t = y(e.target, ".air-datepicker-nav--action");
+        T(this, 'onClickNav', e => {
+          var t = y(e.target, '.air-datepicker-nav--action');
           if (!t) return;
           var i = t.dataset.action;
           this.dp[i]();
-        }), T(this, "onChangeViewDate", () => {
+        }), T(this, 'onChangeViewDate', () => {
           this.render(), this._resetNavStatus(), this.handleNavStatus();
-        }), T(this, "onChangeCurrentView", () => {
+        }), T(this, 'onChangeCurrentView', () => {
           this.render(), this._resetNavStatus(), this.handleNavStatus();
-        }), T(this, "onClickNavTitle", () => {
+        }), T(this, 'onClickNavTitle', () => {
           this.dp.isFinalView || this.dp.up();
-        }), T(this, "update", () => {
+        }), T(this, 'update', () => {
           var {
             prevHtml: e,
             nextHtml: t
           } = this.opts;
           this.$prev.innerHTML = e, this.$next.innerHTML = t, this._resetNavStatus(), this.render(), this.handleNavStatus();
-        }), T(this, "renderDelay", () => {
+        }), T(this, 'renderDelay', () => {
           setTimeout(this.render);
-        }), T(this, "render", () => {
+        }), T(this, 'render', () => {
           this.$title.innerHTML = this._getTitle(), function (e, t) {
             for (var _i5 in t) {
               t[_i5] ? e.classList.add(_i5) : e.classList.remove(_i5);
             }
           }(this.$title, {
-            "-disabled-": this.dp.isFinalView
+            '-disabled-': this.dp.isFinalView
           });
         }), this.dp = t, this.opts = i, this.init();
       }
@@ -6073,11 +6069,11 @@ class Validator {
       }
 
       _defineDOM() {
-        this.$title = a(".air-datepicker-nav--title", this.$el), this.$prev = a('[data-action="prev"]', this.$el), this.$next = a('[data-action="next"]', this.$el);
+        this.$title = a('.air-datepicker-nav--title', this.$el), this.$prev = a('[data-action="prev"]', this.$el), this.$next = a('[data-action="next"]', this.$el);
       }
 
       _bindEvents() {
-        this.$el.addEventListener("click", this.onClickNav), this.$title.addEventListener("click", this.onClickNavTitle);
+        this.$el.addEventListener('click', this.onClickNav), this.$title.addEventListener('click', this.onClickNavTitle);
       }
 
       _bindDatepickerEvents() {
@@ -6090,8 +6086,8 @@ class Validator {
 
       _createElement() {
         this.$el = n({
-          tagName: "nav",
-          className: "air-datepicker-nav"
+          tagName: 'nav',
+          className: 'air-datepicker-nav'
         });
       }
 
@@ -6101,7 +6097,7 @@ class Validator {
           opts: t
         } = this,
             i = t.navTitles[e.currentView];
-        return "function" == typeof i ? i(e) : e.formatDate(e.viewDate, i);
+        return 'function' == typeof i ? i(e) : e.formatDate(e.viewDate, i);
       }
 
       handleNavStatus() {
@@ -6122,25 +6118,25 @@ class Validator {
 
         switch (this.dp.currentView) {
           case i.days:
-            t && r.month >= n && r.year >= a && this._disableNav("prev"), s && h.month <= n && h.year <= a && this._disableNav("next");
+            t && r.month >= n && r.year >= a && this._disableNav('prev'), s && h.month <= n && h.year <= a && this._disableNav('next');
             break;
 
           case i.months:
-            t && r.year >= a && this._disableNav("prev"), s && h.year <= a && this._disableNav("next");
+            t && r.year >= a && this._disableNav('prev'), s && h.year <= a && this._disableNav('next');
             break;
 
           case i.years:
             {
               var _e7 = d(this.dp.viewDate);
 
-              t && r.year >= _e7[0] && this._disableNav("prev"), s && h.year <= _e7[1] && this._disableNav("next");
+              t && r.year >= _e7[0] && this._disableNav('prev'), s && h.year <= _e7[1] && this._disableNav('next');
               break;
             }
         }
       }
 
       _disableNav(e) {
-        a('[data-action="' + e + '"]', this.$el).classList.add("-disabled-");
+        a('[data-action="' + e + '"]', this.$el).classList.add('-disabled-');
       }
 
       _resetNavStatus() {
@@ -6152,7 +6148,7 @@ class Validator {
           e.length ? e.forEach(e => {
             e.classList.remove(...i);
           }) : e.classList.remove(...i);
-        }(this.$el.querySelectorAll(".air-datepicker-nav--action"), "-disabled-");
+        }(this.$el.querySelectorAll('.air-datepicker-nav--action'), '-disabled-');
       }
 
       _buildBaseHtml() {
@@ -6160,14 +6156,14 @@ class Validator {
           prevHtml: e,
           nextHtml: t
         } = this.opts;
-        this.$el.innerHTML = '<div class="air-datepicker-nav--action" data-action="prev">'.concat(e, "</div>") + '<div class="air-datepicker-nav--title"></div>' + '<div class="air-datepicker-nav--action" data-action="next">'.concat(t, "</div>");
+        this.$el.innerHTML = '<div class="air-datepicker-nav--action" data-action="prev">'.concat(e, '</div>') + '<div class="air-datepicker-nav--title"></div>' + '<div class="air-datepicker-nav--action" data-action="next">'.concat(t, '</div>');
       }
 
       get isNavIsFunction() {
         var {
           navTitles: e
         } = this.opts;
-        return Object.keys(e).find(t => "function" == typeof e[t]);
+        return Object.keys(e).find(t => 'function' == typeof e[t]);
       }
 
     }
@@ -6198,7 +6194,7 @@ class Validator {
 
       createElement() {
         this.$el = n({
-          className: "air-datepicker-buttons"
+          className: 'air-datepicker-buttons'
         });
       }
 
@@ -6207,7 +6203,7 @@ class Validator {
       }
 
       clearHtml() {
-        return this.$el.innerHTML = "", this;
+        return this.$el.innerHTML = '', this;
       }
 
       generateButtons() {
@@ -6216,14 +6212,14 @@ class Validator {
         } = this.opts;
         Array.isArray(e) || (e = [e]), e.forEach(e => {
           var t = e;
-          "string" == typeof e && V[e] && (t = V[e]);
+          'string' == typeof e && V[e] && (t = V[e]);
           var i = this.createButton(t);
           t.onClick && this.attachEventToButton(i, t.onClick), this.$el.appendChild(i);
         });
       }
 
       attachEventToButton(e, t) {
-        e.addEventListener("click", () => {
+        e.addEventListener('click', () => {
           t(this.dp);
         });
       }
@@ -6232,14 +6228,14 @@ class Validator {
         var {
           content: t,
           className: i,
-          tagName: s = "button",
+          tagName: s = 'button',
           attrs: a = {}
         } = e,
-            r = "function" == typeof t ? t(this.dp) : t;
+            r = 'function' == typeof t ? t(this.dp) : t;
         return n({
           tagName: s,
-          innerHtml: "<span tabindex='-1'>".concat(r, "</span>"),
-          className: c("air-datepicker-button", i),
+          innerHtml: "<span tabindex='-1'>".concat(r, '</span>'),
+          className: c('air-datepicker-button', i),
           attrs: a
         });
       }
@@ -6265,35 +6261,35 @@ class Validator {
           opts: e,
           dp: t
         } = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {};
-        x(this, "toggleTimepickerIsActive", e => {
+        x(this, 'toggleTimepickerIsActive', e => {
           this.dp.timepickerIsActive = e;
-        }), x(this, "onChangeSelectedDate", e => {
+        }), x(this, 'onChangeSelectedDate', e => {
           var {
             date: t,
             updateTime: i = !1
           } = e;
           t && (this.setMinMaxTime(t), this.setCurrentTime(!!i && t), this.addTimeToDate(t));
-        }), x(this, "onChangeLastSelectedDate", e => {
+        }), x(this, 'onChangeLastSelectedDate', e => {
           e && (this.setTime(e), this.render());
-        }), x(this, "onChangeInputRange", e => {
+        }), x(this, 'onChangeInputRange', e => {
           var t = e.target;
-          this[t.getAttribute("name")] = t.value, this.updateText(), this.dp.trigger(i.eventChangeTime, {
+          this[t.getAttribute('name')] = t.value, this.updateText(), this.dp.trigger(i.eventChangeTime, {
             hours: this.hours,
             minutes: this.minutes
           });
-        }), x(this, "onMouseEnterLeave", e => {
-          var t = e.target.getAttribute("name"),
+        }), x(this, 'onMouseEnterLeave', e => {
+          var t = e.target.getAttribute('name'),
               i = this.$minutesText;
-          "hours" === t && (i = this.$hoursText), i.classList.toggle("-focus-");
-        }), x(this, "onFocus", () => {
+          'hours' === t && (i = this.$hoursText), i.classList.toggle('-focus-');
+        }), x(this, 'onFocus', () => {
           this.toggleTimepickerIsActive(!0);
-        }), x(this, "onBlur", () => {
+        }), x(this, 'onBlur', () => {
           this.toggleTimepickerIsActive(!1);
         }), this.opts = e, this.dp = t;
         var {
           timeFormat: s
         } = this.dp.locale;
-        s && (s.match(k("h")) || s.match(k("hh"))) && (this.ampm = !0), this.init();
+        s && (s.match(k('h')) || s.match(k('hh'))) && (this.ampm = !0), this.init();
       }
 
       init() {
@@ -6305,14 +6301,14 @@ class Validator {
       }
 
       bindDOMEvents() {
-        var e = "input";
-        navigator.userAgent.match(/trident/gi) && (e = "change"), v(this.$ranges, e, this.onChangeInputRange), v(this.$ranges, "mouseenter", this.onMouseEnterLeave), v(this.$ranges, "mouseleave", this.onMouseEnterLeave), v(this.$ranges, "focus", this.onFocus), v(this.$ranges, "mousedown", this.onFocus), v(this.$ranges, "blur", this.onBlur);
+        var e = 'input';
+        navigator.userAgent.match(/trident/gi) && (e = 'change'), v(this.$ranges, e, this.onChangeInputRange), v(this.$ranges, 'mouseenter', this.onMouseEnterLeave), v(this.$ranges, 'mouseleave', this.onMouseEnterLeave), v(this.$ranges, 'focus', this.onFocus), v(this.$ranges, 'mousedown', this.onFocus), v(this.$ranges, 'blur', this.onBlur);
       }
 
       createElement() {
         this.$el = n({
-          className: c("air-datepicker-time", {
-            "-am-pm-": this.dp.ampm
+          className: c('air-datepicker-time', {
+            '-am-pm-': this.dp.ampm
           })
         });
       }
@@ -6337,13 +6333,13 @@ class Validator {
             minutesStep: c
           }
         } = this;
-        this.$el.innerHTML = '<div class="air-datepicker-time--current">' + '   <span class="air-datepicker-time--current-hours">'.concat(l(i), "</span>") + '   <span class="air-datepicker-time--current-colon">:</span>' + '   <span class="air-datepicker-time--current-minutes">'.concat(l(s), "</span>") + "   ".concat(e ? "<span class='air-datepicker-time--current-ampm'>".concat(o, "</span>") : "") + '</div><div class="air-datepicker-time--sliders">   <div class="air-datepicker-time--row">' + '      <input type="range" name="hours" value="'.concat(t, '" min="').concat(a, '" max="').concat(r, '" step="').concat(d, '"/>') + '   </div>   <div class="air-datepicker-time--row">' + '      <input type="range" name="minutes" value="'.concat(s, '" min="').concat(n, '" max="').concat(h, '" step="').concat(c, '"/>') + "   </div></div>";
+        this.$el.innerHTML = '<div class="air-datepicker-time--current">' + '   <span class="air-datepicker-time--current-hours">'.concat(l(i), '</span>') + '   <span class="air-datepicker-time--current-colon">:</span>' + '   <span class="air-datepicker-time--current-minutes">'.concat(l(s), '</span>') + '   '.concat(e ? "<span class='air-datepicker-time--current-ampm'>".concat(o, '</span>') : '') + '</div><div class="air-datepicker-time--sliders">   <div class="air-datepicker-time--row">' + '      <input type="range" name="hours" value="'.concat(t, '" min="').concat(a, '" max="').concat(r, '" step="').concat(d, '"/>') + '   </div>   <div class="air-datepicker-time--row">' + '      <input type="range" name="minutes" value="'.concat(s, '" min="').concat(n, '" max="').concat(h, '" step="').concat(c, '"/>') + '   </div></div>';
       }
 
       defineDOM() {
         var e = e => a(e, this.$el);
 
-        this.$ranges = this.$el.querySelectorAll('[type="range"]'), this.$hours = e('[name="hours"]'), this.$minutes = e('[name="minutes"]'), this.$hoursText = e(".air-datepicker-time--current-hours"), this.$minutesText = e(".air-datepicker-time--current-minutes"), this.$ampm = e(".air-datepicker-time--current-ampm");
+        this.$ranges = this.$el.querySelectorAll('[type="range"]'), this.$hours = e('[name="hours"]'), this.$minutes = e('[name="minutes"]'), this.$hoursText = e('.air-datepicker-time--current-hours'), this.$minutesText = e('.air-datepicker-time--current-minutes'), this.$ampm = e('.air-datepicker-time--current-ampm');
       }
 
       setTime(e) {
@@ -6400,13 +6396,13 @@ class Validator {
         var i = e,
             s = Number(e);
         e instanceof Date && (i = o(e), s = Number(i.hours));
-        var a = "am";
+        var a = 'am';
 
         if (t || this.ampm) {
           switch (!0) {
             case 12 === s:
             case s > 11:
-              a = "pm";
+              a = 'pm';
           }
 
           s = s % 12 == 0 ? 12 : s % 12;
@@ -6466,7 +6462,7 @@ class Validator {
           dp: t,
           opts: i
         } = e;
-        O(this, "pressedKeys", new Set()), O(this, "hotKeys", new Map([[[["Control", "ArrowRight"], ["Control", "ArrowUp"]], e => e.month++], [[["Control", "ArrowLeft"], ["Control", "ArrowDown"]], e => e.month--], [[["Shift", "ArrowRight"], ["Shift", "ArrowUp"]], e => e.year++], [[["Shift", "ArrowLeft"], ["Shift", "ArrowDown"]], e => e.year--], [[["Alt", "ArrowRight"], ["Alt", "ArrowUp"]], e => e.year += 10], [[["Alt", "ArrowLeft"], ["Alt", "ArrowDown"]], e => e.year -= 10], [["Control", "Shift", "ArrowUp"], (e, t) => t.up()]])), O(this, "handleHotKey", e => {
+        O(this, 'pressedKeys', new Set()), O(this, 'hotKeys', new Map([[[['Control', 'ArrowRight'], ['Control', 'ArrowUp']], e => e.month++], [[['Control', 'ArrowLeft'], ['Control', 'ArrowDown']], e => e.month--], [[['Shift', 'ArrowRight'], ['Shift', 'ArrowUp']], e => e.year++], [[['Shift', 'ArrowLeft'], ['Shift', 'ArrowDown']], e => e.year--], [[['Alt', 'ArrowRight'], ['Alt', 'ArrowUp']], e => e.year += 10], [[['Alt', 'ArrowLeft'], ['Alt', 'ArrowDown']], e => e.year -= 10], [['Control', 'Shift', 'ArrowUp'], (e, t) => t.up()]])), O(this, 'handleHotKey', e => {
           var t = this.hotKeys.get(e),
               i = o(this.getInitialFocusDate());
           t(i, this.dp);
@@ -6481,17 +6477,17 @@ class Validator {
           this.dp.setFocusDate(l, {
             viewDateTransition: !0
           });
-        }), O(this, "isHotKeyPressed", () => {
+        }), O(this, 'isHotKeyPressed', () => {
           var e = !1,
               t = this.pressedKeys.size,
               i = e => this.pressedKeys.has(e);
 
           var _loop = function _loop(_s3) {
-            if (e) return "break";
+            if (e) return 'break';
             if (Array.isArray(_s3[0])) _s3.forEach(a => {
               e || t !== a.length || (e = a.every(i) && _s3);
             });else {
-              if (t !== _s3.length) return "continue";
+              if (t !== _s3.length) return 'continue';
               e = _s3.every(i) && _s3;
             }
           };
@@ -6499,12 +6495,12 @@ class Validator {
           for (var [_s3] of this.hotKeys) {
             var _ret = _loop(_s3);
 
-            if (_ret === "break") break;
-            if (_ret === "continue") continue;
+            if (_ret === 'break') break;
+            if (_ret === 'continue') continue;
           }
 
           return e;
-        }), O(this, "isArrow", e => e >= 37 && e <= 40), O(this, "onKeyDown", e => {
+        }), O(this, 'isArrow', e => e >= 37 && e <= 40), O(this, 'onKeyDown', e => {
           var {
             key: t,
             which: i
@@ -6521,7 +6517,7 @@ class Validator {
           if (r) return e.preventDefault(), void this.handleHotKey(r);
           if (this.isArrow(i)) return e.preventDefault(), void this.focusNextCell(t);
 
-          if ("Enter" === t) {
+          if ('Enter' === t) {
             if (s.currentView !== n.minView) return void s.down();
 
             if (a) {
@@ -6531,8 +6527,8 @@ class Validator {
             }
           }
 
-          "Escape" === t && this.dp.hide();
-        }), O(this, "onKeyUp", e => {
+          'Escape' === t && this.dp.hide();
+        }), O(this, 'onKeyUp', e => {
           this.removeKey(e.key);
         }), this.dp = t, this.opts = i, this.init();
       }
@@ -6545,14 +6541,14 @@ class Validator {
         var {
           $el: e
         } = this.dp;
-        e.addEventListener("keydown", this.onKeyDown), e.addEventListener("keyup", this.onKeyUp);
+        e.addEventListener('keydown', this.onKeyDown), e.addEventListener('keyup', this.onKeyUp);
       }
 
       destroy() {
         var {
           $el: e
         } = this.dp;
-        e.removeEventListener("keydown", this.onKeyDown), e.removeEventListener("keyup", this.onKeyUp), this.hotKeys = null, this.pressedKeys = null;
+        e.removeEventListener('keydown', this.onKeyDown), e.removeEventListener('keyup', this.onKeyUp), this.hotKeys = null, this.pressedKeys = null;
       }
 
       getInitialFocusDate() {
@@ -6597,19 +6593,19 @@ class Validator {
             c = h.date;
 
         switch (e) {
-          case "ArrowLeft":
+          case 'ArrowLeft':
             s === a && (c -= 1), s === n && (d -= 1), s === r && (l -= 1);
             break;
 
-          case "ArrowUp":
+          case 'ArrowUp':
             s === a && (c -= 7), s === n && (d -= 3), s === r && (l -= 4);
             break;
 
-          case "ArrowRight":
+          case 'ArrowRight':
             s === a && (c += 1), s === n && (d += 1), s === r && (l += 1);
             break;
 
-          case "ArrowDown":
+          case 'ArrowDown':
             s === a && (c += 7), s === n && (d += 3), s === r && (l += 4);
         }
 
@@ -6663,15 +6659,15 @@ class Validator {
       }) : e[t] = i, e;
     }
 
-    var I = "",
-        R = "",
-        P = "",
+    var I = '',
+        R = '',
+        P = '',
         B = !1;
 
     class K {
       constructor(e, t) {
         var r = this;
-        if (N(this, "viewIndexes", [i.days, i.months, i.years]), N(this, "next", () => {
+        if (N(this, 'viewIndexes', [i.days, i.months, i.years]), N(this, 'next', () => {
           var {
             year: e,
             month: t
@@ -6689,7 +6685,7 @@ class Validator {
             case i.years:
               this.setViewDate(new Date(e + 10, 0, 1));
           }
-        }), N(this, "prev", () => {
+        }), N(this, 'prev', () => {
           var {
             year: e,
             month: t
@@ -6707,11 +6703,11 @@ class Validator {
             case i.years:
               this.setViewDate(new Date(e - 10, 0, 1));
           }
-        }), N(this, "_finishHide", () => {
+        }), N(this, '_finishHide', () => {
           this.hideAnimation = !1, this._destroyComponents(), this.$container.removeChild(this.$datepicker);
-        }), N(this, "setPosition", function (e) {
+        }), N(this, 'setPosition', function (e) {
           var t = arguments.length > 1 && void 0 !== arguments[1] && arguments[1];
-          if ("function" == typeof (e = e || r.opts.position)) return void (r.customHide = e({
+          if ('function' == typeof (e = e || r.opts.position)) return void (r.customHide = e({
             $datepicker: r.$datepicker,
             $target: r.$el,
             $pointer: r.$pointer,
@@ -6728,13 +6724,13 @@ class Validator {
               o = r.$datepicker.offsetParent,
               l = r.$el.offsetParent,
               d = r.$datepicker.getBoundingClientRect(),
-              c = e.split(" "),
+              c = e.split(' '),
               u = window.scrollY,
               p = window.scrollX,
               m = r.opts.offset,
               g = c[0],
               D = c[1];
-          if (a) r.$datepicker.style.cssText = "left: 50%; top: 50%";else {
+          if (a) r.$datepicker.style.cssText = 'left: 50%; top: 50%';else {
             if (o === l && o !== document.body && (h = {
               top: r.$el.offsetTop,
               left: r.$el.offsetLeft,
@@ -6752,46 +6748,46 @@ class Validator {
             }
 
             switch (g) {
-              case "top":
+              case 'top':
                 i = h.top - d.height - m;
                 break;
 
-              case "right":
+              case 'right':
                 s = h.left + h.width + m;
                 break;
 
-              case "bottom":
+              case 'bottom':
                 i = h.top + h.height + m;
                 break;
 
-              case "left":
+              case 'left':
                 s = h.left - d.width - m;
             }
 
             switch (D) {
-              case "top":
+              case 'top':
                 i = h.top;
                 break;
 
-              case "right":
+              case 'right':
                 s = h.left + h.width - d.width;
                 break;
 
-              case "bottom":
+              case 'bottom':
                 i = h.top + h.height - d.height;
                 break;
 
-              case "left":
+              case 'left':
                 s = h.left;
                 break;
 
-              case "center":
+              case 'center':
                 /left|right/.test(g) ? i = h.top + h.height / 2 - d.height / 2 : s = h.left + h.width / 2 - d.width / 2;
             }
 
-            r.$datepicker.style.cssText = "left: ".concat(s + p, "px; top: ").concat(i + u, "px");
+            r.$datepicker.style.cssText = 'left: '.concat(s + p, 'px; top: ').concat(i + u, 'px');
           }
-        }), N(this, "_setInputValue", () => {
+        }), N(this, '_setInputValue', () => {
           var {
             opts: e,
             $altField: t,
@@ -6804,7 +6800,7 @@ class Validator {
             altField: a
           } = e;
           a && t && (t.value = this._getInputValue(s)), this.$el.value = this._getInputValue(i);
-        }), N(this, "_getInputValue", e => {
+        }), N(this, '_getInputValue', e => {
           var {
             selectedDates: t,
             opts: i
@@ -6813,26 +6809,26 @@ class Validator {
             multipleDates: s,
             multipleDatesSeparator: a
           } = i;
-          if (!t.length) return "";
-          var n = "function" == typeof e,
+          if (!t.length) return '';
+          var n = 'function' == typeof e,
               r = n ? e(s ? t : t[0]) : t.map(t => this.formatDate(t, e));
           return r = n ? r : r.join(a), r;
-        }), N(this, "_checkIfDateIsSelected", function (e) {
+        }), N(this, '_checkIfDateIsSelected', function (e) {
           var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : i.days,
               s = !1;
           return r.selectedDates.some(i => {
             var a = u(e, i, t);
             return s = a && i, a;
           }), s;
-        }), N(this, "_scheduleCallAfterTransition", e => {
+        }), N(this, '_scheduleCallAfterTransition', e => {
           this._cancelScheduledCall(), e && e(!1), this._onTransitionEnd = () => {
             e && e(!0);
-          }, this.$datepicker.addEventListener("transitionend", this._onTransitionEnd, {
+          }, this.$datepicker.addEventListener('transitionend', this._onTransitionEnd, {
             once: !0
           });
-        }), N(this, "_cancelScheduledCall", () => {
-          this.$datepicker.removeEventListener("transitionend", this._onTransitionEnd);
-        }), N(this, "setViewDate", e => {
+        }), N(this, '_cancelScheduledCall', () => {
+          this.$datepicker.removeEventListener('transitionend', this._onTransitionEnd);
+        }), N(this, 'setViewDate', e => {
           if (!((e = b(e)) instanceof Date)) return;
           if (u(e, this.viewDate)) return;
           var t = this.viewDate;
@@ -6854,10 +6850,10 @@ class Validator {
           }
 
           this.trigger(i.eventChangeViewDate, e, t);
-        }), N(this, "setFocusDate", function (e) {
+        }), N(this, 'setFocusDate', function (e) {
           var t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
           (!e || (e = b(e)) instanceof Date) && (r.focusDate = e, r.opts.range && e && r._handleRangeOnFocus(), r.trigger(i.eventChangeFocusDate, e, t));
-        }), N(this, "setCurrentView", e => {
+        }), N(this, 'setCurrentView', e => {
           if (this.viewIndexes.includes(e)) {
             if (this.currentView = e, this.elIsInput && this.visible && this.setPosition(void 0, !0), this.trigger(i.eventChangeCurrentView, e), !this.views[e]) {
               var _t8 = this.views[e] = new S({
@@ -6871,16 +6867,16 @@ class Validator {
 
             this.opts.onChangeView && this.opts.onChangeView(e);
           }
-        }), N(this, "_updateLastSelectedDate", e => {
+        }), N(this, '_updateLastSelectedDate', e => {
           this.lastSelectedDate = e, this.trigger(i.eventChangeLastSelectedDate, e);
-        }), N(this, "destroy", () => {
+        }), N(this, 'destroy', () => {
           var {
             showEvent: e,
             isMobile: t
           } = this.opts,
               i = this.$datepicker.parentNode;
-          i && i.removeChild(this.$datepicker), this.$el.removeEventListener(e, this._onFocus), this.$el.removeEventListener("blur", this._onBlur), window.removeEventListener("resize", this._onResize), t && this._removeMobileAttributes(), this.keyboardNav && this.keyboardNav.destroy(), this.views = null, this.nav = null, this.$datepicker = null, this.opts = null, this.$customContainer = null, this.viewDate = null, this.focusDate = null, this.selectedDates = null, this.rangeDateFrom = null, this.rangeDateTo = null;
-        }), N(this, "update", e => {
+          i && i.removeChild(this.$datepicker), this.$el.removeEventListener(e, this._onFocus), this.$el.removeEventListener('blur', this._onBlur), window.removeEventListener('resize', this._onResize), t && this._removeMobileAttributes(), this.keyboardNav && this.keyboardNav.destroy(), this.views = null, this.nav = null, this.$datepicker = null, this.opts = null, this.$customContainer = null, this.viewDate = null, this.focusDate = null, this.selectedDates = null, this.rangeDateFrom = null, this.rangeDateTo = null;
+        }), N(this, 'update', e => {
           var t = w({}, this.opts);
           w(this.opts, e);
           var {
@@ -6891,38 +6887,38 @@ class Validator {
             isMobile: h
           } = this.opts,
               o = this.visible || this.treatAsInline;
-          this._createMinMaxDates(), this._limitViewDateByMaxMinDates(), this._handleLocale(), !t.selectedDates && r && this.selectDate(r), e.view && this.setCurrentView(e.view), this._setInputValue(), t.range && !n ? (this.rangeDateTo = !1, this.rangeDateFrom = !1) : !t.range && n && this.selectedDates.length && (this.rangeDateFrom = this.selectedDates[0], this.rangeDateTo = this.selectedDates[1]), t.timepicker && !s ? (o && this.timepicker.destroy(), this.timepicker = !1, this.$timepicker.parentNode.removeChild(this.$timepicker)) : !t.timepicker && s && this._addTimepicker(), !t.buttons && a ? this._addButtons() : t.buttons && !a ? (this.buttons.destroy(), this.$buttons.parentNode.removeChild(this.$buttons)) : o && t.buttons && a && this.buttons.clearHtml().render(), !t.isMobile && h ? (this.treatAsInline || P || this._createMobileOverlay(), this._addMobileAttributes(), this.visible && this._showMobileOverlay()) : t.isMobile && !h && (this._removeMobileAttributes(), this.visible && (P.classList.remove("-active-"), "function" != typeof this.opts.position && this.setPosition())), o && (this.nav.update(), this.views[this.currentView].render(), this.currentView === i.days && this.views[this.currentView].renderDayNames());
-        }), N(this, "isOtherMonth", e => {
+          this._createMinMaxDates(), this._limitViewDateByMaxMinDates(), this._handleLocale(), !t.selectedDates && r && this.selectDate(r), e.view && this.setCurrentView(e.view), this._setInputValue(), t.range && !n ? (this.rangeDateTo = !1, this.rangeDateFrom = !1) : !t.range && n && this.selectedDates.length && (this.rangeDateFrom = this.selectedDates[0], this.rangeDateTo = this.selectedDates[1]), t.timepicker && !s ? (o && this.timepicker.destroy(), this.timepicker = !1, this.$timepicker.parentNode.removeChild(this.$timepicker)) : !t.timepicker && s && this._addTimepicker(), !t.buttons && a ? this._addButtons() : t.buttons && !a ? (this.buttons.destroy(), this.$buttons.parentNode.removeChild(this.$buttons)) : o && t.buttons && a && this.buttons.clearHtml().render(), !t.isMobile && h ? (this.treatAsInline || P || this._createMobileOverlay(), this._addMobileAttributes(), this.visible && this._showMobileOverlay()) : t.isMobile && !h && (this._removeMobileAttributes(), this.visible && (P.classList.remove('-active-'), 'function' != typeof this.opts.position && this.setPosition())), o && (this.nav.update(), this.views[this.currentView].render(), this.currentView === i.days && this.views[this.currentView].renderDayNames());
+        }), N(this, 'isOtherMonth', e => {
           var {
             month: t
           } = o(e);
           return t !== this.parsedViewDate.month;
-        }), N(this, "isOtherYear", e => {
+        }), N(this, 'isOtherYear', e => {
           var {
             year: t
           } = o(e);
           return t !== this.parsedViewDate.year;
-        }), N(this, "isOtherDecade", e => {
+        }), N(this, 'isOtherDecade', e => {
           var {
             year: t
           } = o(e),
               [i, s] = d(this.viewDate);
           return t < i || t > s;
-        }), N(this, "_onChangeSelectedDate", e => {
+        }), N(this, '_onChangeSelectedDate', e => {
           var {
             silent: t
           } = e;
           setTimeout(() => {
             this._setInputValue(), this.opts.onSelect && !t && this._triggerOnSelect();
           });
-        }), N(this, "_onChangeFocusedDate", function (e) {
+        }), N(this, '_onChangeFocusedDate', function (e) {
           var {
             viewDateTransition: t
           } = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
           if (!e) return;
           var i = !1;
           t && (i = r.isOtherMonth(e) || r.isOtherYear(e) || r.isOtherDecade(e)), i && r.setViewDate(e);
-        }), N(this, "_onChangeTime", e => {
+        }), N(this, '_onChangeTime', e => {
           var {
             hours: t,
             minutes: i
@@ -6939,19 +6935,19 @@ class Validator {
           var h = this.getCell(r, this.currentViewSingular),
               o = h && h.adpCell;
           o && o.isDisabled || (r.setHours(t), r.setMinutes(i), a ? (this._setInputValue(), n && this._triggerOnSelect()) : this.selectDate(r));
-        }), N(this, "_onFocus", e => {
+        }), N(this, '_onFocus', e => {
           this.visible || this.show();
-        }), N(this, "_onBlur", e => {
+        }), N(this, '_onBlur', e => {
           this.inFocus || !this.visible || this.opts.isMobile || this.hide();
-        }), N(this, "_onMouseDown", e => {
+        }), N(this, '_onMouseDown', e => {
           this.inFocus = !0;
-        }), N(this, "_onMouseUp", e => {
+        }), N(this, '_onMouseUp', e => {
           this.inFocus = !1, this.$el.focus();
-        }), N(this, "_onResize", () => {
-          this.visible && "function" != typeof this.opts.position && this.setPosition();
-        }), N(this, "_onClickOverlay", () => {
+        }), N(this, '_onResize', () => {
+          this.visible && 'function' != typeof this.opts.position && this.setPosition();
+        }), N(this, '_onClickOverlay', () => {
           this.visible && this.hide();
-        }), N(this, "isWeekend", e => this.opts.weekends.includes(e)), N(this, "getClampedDate", e => {
+        }), N(this, 'isWeekend', e => this.opts.weekends.includes(e)), N(this, 'getClampedDate', e => {
           var {
             minDate: t,
             maxDate: i
@@ -6960,13 +6956,13 @@ class Validator {
           return i && p(e, i) ? s = i : t && m(e, t) && (s = t), s;
         }), this.$el = a(e), !this.$el) return;
         this.$datepicker = n({
-          className: "air-datepicker"
-        }), this.opts = w({}, s, t), this.$customContainer = !!this.opts.container && a(this.opts.container), this.$altField = a(this.opts.altField || !1), I || (I = a("body"));
+          className: 'air-datepicker'
+        }), this.opts = w({}, s, t), this.$customContainer = !!this.opts.container && a(this.opts.container), this.$altField = a(this.opts.altField || !1), I || (I = a('body'));
         var {
           view: h,
           startDate: l
         } = this.opts;
-        l || (this.opts.startDate = new Date()), "INPUT" === this.$el.nodeName && (this.elIsInput = !0), this.inited = !1, this.visible = !1, this.viewDate = b(this.opts.startDate), this.focusDate = !1, this.initialReadonly = this.$el.getAttribute("readonly"), this.customHide = !1, this.currentView = h, this.selectedDates = [], this.views = {}, this.keys = [], this.rangeDateFrom = "", this.rangeDateTo = "", this.timepickerIsActive = !1, this.treatAsInline = this.opts.inline || !this.elIsInput, this.init();
+        l || (this.opts.startDate = new Date()), 'INPUT' === this.$el.nodeName && (this.elIsInput = !0), this.inited = !1, this.visible = !1, this.viewDate = b(this.opts.startDate), this.focusDate = !1, this.initialReadonly = this.$el.getAttribute('readonly'), this.customHide = !1, this.currentView = h, this.selectedDates = [], this.views = {}, this.keys = [], this.rangeDateFrom = '', this.rangeDateTo = '', this.timepickerIsActive = !1, this.treatAsInline = this.opts.inline || !this.elIsInput, this.init();
       }
 
       init() {
@@ -6995,7 +6991,7 @@ class Validator {
 
       _createMobileOverlay() {
         P = n({
-          className: "air-datepicker-overlay"
+          className: 'air-datepicker-overlay'
         }), R.appendChild(P);
       }
 
@@ -7013,7 +7009,7 @@ class Validator {
             isMobile: o
           }
         } = this;
-        this._buildBaseHtml(), this.elIsInput && (i || this._setPositionClasses(n)), !i && this.elIsInput || this.$datepicker.classList.add("-inline-"), r && this.$datepicker.classList.add(...r.split(" ")), h && this.$datepicker.classList.add("-only-timepicker-"), o && !t && this._addMobileAttributes(), this.views[this.currentView] = new S({
+        this._buildBaseHtml(), this.elIsInput && (i || this._setPositionClasses(n)), !i && this.elIsInput || this.$datepicker.classList.add('-inline-'), r && this.$datepicker.classList.add(...r.split(' ')), h && this.$datepicker.classList.add('-only-timepicker-'), o && !t && this._addMobileAttributes(), this.views[this.currentView] = new S({
           dp: this,
           type: this.currentView,
           opts: e
@@ -7032,11 +7028,11 @@ class Validator {
       }
 
       _addMobileAttributes() {
-        P.addEventListener("click", this._onClickOverlay), this.$datepicker.classList.add("-is-mobile-"), this.$el.setAttribute("readonly", !0);
+        P.addEventListener('click', this._onClickOverlay), this.$datepicker.classList.add('-is-mobile-'), this.$el.setAttribute('readonly', !0);
       }
 
       _removeMobileAttributes() {
-        P.removeEventListener("click", this._onClickOverlay), this.$datepicker.classList.remove("-is-mobile-"), this.initialReadonly || "" === this.initialReadonly || this.$el.removeAttribute("readonly");
+        P.removeEventListener('click', this._onClickOverlay), this.$datepicker.classList.remove('-is-mobile-'), this.initialReadonly || '' === this.initialReadonly || this.$el.removeAttribute('readonly');
       }
 
       _createMinMaxDates() {
@@ -7049,7 +7045,7 @@ class Validator {
 
       _addTimepicker() {
         this.$timepicker = n({
-          className: "air-datepicker--time"
+          className: 'air-datepicker--time'
         }), this.$datepicker.appendChild(this.$timepicker), this.timepicker = new L({
           dp: this,
           opts: this.opts
@@ -7058,7 +7054,7 @@ class Validator {
 
       _addButtons() {
         this.$buttons = n({
-          className: "air-datepicker--buttons"
+          className: 'air-datepicker--buttons'
         }), this.$datepicker.appendChild(this.$buttons), this.buttons = new H({
           dp: this,
           opts: this.opts
@@ -7074,7 +7070,7 @@ class Validator {
           inline: e
         } = this.opts;
         var t, i;
-        this.elIsInput ? e ? (t = this.$datepicker, (i = this.$el).parentNode.insertBefore(t, i.nextSibling)) : this.$container.appendChild(this.$datepicker) : this.$el.appendChild(this.$datepicker), this.$datepicker.innerHTML = '<i class="air-datepicker--pointer"></i><div class="air-datepicker--navigation"></div><div class="air-datepicker--content"></div>', this.$content = a(".air-datepicker--content", this.$datepicker), this.$pointer = a(".air-datepicker--pointer", this.$datepicker), this.$nav = a(".air-datepicker--navigation", this.$datepicker);
+        this.elIsInput ? e ? (t = this.$datepicker, (i = this.$el).parentNode.insertBefore(t, i.nextSibling)) : this.$container.appendChild(this.$datepicker) : this.$el.appendChild(this.$datepicker), this.$datepicker.innerHTML = '<i class="air-datepicker--pointer"></i><div class="air-datepicker--navigation"></div><div class="air-datepicker--content"></div>', this.$content = a('.air-datepicker--content', this.$datepicker), this.$pointer = a('.air-datepicker--pointer', this.$datepicker), this.$nav = a('.air-datepicker--navigation', this.$datepicker);
       }
 
       _handleLocale() {
@@ -7088,30 +7084,30 @@ class Validator {
           dateTimeSeparator: r
         } = this.opts;
         var h;
-        this.locale = (h = e, JSON.parse(JSON.stringify(h))), t && (this.locale.dateFormat = t), void 0 !== n && "" !== n && (this.locale.timeFormat = n);
+        this.locale = (h = e, JSON.parse(JSON.stringify(h))), t && (this.locale.dateFormat = t), void 0 !== n && '' !== n && (this.locale.timeFormat = n);
         var {
           timeFormat: o
         } = this.locale;
 
-        if ("" !== i && (this.locale.firstDay = i), s && "function" != typeof t) {
-          var _e12 = o ? r : "";
+        if ('' !== i && (this.locale.firstDay = i), s && 'function' != typeof t) {
+          var _e12 = o ? r : '';
 
-          this.locale.dateFormat = [this.locale.dateFormat, o || ""].join(_e12);
+          this.locale.dateFormat = [this.locale.dateFormat, o || ''].join(_e12);
         }
 
         a && (this.locale.dateFormat = this.locale.timeFormat);
       }
 
       _setPositionClasses(e) {
-        if ("function" == typeof e) return void this.$datepicker.classList.add("-custom-position-");
-        var t = (e = e.split(" "))[0],
+        if ('function' == typeof e) return void this.$datepicker.classList.add('-custom-position-');
+        var t = (e = e.split(' '))[0],
             i = e[1],
-            s = "air-datepicker -".concat(t, "-").concat(i, "- -from-").concat(t, "-");
-        this.$datepicker.classList.add(...s.split(" "));
+            s = 'air-datepicker -'.concat(t, '-').concat(i, '- -from-').concat(t, '-');
+        this.$datepicker.classList.add(...s.split(' '));
       }
 
       _bindEvents() {
-        this.$el.addEventListener(this.opts.showEvent, this._onFocus), this.$el.addEventListener("blur", this._onBlur), this.$datepicker.addEventListener("mousedown", this._onMouseDown), this.$datepicker.addEventListener("mouseup", this._onMouseUp), window.addEventListener("resize", this._onResize);
+        this.$el.addEventListener(this.opts.showEvent, this._onFocus), this.$el.addEventListener('blur', this._onBlur), this.$datepicker.addEventListener('mousedown', this._onMouseDown), this.$datepicker.addEventListener('mouseup', this._onMouseUp), window.addEventListener('resize', this._onResize);
       }
 
       _limitViewDateByMaxMinDates() {
@@ -7132,7 +7128,7 @@ class Validator {
             a = o(e),
             n = d(e),
             r = K.replacer,
-            h = "am";
+            h = 'am';
         this.opts.timepicker && this.timepicker && (h = this.timepicker.getDayPeriod(e).dayPeriod);
         var l = {
           T: e.getTime(),
@@ -7166,11 +7162,11 @@ class Validator {
       }
 
       down(e) {
-        this._handleUpDownActions(e, "down");
+        this._handleUpDownActions(e, 'down');
       }
 
       up(e) {
-        this._handleUpDownActions(e, "up");
+        this._handleUpDownActions(e, 'up');
       }
 
       selectDate(e) {
@@ -7208,7 +7204,7 @@ class Validator {
               break;
 
             case 2:
-              this.selectedDates = [e], this.rangeDateFrom = e, this.rangeDateTo = "";
+              this.selectedDates = [e], this.rangeDateFrom = e, this.rangeDateTo = '';
               break;
 
             default:
@@ -7230,7 +7226,7 @@ class Validator {
         var t = this.selectedDates,
             s = this;
         if ((e = b(e)) instanceof Date) return t.some((a, n) => {
-          if (u(a, e)) return t.splice(n, 1), s.selectedDates.length ? s._updateLastSelectedDate(s.selectedDates[s.selectedDates.length - 1]) : (s.rangeDateFrom = "", s.rangeDateTo = "", s._updateLastSelectedDate(!1)), this.trigger(i.eventChangeSelectedDate, {
+          if (u(a, e)) return t.splice(n, 1), s.selectedDates.length ? s._updateLastSelectedDate(s.selectedDates[s.selectedDates.length - 1]) : (s.rangeDateFrom = '', s.rangeDateTo = '', s._updateLastSelectedDate(!1)), this.trigger(i.eventChangeSelectedDate, {
             action: i.actionUnselectDate,
             date: e
           }), !0;
@@ -7258,7 +7254,7 @@ class Validator {
           onShow: e,
           isMobile: t
         } = this.opts;
-        this._cancelScheduledCall(), this.visible || this.hideAnimation || this._createComponents(), this.setPosition(this.opts.position), this.$datepicker.classList.add("-active-"), this.visible = !0, e && this._scheduleCallAfterTransition(e), t && this._showMobileOverlay();
+        this._cancelScheduledCall(), this.visible || this.hideAnimation || this._createComponents(), this.setPosition(this.opts.position), this.$datepicker.classList.add('-active-'), this.visible = !0, e && this._scheduleCallAfterTransition(e), t && this._showMobileOverlay();
       }
 
       hide() {
@@ -7268,9 +7264,9 @@ class Validator {
         } = this.opts,
             i = this._hasTransition();
 
-        this.visible = !1, this.hideAnimation = !0, this.$datepicker.classList.remove("-active-"), this.customHide && this.customHide(), this.elIsInput && this.$el.blur(), this._scheduleCallAfterTransition(t => {
+        this.visible = !1, this.hideAnimation = !0, this.$datepicker.classList.remove('-active-'), this.customHide && this.customHide(), this.elIsInput && this.$el.blur(), this._scheduleCallAfterTransition(t => {
           !this.customHide && (t && i || !t && !i) && this._finishHide(), e && e(t);
-        }), t && P.classList.remove("-active-");
+        }), t && P.classList.remove('-active-');
       }
 
       _triggerOnSelect() {
@@ -7286,7 +7282,7 @@ class Validator {
           }
         } = this,
             h = n || r,
-            o = "function" == typeof s.dateFormat;
+            o = 'function' == typeof s.dateFormat;
         i.length && (e = i.map(g), t = o ? n ? s.dateFormat(e) : e.map(e => s.dateFormat(e)) : e.map(e => this.formatDate(e, s.dateFormat))), a({
           date: h ? e : e[0],
           formattedDate: h ? t : t[0],
@@ -7304,7 +7300,7 @@ class Validator {
 
       _handleUpDownActions(e, t) {
         if (!((e = b(e || this.focusDate || this.viewDate)) instanceof Date)) return;
-        var i = "up" === t ? this.viewIndex + 1 : this.viewIndex - 1;
+        var i = 'up' === t ? this.viewIndex + 1 : this.viewIndex - 1;
         i > 2 && (i = 2), i < 0 && (i = 0), this.setViewDate(new Date(e.getFullYear(), e.getMonth(), 1)), this.setCurrentView(this.viewIndexes[i]);
       }
 
@@ -7324,19 +7320,19 @@ class Validator {
             h = '[data-month="'.concat(a, '"]'),
             l = '[data-date="'.concat(n, '"]'),
             d = {
-          [i.day]: "".concat(r).concat(h).concat(l),
-          [i.month]: "".concat(r).concat(h),
-          [i.year]: "".concat(r)
+          [i.day]: ''.concat(r).concat(h).concat(l),
+          [i.month]: ''.concat(r).concat(h),
+          [i.year]: ''.concat(r)
         };
         return this.views[this.currentView].$el.querySelector(d[t]);
       }
 
       _showMobileOverlay() {
-        P.classList.add("-active-");
+        P.classList.add('-active-');
       }
 
       _hasTransition() {
-        return window.getComputedStyle(this.$datepicker).getPropertyValue("transition-duration").split(", ").reduce((e, t) => parseFloat(t) + e, 0) > 0;
+        return window.getComputedStyle(this.$datepicker).getPropertyValue('transition-duration').split(', ').reduce((e, t) => parseFloat(t) + e, 0) > 0;
       }
 
       get parsedViewDate() {
@@ -7380,15 +7376,10 @@ class Validator {
     }
 
     var j;
-    return N(K, "defaults", s), N(K, "version", "3.1.0"), N(K, "defaultContainerId", "air-datepicker-global-container"), j = K.prototype, Object.assign(j, A), t.default;
+    return N(K, 'defaults', s), N(K, 'version', '3.1.0'), N(K, 'defaultContainerId', 'air-datepicker-global-container'), j = K.prototype, Object.assign(j, A), t.default;
   }();
 });
 ;
-var API_URL_SEND_MESSAGE = '/api/sendMessage';
-var API_URL_SEND_PHOTO = '/api/sendPhoto';
-var API_URL_SEND_PHOTOS = '/api/sendPhotos'; // const API_URL_SEND_PHOTO = 'https://grummer-sender.herokuapp.com/sendPhoto';
-// const API_URL_SEND_PHOTOS = 'https://grummer-sender.herokuapp.com/sendPhotos';
-
 grummer.tlg = {
   init() {},
 
@@ -7945,7 +7936,7 @@ grummer.callback = {
   init() {},
 
   submit(form, event) {
-    return _asyncToGenerator(function* () {
+    return _asyncToGenerator2(function* () {
       event.preventDefault();
       var validator = new Validator(form);
       var v = validator.validate();
@@ -7981,7 +7972,7 @@ grummer.popupFeedback = {
   },
 
   submit(form, event) {
-    return _asyncToGenerator(function* () {
+    return _asyncToGenerator2(function* () {
       event.preventDefault();
       var validator = new Validator(form);
       var v = validator.validate();
@@ -8155,7 +8146,7 @@ grummer.popupMain = {
   submit(form, event) {
     var _this = this;
 
-    return _asyncToGenerator(function* () {
+    return _asyncToGenerator2(function* () {
       event.preventDefault();
       var validator = new Validator(form);
       var v = validator.validate();
