@@ -10,10 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
+
 from pathlib import Path
 import environ
 import os
-import dj_database_url 
+import dj_database_url
 
 env = environ.Env()
 
@@ -39,8 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'app',
     'django_cleanup.apps.CleanupConfig',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'grummers.urls'
@@ -99,7 +106,9 @@ DATABASES = DB_DEV if DEBUG else DB_PROD
 # DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 # DATABASES = DB_PROD_HEROKU
 
-
+GRAPHENE = {
+    'SCHEMA': 'app.schema.schema'
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -138,4 +147,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True
-CSRF_TRUSTED_ORIGINS = ['http://188.68.220.145', 'https://groomleta.ru']
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://188.68.220.145',
+    'https://groomleta.ru',
+    'http://127.0.0.1:8080',
+    'http://localhost:8080'
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+]
