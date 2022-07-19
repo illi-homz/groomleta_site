@@ -7,6 +7,11 @@
 {% block content %}
 
 {% include 'blocks/about/index.html' %}
+
+{% if promos|length %}
+{% include 'blocks/promo/index.html' with data=promos %}
+{% endif %}
+
 {% include 'blocks/services/index.html' %}
 
 {% if ourworks|length %}
@@ -15,10 +20,6 @@
 
 {% if questions|length %}
 {% include 'blocks/questions/index.html' with data=questions %}
-{% endif %}
-
-{% if promos|length %}
-{% include 'blocks/promo/index.html' with data=promos %}
 {% endif %}
 
 {% include 'blocks/feedbacks/index.html' %}
