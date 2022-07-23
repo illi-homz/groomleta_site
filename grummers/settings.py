@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
 import django
 from django.utils.encoding import force_str
 django.utils.encoding.force_text = force_str
@@ -45,8 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'app',
+    'account',
     'django_cleanup.apps.CleanupConfig',
     'graphene_django',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 ]
 
 MIDDLEWARE = [
@@ -106,10 +109,6 @@ DATABASES = DB_DEV if DEBUG else DB_PROD
 # DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 # DATABASES = DB_PROD_HEROKU
 
-GRAPHENE = {
-    'SCHEMA': 'app.schema.schema'
-}
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -159,3 +158,22 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8080',
     'http://localhost:8080',
 ]
+
+GRAPHENE = {
+    'SCHEMA': 'grummers.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+GRAPHQL_JWT = {
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    # 'JWT_EXPIRATION_DELTA': timedelta(days=120),
+    # 'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=120),
+}
