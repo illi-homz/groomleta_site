@@ -31,7 +31,6 @@ class OurWorkAdmin(admin.ModelAdmin):
     list_editable = ['title', 'img']
     actions = [dublicate_ad]
 
-
 @admin.register(models.Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'punkts')
@@ -44,7 +43,7 @@ class PromoAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'mobile_img', 'tablet_img')
     list_editable = ['title', 'mobile_img', 'tablet_img']
     actions = [dublicate_ad]
-    list_per_page = 10
+    list_per_page = 20
 
 @admin.register(models.Сategory)
 class СategoryAdmin(admin.ModelAdmin):
@@ -59,7 +58,7 @@ class ServiceAdmin(admin.ModelAdmin):
     list_filter = ['title', 'animal', 'category']
     search_fields = ['title']
     actions = [dublicate_ad]
-    list_per_page = 10
+    list_per_page = 20
     ordering = ('id',)
 
     def image_tag(self, obj):
@@ -78,7 +77,7 @@ class FeedbackAdmin(admin.ModelAdmin):
         'text',
         'create_date',
     ]
-    list_per_page = 10
+    list_per_page = 20
     ordering = ('id',)
 
 @admin.register(models.Callback)
@@ -93,7 +92,7 @@ class CallbackAdmin(admin.ModelAdmin):
         'create_date',
     ]
     actions = [dublicate_ad]
-    list_per_page = 10
+    list_per_page = 20
     ordering = ('id',)
 
 
@@ -111,5 +110,15 @@ class ServiceRecordAdmin(admin.ModelAdmin):
         'create_date',
     ]
     actions = [dublicate_ad]
-    list_per_page = 10
+    list_per_page = 20
     ordering = ('id',)
+
+@admin.register(models.Master)
+class MasterAdmin(admin.ModelAdmin):
+    list_display = ['id', 'username', 'lastname', 'phone', 'avatar', 'post']
+    list_editable = ['username', 'lastname', 'phone', 'post']
+    search_fields = ['username', 'lastname', 'phone']
+    readonly_fields = ['create_date']
+    list_per_page = 20
+    ordering = ('id',)
+    actions = [dublicate_ad]

@@ -1,5 +1,6 @@
 from django.urls import path
 from app import api, views
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('', views.index),
@@ -9,6 +10,7 @@ urlpatterns = [
     path('api/sendServices', api.send_services),
     path('api/sendPhoto', api.send_photo),
     path('api/sendPhotos', api.send_photos),
+    path('api/logout', csrf_exempt(api.logout)),
 
     path("robots.txt", views.robots_txt),
     path("manifest.json", views.manifest),

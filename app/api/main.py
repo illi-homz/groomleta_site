@@ -5,9 +5,10 @@ import json
 import requests
 import os
 import re
-from . import models
-# from datetime import datetime
+from app import models
 from django.utils.timezone import datetime, localdate, now
+
+from app.services import create_response
 
 botToken = os.getenv('BOT_TOKEN')
 chat_id = os.getenv('CHAT_ID')
@@ -61,13 +62,6 @@ def concatFio(data):
     if data["lastname"]: name += f' {data["lastname"]}'
 
     return name
-
-def create_response(resp):
-    return {
-        'status': 'success' if resp.ok else 'error',
-        'code': resp.status_code,
-        'ok': resp.ok
-    }
 
 mock_response = {
     'status': 'success',

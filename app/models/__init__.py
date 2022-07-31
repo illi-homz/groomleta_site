@@ -7,3 +7,4 @@ from .Callback import Callback
 from .ServiceRecord import ServiceRecord
 from .Service import Service
 from .Сategory import Сategory
+from .Master import Master
