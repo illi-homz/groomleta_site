@@ -1,8 +1,8 @@
 <section class="services" id="services">
-    <div class="services__wrap container">
-        <h1>Услуги</h1>
-        <div class="services__nav">
-            <div class="services__filters">
+	<div class="services__wrap container">
+		<h1>Услуги</h1>
+		<div class="services__nav">
+			<!-- <div class="services__filters">
                 <div class="services__filter">
                     <div class="services__categories g-select _select">
                         <input type="hidden" class="_select-input"
@@ -30,32 +30,66 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="services__nav-btns">
-                <div class="services__nav-btn btn-costom" onclick="grummer.services.filterServicesByBreed(this, 'cat')">
+            </div> -->
+			<div class="services__filters">
+				<div class="services__filter">
+					<div class="services__categories services__breeds g-select _select">
+						<input type="hidden" class="_select-input"
+							onchange="grummer.services.filterServicesByBreed(this.value)" />
+						<div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
+							<span class="_selected-text">Выберите породу</span>
+							<div class="g-select__find-wrapper" onclick="grummer.gSelect.stopPropagation(event)">
+								<div class="g-select__find-close-btn hide"
+									onclick="grummer.services.filterOptionsByBreed('')"></div>
+								<input type="text" class="g-select__find _g-select__find" placeholder="Поиск"
+									oninput="grummer.services.filterOptionsByBreed(this.value)" />
+							</div>
+						</div>
+						<div class="g-select__body _options">
+							<ul class="g-select__items _services__breeds-items">
+								<li class="g-select__item _option" data-value=""
+									onclick="grummer.gSelect.selectItem(this)">
+									Любая порода
+								</li>
+								{% for breed in services.breeds %}
+								<li class="g-select__item _option" data-value="{{breed}}"
+									onclick="grummer.gSelect.selectItem(this)">
+									{{breed.title}}
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="services__nav-btns">
+				<div class="services__nav-btn btn-costom"
+					onclick="grummer.services.filterServicesByAnimal(this, 'cat')">
 					{% include '#img/cat.svg' %}
 
-                    <span>Для кошек</span>
+					<span>Для кошек</span>
 
-                    <button onclick="grummer.services.clearBreedFilter(this, event)">
+					<button onclick="grummer.services.clearBreedFilter(this, event)">
 						{% include '#img/close-circle.svg' %}
 					</button>
-                </div>
-                <div class="services__nav-btn btn-costom" onclick="grummer.services.filterServicesByBreed(this, 'dog')">
+				</div>
+				<div class="services__nav-btn btn-costom"
+					onclick="grummer.services.filterServicesByAnimal(this, 'dog')">
 					{% include '#img/dog.svg' %}
 
-                    <span>Для собак</span>
+					<span>Для собак</span>
 
-                    <button onclick="grummer.services.clearBreedFilter(this, event)">
+					<button onclick="grummer.services.clearBreedFilter(this, event)">
 						{% include '#img/close-circle.svg' %}
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container services__slider _services__slider">
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container services__slider _services__slider">
 		{% for service in services.services_list %}
-		<div class="services__slide _services__slide {{service.animal}} category-{{service.category.id}}">
+		<div class="services__slide _services__slide {{service.animal}} category-{{service.category.id}}"
+			breed="{{service.breed}}">
 			<div class="services__slide-wrapper">
 				<div>
 					<div class="services__slide-img">
@@ -70,20 +104,17 @@
 					<div class="services__slide-price">{{service.price}} <span>₽</span></div>
 					<div class="services__slide-time">{{service.time}}</div>
 					<!-- <button class="services__slide-btn btn-outlined" onclick="grummer.services.openPopup('{{service.animal}}')"> -->
-					<button
-						class="services__slide-btn btn-outlined"
-						onclick="grummer.services.openPopup({
+					<button class="services__slide-btn btn-outlined" onclick="grummer.services.openPopup({
 							id: '{{service.id}}',
 							price: '{{service.price}}',
 							title: '{{service.title}}',
 							img: '{{service.img.url}}',
-						})"
-					>
+						})">
 						Записаться
 					</button>
 				</div>
 			</div>
 		</div>
 		{% endfor %}
-    </div>
+	</div>
 </section>

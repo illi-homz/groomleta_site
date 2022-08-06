@@ -7603,6 +7603,10 @@ grummer.gSelect = {
     this.setName($select, name);
     this.setInputValue($select, selectedValue);
     this.close($select);
+  },
+
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 
 };
@@ -7655,6 +7659,8 @@ grummer.navbar = {
 grummer.services = {
   category: '',
   animal: '',
+  breed: '',
+  breedNodes: null,
 
   init() {
     this.initSlider(this.getSliderOptions());
@@ -7705,18 +7711,27 @@ grummer.services = {
   filter(_ref) {
     var {
       animal = '',
-      category = ''
+      category = '',
+      breed = ''
     } = _ref;
     $('._services__slider').slick('slickUnfilter');
 
-    if (!animal && !category) {
+    if (!animal && !category && !breed) {
       return;
     }
 
-    ;
     $('._services__slider').slick('slickFilter', (_, slide) => {
       if (animal && category) {
         return $(slide).find("._services__slide.category-".concat(category, ".").concat(animal, ",._services__slide.any")).length;
+      }
+
+      if (animal && breed) {
+        var _$$find$attr;
+
+        var slideBreed = (_$$find$attr = $(slide).find('._services__slide').attr('breed')) === null || _$$find$attr === void 0 ? void 0 : _$$find$attr.toLowerCase();
+        var isBreed = breed.toLowerCase().includes(slideBreed === null || slideBreed === void 0 ? void 0 : slideBreed.trim());
+        var isAnimal = $(slide).find("._services__slide.".concat(animal, ",._services__slide.any")).length;
+        return isBreed && isAnimal;
       }
 
       if (animal) {
@@ -7727,12 +7742,20 @@ grummer.services = {
         return $(slide).find("._services__slide.category-".concat(category)).length;
       }
 
+      if (breed) {
+        var _$$find$attr2;
+
+        var _slideBreed = (_$$find$attr2 = $(slide).find('._services__slide').attr('breed')) === null || _$$find$attr2 === void 0 ? void 0 : _$$find$attr2.toLowerCase();
+
+        return breed.toLowerCase().includes(_slideBreed === null || _slideBreed === void 0 ? void 0 : _slideBreed.trim());
+      }
+
       return true;
     });
     $('._services__slider').slick('slickGoTo', 0);
   },
 
-  filterServicesByBreed(el) {
+  filterServicesByAnimal(el) {
     var animal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     var $el = $(el);
     if ($el.hasClass('active')) return;
@@ -7741,6 +7764,7 @@ grummer.services = {
     this.animal = animal;
     this.filter({
       animal: this.animal,
+      breed: this.breed,
       category: this.category
     });
   },
@@ -7751,6 +7775,7 @@ grummer.services = {
     this.animal = '';
     this.filter({
       animal: this.animal,
+      breed: this.breed,
       category: this.category
     });
   },
@@ -7759,8 +7784,42 @@ grummer.services = {
     this.category = category;
     this.filter({
       animal: this.animal,
+      breed: this.breed,
       category
     });
+  },
+
+  filterServicesByBreed(breed) {
+    // console.log('breed', breed)
+    if (!breed) {
+      $('._selected-text').text('Выберите породу');
+    }
+
+    this.breed = breed;
+    this.filter({
+      animal: this.animal,
+      category: this.category,
+      breed
+    });
+  },
+
+  filterOptionsByBreed(breed) {
+    $('._g-select__find').val(breed);
+
+    if (breed) {
+      $('.g-select__find-close-btn').removeClass('hide');
+    } else {
+      $('.g-select__find-close-btn').addClass('hide');
+    }
+
+    if (!this.breedNodes) {
+      this.breedNodes = $('.services__categories ul.g-select__items .g-select__item._option').clone();
+    }
+
+    $('.services__breeds ul.g-select__items').html('');
+    this.breedNodes.filter((idx, el) => {
+      return $(el).data().value.toLowerCase().includes(breed.trim().toLowerCase()); // return true
+    }).appendTo($('._services__breeds-items'));
   },
 
   openPopup(data) {

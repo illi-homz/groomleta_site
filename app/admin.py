@@ -52,6 +52,12 @@ class СategoryAdmin(admin.ModelAdmin):
     list_editable = ['title']
     actions = [dublicate_ad]
 
+@admin.register(models.Breed)
+class BreedAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title',)
+    list_editable = ['title']
+    actions = [dublicate_ad]
+
 @admin.register(models.Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'category', 'animal', 'price', 'image_tag')
