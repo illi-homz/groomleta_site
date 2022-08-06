@@ -3,8 +3,6 @@ from django.utils.timezone import now
 
 
 class Master(models.Model):
-    TRAINEE = 'trainee'
-    MASTER = 'master'
     MAIN_GROOMMER = 'main_groommer'
     GROOMMER = 'groommer'
     HELPER = 'helper'

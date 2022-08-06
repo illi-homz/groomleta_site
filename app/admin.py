@@ -12,7 +12,6 @@ def dublicate_ad(modeladmin, request, queryset):
 
 dublicate_ad.short_description = "Дублировать объект"
 
-
 @admin.register(models.Banner)
 class BannerAdmin(admin.ModelAdmin):
     list_display = ('title', 'img', 'image_tag')
