@@ -131,7 +131,7 @@ grummer.services = {
 	filterServicesByBreed(breed) {
 		// console.log('breed', breed)
 		if (!breed) {
-			$('._selected-text').text('Выберите породу')
+			$('.services ._selected-text').text('Выберите породу')
 		}
 		
 		this.breed = breed;
@@ -143,17 +143,17 @@ grummer.services = {
 		});
 	},
 	filterOptionsByBreed(breed) {
-		$('._g-select__find').val(breed)
+		$('.services__breeds ._g-select__find').val(breed)
 
 		if (breed) {
-			$('.g-select__find-close-btn').removeClass('hide')
+			$('.services__breeds .g-select__find-close-btn').removeClass('hide')
 		} else {
-			$('.g-select__find-close-btn').addClass('hide')
+			$('.services__breeds .g-select__find-close-btn').addClass('hide')
 		}
 		
 		if (!this.breedNodes) {
 			this.breedNodes = $(
-				'.services__categories ul.g-select__items .g-select__item._option',
+				'.services__breeds ul.g-select__items .g-select__item._option',
 			).clone();
 		}
 

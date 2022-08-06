@@ -33,7 +33,7 @@
             </div> -->
 			<div class="services__filters">
 				<div class="services__filter">
-					<div class="services__categories services__breeds g-select _select">
+					<div class="services__breeds g-select _select">
 						<input type="hidden" class="_select-input"
 							onchange="grummer.services.filterServicesByBreed(this.value)" />
 						<div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
@@ -109,6 +109,7 @@
 							price: '{{service.price}}',
 							title: '{{service.title}}',
 							img: '{{service.img.url}}',
+							breed: '{{service.breed}}'
 						})">
 						Записаться
 					</button>

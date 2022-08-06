@@ -7792,7 +7792,7 @@ grummer.services = {
   filterServicesByBreed(breed) {
     // console.log('breed', breed)
     if (!breed) {
-      $('._selected-text').text('Выберите породу');
+      $('.services ._selected-text').text('Выберите породу');
     }
 
     this.breed = breed;
@@ -7804,21 +7804,21 @@ grummer.services = {
   },
 
   filterOptionsByBreed(breed) {
-    $('._g-select__find').val(breed);
+    $('.services__breeds ._g-select__find').val(breed);
 
     if (breed) {
-      $('.g-select__find-close-btn').removeClass('hide');
+      $('.services__breeds .g-select__find-close-btn').removeClass('hide');
     } else {
-      $('.g-select__find-close-btn').addClass('hide');
+      $('.services__breeds .g-select__find-close-btn').addClass('hide');
     }
 
     if (!this.breedNodes) {
-      this.breedNodes = $('.services__categories ul.g-select__items .g-select__item._option').clone();
+      this.breedNodes = $('.services__breeds ul.g-select__items .g-select__item._option').clone();
     }
 
     $('.services__breeds ul.g-select__items').html('');
     this.breedNodes.filter((idx, el) => {
-      return $(el).data().value.toLowerCase().includes(breed.trim().toLowerCase()); // return true
+      return $(el).data().value.toLowerCase().includes(breed.trim().toLowerCase());
     }).appendTo($('._services__breeds-items'));
   },
 
@@ -8130,7 +8130,7 @@ grummer.popupMain = {
   createServicesListHtml() {
     var template = $.trim($('#popup-main__form-service').html());
     return grummer.currentServices.reduce((acc, service) => {
-      return acc += template.replace(/{id}/gi, service.id).replace(/{img}/gi, service.img).replace(/{title}/gi, service.title).replace(/{price}/gi, service.price);
+      return acc += template.replace(/{id}/gi, service.id).replace(/{img}/gi, service.img).replace(/{title}/gi, "".concat(service.breed, " - ").concat(service.title)).replace(/{price}/gi, service.price);
     }, '');
   },
 
@@ -8167,7 +8167,7 @@ grummer.popupMain = {
 
   createServicesStr(nodeList) {
     return Array.from(nodeList).map(el => {
-      return el.value;
+      return "".concat(el.breed, " - ").concat(el.value);
     }).join(', ');
   },
 
@@ -8295,6 +8295,9 @@ grummer.popupMain = {
 };
 ;
 grummer.popupServices = {
+  breed: '',
+  breedNodes: null,
+
   init() {
     this.initSlider(this.getSliderOptions());
   },
@@ -8336,11 +8339,12 @@ grummer.popupServices = {
   filter(_ref4) {
     var {
       animal = '',
-      category = ''
+      category = '',
+      breed = ''
     } = _ref4;
     $('.popup-services__slider-services').slick('slickUnfilter');
 
-    if (!animal && !category) {
+    if (!animal && !category && !breed) {
       return;
     }
 
@@ -8348,6 +8352,15 @@ grummer.popupServices = {
     $('.popup-services__slider-services').slick('slickFilter', (_, slide) => {
       if (animal && category) {
         return $(slide).find("._popup-services__slide.category-".concat(category, ".").concat(animal, ",._popup-services__slide.any")).length;
+      }
+
+      if (animal && breed) {
+        var _$$find$attr3;
+
+        var slideBreed = (_$$find$attr3 = $(slide).find('._popup-services__slide').attr('breed')) === null || _$$find$attr3 === void 0 ? void 0 : _$$find$attr3.toLowerCase();
+        var isBreed = breed.toLowerCase().includes(slideBreed === null || slideBreed === void 0 ? void 0 : slideBreed.trim());
+        var isAnimal = $(slide).find("._popup-services__slide.".concat(animal, ",._popup-services__slide.any")).length;
+        return isBreed && isAnimal;
       }
 
       if (animal) {
@@ -8358,6 +8371,17 @@ grummer.popupServices = {
         return $(slide).find("._popup-services__slide.".concat(category)).length;
       }
 
+      if (breed) {
+        var _$$find$attr4;
+
+        console.log('breed', breed);
+
+        var _slideBreed2 = (_$$find$attr4 = $(slide).find('._popup-services__slide').attr('breed')) === null || _$$find$attr4 === void 0 ? void 0 : _$$find$attr4.toLowerCase();
+
+        console.log('slideBreed', _slideBreed2);
+        return breed.toLowerCase().includes(_slideBreed2 === null || _slideBreed2 === void 0 ? void 0 : _slideBreed2.trim());
+      }
+
       return true;
     });
     $('.popup-services__slider-services').slick('slickGoTo', 0);
@@ -8366,7 +8390,9 @@ grummer.popupServices = {
   filterServicesByCategory(category) {
     this.category = category;
     this.filter({
-      category: this.category
+      animal: this.animal,
+      breed: this.breed,
+      category
     });
   },
 
@@ -8396,24 +8422,27 @@ grummer.popupServices = {
 
   addService() {
     var service = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    console.log('service', service);
     grummer.currentServices = [...grummer.currentServices, service];
     grummer.popupMain.open();
     $('.popup-services__slider-services').slick('unslick');
   },
 
   goBack() {
+    this.filterServicesByBreed('');
+    this.filterOptionsByBreed('');
     $('.popup-services__slider-services').slick('unslick');
     grummer.popup.back('_popup-services');
   },
 
   close(e) {
     if (e && $(e.target).closest('.popup__content')[0]) return;
+    this.filterServicesByBreed('');
+    this.filterOptionsByBreed('');
     $('.popup-services__slider-services').slick('unslick');
     grummer.popup.close('_popup-services');
   },
 
-  filterServicesByBreed(el) {
+  filterServicesByAnimal(el) {
     var animal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     var $el = $(el);
     if ($el.hasClass('active')) return;
@@ -8422,7 +8451,8 @@ grummer.popupServices = {
     this.animal = animal;
     this.filter({
       animal: this.animal,
-      category: this.category
+      category: this.category,
+      breed: this.breed
     });
   },
 
@@ -8432,8 +8462,42 @@ grummer.popupServices = {
     this.animal = '';
     this.filter({
       animal: this.animal,
-      category: this.category
+      category: this.category,
+      breed: this.breed
     });
+  },
+
+  filterServicesByBreed(breed) {
+    // console.log('breed', breed)
+    if (!breed) {
+      $('.popup-services__breeds ._selected-text').text('Выберите породу');
+    }
+
+    this.breed = breed;
+    this.filter({
+      animal: this.animal,
+      category: this.category,
+      breed
+    });
+  },
+
+  filterOptionsByBreed(breed) {
+    $('.popup-services__breeds ._g-select__find').val(breed);
+
+    if (breed) {
+      $('.popup-services__breeds .g-select__find-close-btn').removeClass('hide');
+    } else {
+      $('.popup-services__breeds .g-select__find-close-btn').addClass('hide');
+    }
+
+    if (!this.breedNodes) {
+      this.breedNodes = $('.popup-services__breeds ul.g-select__items .g-select__item._option').clone();
+    }
+
+    $('.popup-services__breeds ul.g-select__items').html('');
+    this.breedNodes.filter((idx, el) => {
+      return $(el).data().value.toLowerCase().includes(breed.trim().toLowerCase());
+    }).appendTo($('._popup-services__breeds-items'));
   }
 
 };
