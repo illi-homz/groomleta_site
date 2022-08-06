@@ -60,8 +60,8 @@ class BreedAdmin(admin.ModelAdmin):
 
 @admin.register(models.Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'category', 'animal', 'price', 'image_tag')
-    list_editable = ['title', 'category', 'animal', 'price']
+    list_display = ('id', 'title', 'breed', 'category', 'animal', 'price', 'image_tag')
+    list_editable = ['title', 'breed', 'animal', 'price']
     list_filter = ['title', 'animal', 'category']
     search_fields = ['title']
     actions = [dublicate_ad]
