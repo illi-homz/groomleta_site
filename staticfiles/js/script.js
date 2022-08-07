@@ -8374,11 +8374,8 @@ grummer.popupServices = {
       if (breed) {
         var _$$find$attr4;
 
-        console.log('breed', breed);
-
         var _slideBreed2 = (_$$find$attr4 = $(slide).find('._popup-services__slide').attr('breed')) === null || _$$find$attr4 === void 0 ? void 0 : _$$find$attr4.toLowerCase();
 
-        console.log('slideBreed', _slideBreed2);
         return breed.toLowerCase().includes(_slideBreed2 === null || _slideBreed2 === void 0 ? void 0 : _slideBreed2.trim());
       }
 
@@ -8424,6 +8421,8 @@ grummer.popupServices = {
     var service = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
     grummer.currentServices = [...grummer.currentServices, service];
     grummer.popupMain.open();
+    this.filterServicesByBreed('');
+    this.filterOptionsByBreed('');
     $('.popup-services__slider-services').slick('unslick');
   },
 
@@ -8468,7 +8467,6 @@ grummer.popupServices = {
   },
 
   filterServicesByBreed(breed) {
-    // console.log('breed', breed)
     if (!breed) {
       $('.popup-services__breeds ._selected-text').text('Выберите породу');
     }

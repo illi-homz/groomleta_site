@@ -127,6 +127,8 @@ grummer.popupServices = {
 	addService(service = '') {
 		grummer.currentServices = [...grummer.currentServices, service];
 		grummer.popupMain.open();
+		this.filterServicesByBreed('')
+		this.filterOptionsByBreed('')
 		$('.popup-services__slider-services').slick('unslick');
 	},
 	goBack() {

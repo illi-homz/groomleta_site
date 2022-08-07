@@ -131,6 +131,7 @@ h1 {
           align-items: center;
   padding: 0 20px;
   position: relative;
+  cursor: pointer;
 }
 
 .g-select__header span {
