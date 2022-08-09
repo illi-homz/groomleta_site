@@ -11,6 +11,7 @@ def index(request):
     current_data['feedbacks'] = models.Feedback.objects.filter(is_approved=True)
     current_data['services'] = {}
     current_data['services']['categories'] = models.Сategory.objects.all()
+    current_data['services']['breeds'] = models.Breed.objects.all()
     current_data['services']['services_list'] = models.Service.objects.all()
 
     questions = models.Question.objects.all()

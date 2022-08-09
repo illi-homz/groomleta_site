@@ -66,7 +66,7 @@ grummer.popupMain = {
 			return (acc += template
 				.replace(/{id}/gi, service.id)
 				.replace(/{img}/gi, service.img)
-				.replace(/{title}/gi, service.title)
+				.replace(/{title}/gi, `${service.breed} - ${service.title}`)
 				.replace(/{price}/gi, service.price));
 		}, '');
 	},
@@ -107,7 +107,7 @@ grummer.popupMain = {
 	createServicesStr(nodeList) {
 		return Array.from(nodeList)
 			.map(el => {
-				return el.value;
+				return `${el.breed} - ${el.value}`;
 			})
 			.join(', ');
 	},

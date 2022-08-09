@@ -50,10 +50,16 @@ class СategoryAdmin(admin.ModelAdmin):
     list_editable = ['title']
     actions = [dublicate_ad]
 
+@admin.register(models.Breed)
+class BreedAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title',)
+    list_editable = ['title']
+    actions = [dublicate_ad]
+
 @admin.register(models.Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'category', 'animal', 'price', 'image_tag')
-    list_editable = ['title', 'category', 'animal', 'price']
+    list_display = ('id', 'title', 'breed', 'category', 'animal', 'price', 'image_tag')
+    list_editable = ['title', 'breed', 'animal', 'price']
     list_filter = ['title', 'animal', 'category']
     search_fields = ['title']
     actions = [dublicate_ad]
@@ -61,7 +67,7 @@ class ServiceAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
     def image_tag(self, obj):
-        return format_html('<img width="50" src="{}" />'.format(obj.img.url))
+        return format_html(f'<img width="50" src="{obj.img.url}" />')
 
     image_tag.short_description = 'Картинка'
 
@@ -121,3 +127,26 @@ class MasterAdmin(admin.ModelAdmin):
     list_per_page = 20
     ordering = ('id',)
     actions = [dublicate_ad]
+
+@admin.register(models.Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'start_date', 'client', 'get_services', 'master', 'comment']
+    list_editable = ['title', 'client', 'master']
+    search_fields = ['title']
+    readonly_fields = ['create_date']
+    list_per_page = 20
+    ordering = ('id',)
+    actions = [dublicate_ad]
+
+@admin.register(models.Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ['id', 'username', 'lastname', 'image_tag', 'phone']
+    list_editable = ['username', 'lastname', 'phone']
+    search_fields = ['title']
+    readonly_fields = ['create_date']
+    list_per_page = 20
+    ordering = ('id',)
+    actions = [dublicate_ad]
+
+    def image_tag(self, obj):
+        return format_html(f'<img width="50" src="{obj.avatar.url}" />')

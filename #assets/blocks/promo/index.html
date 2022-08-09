@@ -2,11 +2,11 @@
     <div class="container">
         <h1>Акции</h1>
         <div class="promo__slider _promo__slider">
-			{% for promo in promos %}
+			{% for item in data %}
 			<div class="promo__slider-item">
 				<img
 					alt="Акция"
-					style="--m-image: url({{promo.mobile_img.url}}); --t-image: url({{promo.tablet_img.url}});"
+					style="--m-image: url({{item.mobile_img.url}}); --t-image: url({{item.tablet_img.url}});"
 				>
 			</div>
 			{% endfor %}

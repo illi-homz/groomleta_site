@@ -8,3 +8,6 @@ from .ServiceRecord import ServiceRecord
 from .Service import Service
 from .Сategory import Сategory
 from .Master import Master
+from .Breed import Breed
+from .Event import Event
+from .Client import Client

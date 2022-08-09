@@ -3,16 +3,16 @@
     <div class="questions__wrapper">
         <div class="questions__spoiler">
             <ul>
-				{% for question in questions %}
+				{% for item in data %}
                 <li class="questions__item">
                     <div class="questions__item-header-wrap" onclick="grummer.questions.toggleText(this)">
                         <div class="questions__item-icon"></div>
                         <h4>
-                            {{question.title}}
+                            {{item.title}}
                         </h4>
                     </div>
                     <div class="questions__item-text">
-						{% for punkt in question.punkts%}
+						{% for punkt in item.punkts %}
                         <p>
                             {{punkt}}
                         </p>

@@ -1,37 +1,31 @@
 {% load static %}
 
 <div class="popup-services popup _popup-services" id="popup-services">
-    <div class="popup__body" onclick="grummer.popupServices.close(event)">
-        <div class="popup__content">
-            <div class="popup-services__wrapper">
-                <!-- <div class="popup__back slider-arrow" onclick="grummer.popup.back('_popup-services', grummer.popupServices.)"> -->
-                <div class="popup__back btn" onclick="grummer.popupServices.goBack()">
+	<div class="popup__body" onclick="grummer.popupServices.close(event)">
+		<div class="popup__content">
+			<div class="popup-services__wrapper">
+				<!-- <div class="popup__back slider-arrow" onclick="grummer.popup.back('_popup-services', grummer.popupServices.)"> -->
+				<div class="popup__back btn" onclick="grummer.popupServices.goBack()">
 					{% include '../../#img/arrow-left.svg' %}
-                </div>
-                <div class="popup__close" onclick="grummer.popupServices.close()"></div>
-                <h1>Добавить услугу</h1>
+				</div>
+				<div class="popup__close" onclick="grummer.popupServices.close()"></div>
+				<h1>Добавить услугу</h1>
 				<div class="services__filters">
-					<div class="popup-services__filter">
+					<!-- <div class="popup-services__filter">
 						<div class="popup-services__filter-title">Категоря</div>
 						<div class="popup-services__categories g-select _select">
-							<input
-								type="hidden"
-								class="_select-input"
-								onchange="grummer.popupServices.filterServicesByCategory(this.value)"/>
+							<input type="hidden" class="_select-input"
+								onchange="grummer.popupServices.filterServicesByCategory(this.value)" />
 							<div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
 								<span class="_selected-text">Любая</span>
 							</div>
 							<div class="g-select__body _options">
-								<li
-									class="g-select__item _option"
-									data-value=""
+								<li class="g-select__item _option" data-value=""
 									onclick="grummer.gSelect.selectItem(this)">
 									Любая
 								</li>
 								{% for category in services.categories %}
-								<li
-									class="g-select__item _option"
-									data-value="{{category.id}}"
+								<li class="g-select__item _option" data-value="{{category.id}}"
 									onclick="grummer.gSelect.selectItem(this)">
 									{{category.title}}
 								</li>
@@ -39,35 +33,68 @@
 								<ul class="g-select__items"></ul>
 							</div>
 						</div>
+					</div> -->
+					<div class="popup-services__filter popup-services__breeds">
+						<div class="popup-services__filter-title">Порода</div>
+						<div class="services__categories g-select _select">
+							<input type="hidden" class="_select-input"
+								onchange="grummer.popupServices.filterServicesByBreed(this.value)" />
+							<div class="g-select__header" onclick="grummer.gSelect.toggle(this)">
+								<span class="_selected-text">Выберите породу</span>
+								<div class="g-select__find-wrapper" onclick="grummer.gSelect.stopPropagation(event)">
+									<div class="g-select__find-close-btn hide"
+										onclick="grummer.popupServices.filterOptionsByBreed('')"></div>
+									<input type="text" class="g-select__find _g-select__find" placeholder="Поиск"
+										oninput="grummer.popupServices.filterOptionsByBreed(this.value)" />
+								</div>
+							</div>
+							<div class="g-select__body _options">
+								<ul class="g-select__items _popup-services__breeds-items">
+									<li class="g-select__item _option" data-value=""
+										onclick="grummer.gSelect.selectItem(this)">
+										Любая порода
+									</li>
+									{% for breed in services.breeds %}
+									<li class="g-select__item _option" data-value="{{breed}}"
+										onclick="grummer.gSelect.selectItem(this)">
+										{{breed.title}}
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
 					</div>
 					<div class="services__nav-btns">
-						<div class="services__nav-btn btn-costom" onclick="grummer.popupServices.filterServicesByBreed(this, 'cat')">
+						<div class="services__nav-btn btn-costom"
+							onclick="grummer.popupServices.filterServicesByAnimal(this, 'cat')">
 							{% include '#img/cat.svg' %}
-		
+
 							<span>Для кошек</span>
-		
+
 							<button onclick="grummer.popupServices.clearBreedFilter(this, event)">
 								{% include '#img/close-circle.svg' %}
 							</button>
 						</div>
-						<div class="services__nav-btn btn-costom" onclick="grummer.popupServices.filterServicesByBreed(this, 'dog')">
+						<div class="services__nav-btn btn-costom"
+							onclick="grummer.popupServices.filterServicesByAnimal(this, 'dog')">
 							{% include '#img/dog.svg' %}
-		
+
 							<span>Для собак</span>
-		
+
 							<button onclick="grummer.popupServices.clearBreedFilter(this, event)">
 								{% include '#img/close-circle.svg' %}
 							</button>
 						</div>
 					</div>
 				</div>
-				
-            </div>
-            <div class="popup-services__sliders">
-                <div class="popup-services__slider-wrapper">
-                    <div class="popup-services__slider popup-services__slider-services">
+
+			</div>
+			<div class="popup-services__sliders">
+				<div class="popup-services__slider-wrapper">
+					<div class="popup-services__slider popup-services__slider-services">
 						{% for service in services.services_list %}
-						<div class="services__slide _popup-services__slide {{service.animal}} {{service.category.id}}" data-id="{{service.id}}">
+						<div class="services__slide _popup-services__slide {{service.animal}} {{service.category.id}}"
+							breed="{{service.breed}}" data-id="{{service.id}}">
 							<div class="services__slide-wrapper">
 								<div>
 									<div class="services__slide-img">
@@ -87,6 +114,7 @@
 										price: '{{service.price}}',
 										title: '{{service.title}}',
 										img: '{{service.img.url}}',
+										breed: '{{service.breed}}',
 									})">
 										Добавить
 									</button>
@@ -100,8 +128,8 @@
 						</div>
 						{% endfor %}
 					</div>
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

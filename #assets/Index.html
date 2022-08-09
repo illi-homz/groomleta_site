@@ -7,18 +7,19 @@
 {% block content %}
 
 {% include 'blocks/about/index.html' %}
+
+{% if promos|length %}
+{% include 'blocks/promo/index.html' with data=promos %}
+{% endif %}
+
 {% include 'blocks/services/index.html' %}
 
 {% if ourworks|length %}
-{% include 'blocks/ourworks/index.html' %}
+{% include 'blocks/ourworks/index.html' with data=ourworks %}
 {% endif %}
 
 {% if questions|length %}
-{% include 'blocks/questions/index.html' %}
-{% endif %}
-
-{% if promos|length %}
-{% include 'blocks/promo/index.html' %}
+{% include 'blocks/questions/index.html' with data=questions %}
 {% endif %}
 
 {% include 'blocks/feedbacks/index.html' %}

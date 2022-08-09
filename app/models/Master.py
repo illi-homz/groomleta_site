@@ -20,6 +20,7 @@ class Master(models.Model):
     phone = models.CharField(max_length=20, verbose_name='Телефон', default='', blank=True)
     post = models.CharField(max_length=20, verbose_name='Должность', choices=POSTS, default=GROOMMER)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
+    color = models.CharField(max_length=10, verbose_name='Цвет', default='#FFC11C')
 	
     def __str__(self):
         return f'{self.username} {self.lastname}'

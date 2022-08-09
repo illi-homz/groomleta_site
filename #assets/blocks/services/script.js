@@ -1,6 +1,8 @@
 grummer.services = {
 	category: '',
 	animal: '',
+	breed: '',
+	breedNodes: null,
 
 	init() {
 		this.initSlider(this.getSliderOptions());
@@ -47,18 +49,28 @@ grummer.services = {
 			};
 		}
 	},
-	filter({animal = '', category = ''}) {
+	filter({animal = '', category = '', breed = ''}) {
 		$('._services__slider').slick('slickUnfilter');
 
-		if (!animal && !category) {
-			return
-		};
+		if (!animal && !category && !breed) {
+			return;
+		}
 
 		$('._services__slider').slick('slickFilter', (_, slide) => {
 			if (animal && category) {
 				return $(slide).find(
 					`._services__slide.category-${category}.${animal},._services__slide.any`,
 				).length;
+			}
+
+			if (animal && breed) {
+				const slideBreed = $(slide).find('._services__slide').attr('breed')?.toLowerCase();
+				const isBreed = breed.toLowerCase().includes(slideBreed?.trim());
+				const isAnimal = $(slide).find(
+					`._services__slide.${animal},._services__slide.any`,
+				).length;
+
+				return isBreed && isAnimal
 			}
 
 			if (animal) {
@@ -68,7 +80,13 @@ grummer.services = {
 			}
 
 			if (category) {
-				return $(slide).find(`._services__slide.category-${category}`).length;
+				return $(slide).find(`._services__slide.category-${category}`)
+					.length;
+			}
+
+			if (breed) {
+				const slideBreed = $(slide).find('._services__slide').attr('breed')?.toLowerCase();
+				return breed.toLowerCase().includes(slideBreed?.trim());
 			}
 
 			return true;
@@ -76,7 +94,7 @@ grummer.services = {
 
 		$('._services__slider').slick('slickGoTo', 0);
 	},
-	filterServicesByBreed(el, animal = null) {
+	filterServicesByAnimal(el, animal = null) {
 		const $el = $(el);
 		if ($el.hasClass('active')) return;
 		$el.parent().children('div').removeClass('active');
@@ -86,6 +104,7 @@ grummer.services = {
 
 		this.filter({
 			animal: this.animal,
+			breed: this.breed,
 			category: this.category,
 		});
 	},
@@ -96,6 +115,7 @@ grummer.services = {
 
 		this.filter({
 			animal: this.animal,
+			breed: this.breed,
 			category: this.category,
 		});
 	},
@@ -104,8 +124,49 @@ grummer.services = {
 
 		this.filter({
 			animal: this.animal,
+			breed: this.breed,
 			category,
 		});
+	},
+	filterServicesByBreed(breed) {
+		// console.log('breed', breed)
+		if (!breed) {
+			$('.services ._selected-text').text('Выберите породу')
+		}
+		
+		this.breed = breed;
+
+		this.filter({
+			animal: this.animal,
+			category: this.category,
+			breed,
+		});
+	},
+	filterOptionsByBreed(breed) {
+		$('.services__breeds ._g-select__find').val(breed)
+
+		if (breed) {
+			$('.services__breeds .g-select__find-close-btn').removeClass('hide')
+		} else {
+			$('.services__breeds .g-select__find-close-btn').addClass('hide')
+		}
+		
+		if (!this.breedNodes) {
+			this.breedNodes = $(
+				'.services__breeds ul.g-select__items .g-select__item._option',
+			).clone();
+		}
+
+		$('.services__breeds ul.g-select__items').html('');
+
+		this.breedNodes
+			.filter((idx, el) => {
+				return $(el)
+					.data()
+					.value.toLowerCase()
+					.includes(breed.trim().toLowerCase());
+			})
+			.appendTo($('._services__breeds-items'));
 	},
 
 	openPopup(data) {

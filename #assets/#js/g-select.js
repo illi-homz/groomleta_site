@@ -51,4 +51,7 @@ grummer.gSelect = {
 		this.setInputValue($select, selectedValue);
 		this.close($select);
 	},
+	stopPropagation(event) {
+		event.stopPropagation();
+	}
 };
