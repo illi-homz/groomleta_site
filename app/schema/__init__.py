@@ -3,7 +3,7 @@ from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required
 
-from . import events_schema
+from . import events_schema, products_schema
 
 class ServiceType(DjangoObjectType):
     class Meta:
@@ -25,7 +25,7 @@ class ClientType(DjangoObjectType):
     class Meta:
         model = models.Client
 
-class Query(events_schema.Query, graphene.ObjectType):
+class Query(events_schema.Query, products_schema.Query, graphene.ObjectType):
     all_services = graphene.List(ServiceType)
     all_categories = graphene.List(CategoryType)
     all_breeds = graphene.List(BreedType)
@@ -44,9 +44,16 @@ class Query(events_schema.Query, graphene.ObjectType):
         return models.Master.objects.all()
 
     @login_required
+    def resolve_all_clients(root, info, **kwargs):
+        return models.Client.objects.all()
+
+    @login_required
+    def resolve_all_breeds(root, info, **kwargs):
+        return models.Breed.objects.all()
+
+    @login_required
     def resolve_groober_by_id(root, info, id):
-        # Querying a single question
         return models.Master.objects.get(pk=id)
 
-class Mutation(events_schema.Mutation, graphene.ObjectType):
+class Mutation(events_schema.Mutation, products_schema.Mutation, graphene.ObjectType):
     pass

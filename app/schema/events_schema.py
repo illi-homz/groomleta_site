@@ -1,11 +1,7 @@
-from asyncio import events
-from email.policy import default
-from nis import match
-from unittest import case
 from app import models
 from graphene_django import DjangoObjectType
 import graphene
-from graphql_jwt.decorators import login_required
+from graphql_jwt.decorators import login_required, superuser_required
 
 
 class EventType(DjangoObjectType):
@@ -25,37 +21,36 @@ class EventInputType(graphene.InputObjectType):
 
 class CreateEvent(graphene.Mutation):
     class Arguments:
-        title = graphene.String(required=True)
-        start_date = graphene.DateTime(required=True)
-        end_date = graphene.DateTime(required=True)
-        services = graphene.List(graphene.ID, required=True)
-        client = graphene.String()
-        master = graphene.ID()
-        comment = graphene.String()
+        event_data = EventInputType(required=True)
 
     event = graphene.Field(EventType)
 
     def mutate(
         self,
         root,
-        title,
-        start_date,
-        end_date,
-        services,
-        client,
-        master,
-        comment,
+        event_data,
     ):
+        user = root.context.user
+        if not user.is_authenticated:
+            raise Exception('Authentication credentials were not provided')
+
+        for prop in ['title', 'start_date', 'end_date']:
+            if not event_data[prop]:
+                raise Exception('Missing main props')
+
         event = models.Event.objects.create(
-            title=title,
-            start_date=start_date,
-            end_date=end_date,
-            comment=comment,
-            client=models.Client.objects.get(pk=client) if client else None,
-            master=models.Master.objects.get(pk=master) if master else None,
+            title=event_data.title,
+            start_date=event_data.start_date,
+            end_date=event_data.end_date,
+            comment=event_data.comment,
+            client=models.Client.objects.get(
+                pk=event_data.client) if event_data.client else None,
+            master=models.Master.objects.get(
+                pk=event_data.master) if event_data.master else None,
         )
 
-        event.services.set(models.Service.objects.filter(id__in=services))
+        event.services.set(models.Service.objects.filter(
+            id__in=event_data.services))
 
         return CreateEvent(event=event)
 
@@ -74,14 +69,24 @@ class UpdateEvent(graphene.Mutation):
         event_data,
     ):
         event = models.Event.objects.get(pk=id)
+        user = root.context.user
+        if not user.is_authenticated:
+            raise Exception('Authentication credentials were not provided')
+
+        if (not event):
+            raise Exception(f'Not event by ID = {id}')
 
         for key in event_data:
             data = None
 
-            if key == 'client':
+            if key == 'master':
+                data = models.Master.objects.get(
+                    pk=event_data[key]) if event_data[key] else None
+            elif key == 'client':
+                if not event_data[key]:
+                    continue
+
                 data = models.Client.objects.get(pk=event_data[key])
-            elif key == 'master':
-                data = models.Master.objects.get(pk=event_data[key])
             elif key == 'services':
                 data = models.Service.objects.filter(id__in=event_data[key])
                 event.services.set(data)
@@ -95,6 +100,26 @@ class UpdateEvent(graphene.Mutation):
 
         return UpdateEvent(event=event)
 
+class RemoveEvent(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+
+    event = graphene.Field(EventType)
+
+    def mutate(
+        self,
+        root,
+        id,
+    ):
+        event = models.Event.objects.get(pk=id)
+
+        if (not event):
+            raise Exception(f'Not event by ID = {id}')
+
+        event.delete()
+
+        return RemoveEvent(event=True)
+
 
 class Query(graphene.ObjectType):
     all_events = graphene.List(EventType)
@@ -107,3 +132,4 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     create_event = CreateEvent.Field()
     update_event = UpdateEvent.Field()
+    remove_event = RemoveEvent.Field()

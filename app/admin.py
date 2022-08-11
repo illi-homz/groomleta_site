@@ -138,6 +138,16 @@ class EventAdmin(admin.ModelAdmin):
     ordering = ('id',)
     actions = [dublicate_ad]
 
+@admin.register(models.Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'vendor_code', 'count', 'price']
+    list_editable = ['vendor_code', 'count', 'price']
+    search_fields = ['title', 'vendor_code']
+    readonly_fields = ['create_date', 'update_date']
+    list_per_page = 20
+    ordering = ('title',)
+    actions = [dublicate_ad]
+
 @admin.register(models.Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ['id', 'username', 'lastname', 'image_tag', 'phone']

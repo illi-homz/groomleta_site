@@ -11,3 +11,4 @@ from .Master import Master
 from .Breed import Breed
 from .Event import Event
 from .Client import Client
+from .Product import Product
