@@ -23,6 +23,7 @@ class CreateProduct(graphene.Mutation):
         product_data = ProductInputType(required=True)
 
     product = graphene.Field(ProductType)
+    all_products = graphene.List(ProductType)
 
     def mutate(
         self,
@@ -45,7 +46,7 @@ class CreateProduct(graphene.Mutation):
             description=product_data.description or '',
         )
 
-        return CreateProduct(product=product)
+        return CreateProduct(product=product, all_products=models.Product.objects.all())
 
 
 class UpdateProduct(graphene.Mutation):
@@ -54,6 +55,7 @@ class UpdateProduct(graphene.Mutation):
         product_data = ProductInputType(required=True)
 
     product = graphene.Field(ProductType)
+    all_products = graphene.List(ProductType)
 
     def mutate(
         self,
@@ -76,13 +78,16 @@ class UpdateProduct(graphene.Mutation):
 
         product.save()
 
-        return UpdateProduct(product=product)
+        return UpdateProduct(product=product, all_products=models.Product.objects.all())
+
 
 class RemoveProduct(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
     product = graphene.Field(ProductType)
+    all_products = graphene.List(ProductType)
+    success = graphene.Boolean()
 
     def mutate(
         self,
@@ -96,7 +101,7 @@ class RemoveProduct(graphene.Mutation):
 
         product.delete()
 
-        return RemoveProduct(product=None)
+        return RemoveProduct(product=None, all_products=models.Product.objects.all(), success=True)
 
 
 class Query(graphene.ObjectType):

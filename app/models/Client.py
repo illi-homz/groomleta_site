@@ -8,6 +8,7 @@ class Client(models.Model):
     avatar = models.ImageField(upload_to='masters', verbose_name='Фотка', default='', blank=True)
     phone = models.CharField(max_length=20, verbose_name='Телефон', default='', blank=True)
     comment = models.TextField(verbose_name='Заметки', default='')
+    address = models.TextField(verbose_name='Адресс', default='')
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
 	
     def __str__(self):

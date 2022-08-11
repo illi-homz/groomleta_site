@@ -24,6 +24,7 @@ class CreateEvent(graphene.Mutation):
         event_data = EventInputType(required=True)
 
     event = graphene.Field(EventType)
+    all_events = graphene.List(EventType)
 
     def mutate(
         self,
@@ -52,7 +53,7 @@ class CreateEvent(graphene.Mutation):
         event.services.set(models.Service.objects.filter(
             id__in=event_data.services))
 
-        return CreateEvent(event=event)
+        return CreateEvent(event=event, all_events=models.Event.objects.all())
 
 
 class UpdateEvent(graphene.Mutation):
@@ -61,6 +62,7 @@ class UpdateEvent(graphene.Mutation):
         event_data = EventInputType(required=True)
 
     event = graphene.Field(EventType)
+    all_events = graphene.List(EventType)
 
     def mutate(
         self,
@@ -98,13 +100,15 @@ class UpdateEvent(graphene.Mutation):
 
         event.save()
 
-        return UpdateEvent(event=event)
+        return UpdateEvent(event=event, all_events=models.Event.objects.all())
+
 
 class RemoveEvent(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
     event = graphene.Field(EventType)
+    all_events = graphene.List(EventType)
 
     def mutate(
         self,
@@ -118,7 +122,7 @@ class RemoveEvent(graphene.Mutation):
 
         event.delete()
 
-        return RemoveEvent(event=True)
+        return RemoveEvent(event=None, all_events=models.Event.objects.all())
 
 
 class Query(graphene.ObjectType):

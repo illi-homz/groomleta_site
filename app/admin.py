@@ -150,7 +150,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(models.Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'lastname', 'image_tag', 'phone']
+    list_display = ['id', 'username', 'lastname', 'phone', 'image_tag', 'address']
     list_editable = ['username', 'lastname', 'phone']
     search_fields = ['title']
     readonly_fields = ['create_date']
@@ -159,4 +159,4 @@ class ClientAdmin(admin.ModelAdmin):
     actions = [dublicate_ad]
 
     def image_tag(self, obj):
-        return format_html(f'<img width="50" src="{obj.avatar.url}" />')
+        return format_html('<img width="100" src="{}" />'.format(obj.avatar.url)) if obj.avatar else ''
