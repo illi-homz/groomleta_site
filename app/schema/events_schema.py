@@ -79,6 +79,8 @@ class UpdateEvent(graphene.Mutation):
         if (not event):
             raise Exception(f'Not event by ID = {id}')
 
+        print('event_data', event_data)
+
         for key in event_data:
             data = None
 
@@ -86,10 +88,7 @@ class UpdateEvent(graphene.Mutation):
                 data = models.Master.objects.get(
                     pk=event_data[key]) if event_data[key] else None
             elif key == 'client':
-                if not event_data[key]:
-                    continue
-
-                data = models.Client.objects.get(pk=event_data[key])
+                data = models.Client.objects.get(pk=event_data[key]) if event_data[key] else None
             elif key == 'services':
                 data = models.Service.objects.filter(id__in=event_data[key])
                 event.services.set(data)

@@ -72,7 +72,7 @@ class UpdateClient(graphene.Mutation):
             raise Exception(f'Not client by ID = {id}')
 
         for key in client_data:
-            setattr(client, key, client_data[key])
+            setattr(client, key, client_data[key] or None)
 
         client.update_date = now()
 
