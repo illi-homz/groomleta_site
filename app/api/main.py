@@ -1,5 +1,3 @@
-from cmath import log
-from unicodedata import name
 from django.http import JsonResponse
 import json
 import requests
@@ -7,6 +5,7 @@ import os
 import re
 from app import models
 from django.utils.timezone import datetime, localdate, now
+from django.forms.models import model_to_dict
 
 from app.services import create_response
 
@@ -35,12 +34,14 @@ def create_callback_msg(data):
 
     return msg
 
+
 def create_feedback_msg(data):
     msg = '*Отзыв*\n\n'
     msg += f'#Клиент: {data["name"]} {data["lastname"]}\n'
     msg += f'#Комментарий: {data["comment"]}'
 
     return msg
+
 
 def create_services_msg(data):
     [year, month, day] = data['date'].split('-')
@@ -55,19 +56,24 @@ def create_services_msg(data):
 
     return msg
 
+
 def concatFio(data):
     name = ''
 
-    if data["name"]: name += data["name"]
-    if data["lastname"]: name += f' {data["lastname"]}'
+    if data["name"]:
+        name += data["name"]
+    if data["lastname"]:
+        name += f' {data["lastname"]}'
 
     return name
+
 
 mock_response = {
     'status': 'success',
     'code': 200,
     'ok': True
 }
+
 
 def send_callback(request):
     data = json.loads(request.body)
@@ -81,16 +87,19 @@ def send_callback(request):
 
     return JsonResponse(create_response(resp))
 
+
 def send_feedback(request):
     data = json.loads(request.body)
 
-    feedback = models.Feedback.objects.create(nick=concatFio(data), text=data['comment'])
+    feedback = models.Feedback.objects.create(
+        nick=concatFio(data), text=data['comment'])
     feedback.save()
 
     message = create_feedback_msg(data)
     resp = requests.post(url, create_telegram_msg(message))
 
     return JsonResponse(create_response(resp))
+
 
 def send_services(request):
     data = json.loads(request.body)
@@ -108,7 +117,7 @@ def send_services(request):
 
     message = create_services_msg(data)
     resp = requests.post(url, create_telegram_msg(message))
-    
+
     return JsonResponse(create_response(resp))
 
 
@@ -136,3 +145,17 @@ def send_photos(request):
     resp = requests.post(url_media_group, params, files=current_files)
 
     return JsonResponse(create_response(resp))
+
+
+def upload_master_avatar(request):
+    master_id = request.POST['id']
+    avatar = request.FILES.getlist('file')[0]
+    master = models.Master.objects.get(pk=master_id)
+    master.avatar = avatar
+    master.save()
+
+    return JsonResponse({
+        'status': 'success',
+        'code': 200,
+        'ok': True
+    })

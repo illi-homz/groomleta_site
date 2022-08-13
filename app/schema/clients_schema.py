@@ -14,8 +14,8 @@ class ClientInputType(graphene.InputObjectType):
     username = graphene.String()
     lastname = graphene.String()
     phone = graphene.String()
-    address = graphene.String()
     comment = graphene.String()
+    animal = graphene.String()
 
 
 class CreateClient(graphene.Mutation):
@@ -43,7 +43,7 @@ class CreateClient(graphene.Mutation):
             lastname=client_data.lastname or '',
             phone=client_data.phone or '',
             comment=client_data.comment or '',
-            address=client_data.address or '',
+            animal=client_data.animal or '',
         )
 
         return CreateClient(client=client, all_clients=models.Client.objects.all())

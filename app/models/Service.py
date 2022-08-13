@@ -38,7 +38,7 @@ class Service(models.Model):
         Breed,
         on_delete=models.DO_NOTHING,
         blank=True, null=True,
-        verbose_name='Попрода'
+        verbose_name='Порода'
     )
 
     # def img_tag(self):

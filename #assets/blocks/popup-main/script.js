@@ -189,7 +189,7 @@ grummer.popupMain = {
 
 		this.images = [...this.images, ...imgs];
 
-		console.log('this.images', this.images);
+		// console.log('this.images', this.images);
 
 		const dt = new DataTransfer();
 		imgs.forEach(img => dt.items.add(img));

@@ -12,3 +12,6 @@ from .Breed import Breed
 from .Event import Event
 from .Client import Client
 from .Product import Product
+from .OrderService import OrderService
+from .OrderProduct import OrderProduct
+from .Order import Order

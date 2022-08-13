@@ -123,7 +123,7 @@ class MasterAdmin(admin.ModelAdmin):
     list_display = ['id', 'username', 'lastname', 'phone', 'avatar', 'post']
     list_editable = ['username', 'lastname', 'phone', 'post']
     search_fields = ['username', 'lastname', 'phone']
-    readonly_fields = ['create_date']
+    readonly_fields = ['create_date', 'update_date']
     list_per_page = 20
     ordering = ('id',)
     actions = [dublicate_ad]
@@ -133,7 +133,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'start_date', 'client', 'get_services', 'master', 'comment']
     list_editable = ['title', 'client', 'master']
     search_fields = ['title']
-    readonly_fields = ['create_date']
+    readonly_fields = ['create_date', 'update_date']
     list_per_page = 20
     ordering = ('id',)
     actions = [dublicate_ad]
@@ -150,13 +150,22 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(models.Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'lastname', 'phone', 'image_tag', 'address']
+    list_display = ['id', 'username', 'lastname', 'phone', 'image_tag']
     list_editable = ['username', 'lastname', 'phone']
     search_fields = ['title']
-    readonly_fields = ['create_date']
+    readonly_fields = ['create_date', 'update_date']
     list_per_page = 20
     ordering = ('id',)
     actions = [dublicate_ad]
 
     def image_tag(self, obj):
         return format_html('<img width="100" src="{}" />'.format(obj.avatar.url)) if obj.avatar else ''
+
+@admin.register(models.Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'price', 'create_date', 'update_date', 'is_success']
+    search_fields = ['price', 'create_date']
+    readonly_fields = ['create_date', 'update_date']
+    list_per_page = 20
+    ordering = ('-create_date',)
+    actions = [dublicate_ad]

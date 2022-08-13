@@ -1,4 +1,5 @@
 from app import models
+from django.utils.timezone import now
 from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required, superuser_required
@@ -97,6 +98,8 @@ class UpdateEvent(graphene.Mutation):
                 data = event_data[key]
 
             setattr(event, key, data)
+
+        event.update_date = now()
 
         event.save()
 
