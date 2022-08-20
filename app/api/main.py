@@ -148,6 +148,15 @@ def send_photos(request):
 
 
 def upload_master_avatar(request):
+    authorization = request.headers['Authorization']
+
+    if not authorization and 'JWT' in authorization:
+        return JsonResponse({
+            'status': 'error',
+            'code': 400,
+            'ok': False
+        })
+
     master_id = request.POST['id']
     avatar = request.FILES.getlist('file')[0]
     master = models.Master.objects.get(pk=master_id)

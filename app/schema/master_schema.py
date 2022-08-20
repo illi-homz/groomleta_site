@@ -95,7 +95,6 @@ class UpdateMaster(graphene.Mutation):
             setattr(master, key, master_data[key])
 
         master.update_date = now()
-
         master.save()
 
         return UpdateMaster(master=master, all_masters=models.Master.objects.all())
@@ -140,7 +139,6 @@ class Query(graphene.ObjectType):
     def resolve_master_by_id(root, info, id):
         return {
             "master": models.Master.objects.get(pk=id) or None,
-            "all_events": models.Event.objects.filter(master__pk=id),
             "all_orders": models.Order.objects.filter(master__pk=id)
         }
 
