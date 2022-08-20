@@ -14,13 +14,15 @@ class Master(models.Model):
     ]
     
     username = models.CharField(max_length=50, verbose_name='Имя')
-    lastname = models.CharField(max_length=50, verbose_name='Фамилия', blank=True)
+    lastname = models.CharField(max_length=50, verbose_name='Фамилия', default='', blank=True)
     avatar = models.ImageField(upload_to='masters', verbose_name='Фотка', default='', blank=True)
     education = models.CharField(max_length=100, verbose_name='Образование', default='Без образования', blank=True)
     phone = models.CharField(max_length=20, verbose_name='Телефон', default='', blank=True)
     post = models.CharField(max_length=20, verbose_name='Должность', choices=POSTS, default=GROOMMER)
     color = models.CharField(max_length=10, verbose_name='Цвет', default='#FFC11C')
     comment = models.TextField(verbose_name='Заметки', default='', blank=True)
+    rate = models.SmallIntegerField(verbose_name='Ставка', default=0, blank=True)
+    address = models.CharField(max_length=50, verbose_name='Адрес', default='', blank=True)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
 	

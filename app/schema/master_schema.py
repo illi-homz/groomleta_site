@@ -25,6 +25,8 @@ class MasterInputType(graphene.InputObjectType):
     education = graphene.String()
     post = graphene.String()
     color = graphene.String()
+    address = graphene.String()
+    rate = graphene.Int()
 
 
 class CreateMaster(graphene.Mutation):
@@ -55,9 +57,9 @@ class CreateMaster(graphene.Mutation):
             education=master_data.education or '',
             post=master_data.post or 'groommer',
             color=master_data.color or '#FFC11C',
+            address=master_data.address or '',
+            rate=master_data.rate or 0,
         )
-
-        print('master', master)
 
         return CreateMaster(master=master, all_masters=models.Master.objects.all())
 
@@ -86,6 +88,10 @@ class UpdateMaster(graphene.Mutation):
             raise Exception(f'Not master by ID = {id}')
 
         for key in master_data:
+            if (key == 'post'):
+                setattr(master, key, master_data[key].lower())
+                continue
+
             setattr(master, key, master_data[key])
 
         master.update_date = now()

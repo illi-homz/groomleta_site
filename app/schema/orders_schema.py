@@ -27,6 +27,7 @@ class OrderInputType(graphene.InputObjectType):
     client = graphene.ID()
     services = graphene.List(OrderServiceInputType)
     is_success = graphene.Boolean()
+    is_reserved = graphene.Boolean()
 
 
 class CreateOrder(graphene.Mutation):
@@ -75,9 +76,12 @@ class CreateOrder(graphene.Mutation):
                     )
                     services.append(service)
 
+        is_success = order_data.is_success or False
+
         order = models.Order.objects.create(
             price=order_data.price or 0,
-            is_success=order_data.is_success or False,
+            is_success=is_success,
+            is_reserved=False if is_success else order_data.is_reserved or True,
             client=models.Client.objects.get(
                 pk=order_data.client) if order_data.client else None,
             master=models.Master.objects.get(

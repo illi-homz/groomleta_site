@@ -13,6 +13,7 @@ class Event(models.Model):
     client = models.ForeignKey(
         Client,
         on_delete=models.DO_NOTHING,
+        db_constraint=False,
         verbose_name='Клиент',
         blank=True,
         null=True,
@@ -20,9 +21,11 @@ class Event(models.Model):
     master = models.ForeignKey(
         Master,
         on_delete=models.DO_NOTHING,
+        db_constraint=False,
         verbose_name='Мастер',
         blank=True,
         null=True,
+        default=None
     )
     comment = models.TextField(verbose_name='Комментарий', default='', blank=True)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)

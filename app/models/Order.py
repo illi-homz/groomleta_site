@@ -14,6 +14,7 @@ class Order(models.Model):
     client = models.ForeignKey(
         Client,
         on_delete=models.DO_NOTHING,
+        db_constraint=False,
         verbose_name='Клиент',
         blank=True,
         null=True,
@@ -21,12 +22,14 @@ class Order(models.Model):
     master = models.ForeignKey(
         Master,
         on_delete=models.DO_NOTHING,
+        db_constraint=False,
         verbose_name='Мастер',
         blank=True,
         null=True,
     )
     is_success = models.BooleanField(verbose_name='Оплачен', default=False, blank=True)
     is_cancel = models.BooleanField(verbose_name='Отменен', default=False, blank=True)
+    is_reserved = models.BooleanField(verbose_name='Забронирован', default=False, blank=True)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
 	

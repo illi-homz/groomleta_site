@@ -165,7 +165,7 @@ class ClientAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'price', 'create_date', 'update_date', 'is_success']
     search_fields = ['price', 'create_date']
-    readonly_fields = ['create_date', 'update_date']
+    readonly_fields = ['create_date', 'update_date', 'products', 'services', 'client']
     list_per_page = 20
     ordering = ('-create_date',)
     actions = [dublicate_ad]
