@@ -1,13 +1,13 @@
-grummer.ourworks = {
+grummer.oursalon = {
 	init() {
-	  this.nav = $(".ourworks__nav");
-	  this.title = $(".ourworks__title");
-	  this.text = $(".ourworks__text");
+	  this.nav = $(".oursalon__nav");
+	  this.title = $(".oursalon__title");
+	  this.text = $(".oursalon__text");
 	  this.slider = null;
 	  this.initSlider();
 	},
 	initSlider() {
-	  this.slider = $("._ourworks__slider");
+	  this.slider = $("._oursalon__slider");
 
 	  if (!this.slider.length) {
 		  return
@@ -39,21 +39,21 @@ grummer.ourworks = {
 	  this.moveArrows(true)
 	},
 	moveArrows(isInit) {
-	  isInit && $("._ourworks__slider").slick("slickGoTo", 0);
+	  isInit && $("._oursalon__slider").slick("slickGoTo", 0);
   
 	  if (window.innerWidth < 1024) {
-		$(".ourworks .prev-arrow").css("left", 12);
-		$(".ourworks .next-arrow").css("right", 12);
+		$(".oursalon .prev-arrow").css("left", 12);
+		$(".oursalon .next-arrow").css("right", 12);
   
 		return;
 	  }
   
 	  setTimeout(() => {
-		const CurrentSlide = $(".ourworks .slick-current.slick-center").get(0);
+		const CurrentSlide = $(".oursalon .slick-current.slick-center").get(0);
 		const slideData = CurrentSlide.getBoundingClientRect();
   
-		$(".ourworks .prev-arrow").css("left", slideData.left - 25);
-		$(".ourworks .next-arrow").css(
+		$(".oursalon .prev-arrow").css("left", slideData.left - 25);
+		$(".oursalon .next-arrow").css(
 		  "right",
 		  slideData.right - slideData.width - 25
 		);

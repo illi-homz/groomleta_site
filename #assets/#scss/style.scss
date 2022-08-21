@@ -8,6 +8,7 @@
 @import './settings/datepicker';
 @import './settings/form';
 @import './settings/fonts';
+@import './settings/g-photo-slider';
 
 @import '../components/header/style';
 @import '../components/footer/style';
@@ -16,7 +17,6 @@
 @import '../blocks/about/style';
 @import '../blocks/services/style';
 @import '../blocks/ourworks/style.scss';
-@import '../blocks/questions/style.scss';
 @import '../blocks/promo/style.scss';
 @import '../blocks/feedbacks/style.scss';
 @import '../blocks/callback/style.scss';
@@ -154,7 +154,7 @@ body {
 	text-align: center;
 }
 
-#ourworks {
+.ourworks {
 	margin-bottom: 55px;
 	@include tablet {
 		margin-bottom: 60px;
@@ -168,7 +168,7 @@ body {
 	}
 }
 
-#oursalon {
+.oursalon {
 	margin-bottom: 55px;
 	@include tablet {
 		margin-bottom: 60px;

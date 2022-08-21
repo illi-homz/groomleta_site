@@ -9,7 +9,7 @@
 {% include 'blocks/about/index.html' %}
 
 {% if oursalon|length %}
-{% include 'blocks/ourworks/index.html' with data=oursalon title="" id="oursalon" %}
+{% include 'blocks/oursalon/index.html' with data=oursalon %}
 {% endif %}
 
 {% if promos|length %}
@@ -19,7 +19,7 @@
 {% include 'blocks/services/index.html' %}
 
 {% if ourworks|length %}
-{% include 'blocks/ourworks/index.html' with data=ourworks title="Наши работы" id="ourworks" %}
+{% include 'blocks/ourworks/index.html' with data=ourworks %}
 {% endif %}
 
 {% if questions|length %}

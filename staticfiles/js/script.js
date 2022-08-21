@@ -7839,7 +7839,7 @@ grummer.ourworks = {
   },
 
   initSlider() {
-    this.slider = $(".ourworks__slider");
+    this.slider = $("._ourworks__slider");
 
     if (!this.slider.length) {
       return;
@@ -7867,7 +7867,7 @@ grummer.ourworks = {
   },
 
   moveArrows(isInit) {
-    isInit && $(".ourworks__slider").slick("slickGoTo", 0);
+    isInit && $("._ourworks__slider").slick("slickGoTo", 0);
 
     if (window.innerWidth < 1024) {
       $(".ourworks .prev-arrow").css("left", 12);
@@ -7880,6 +7880,62 @@ grummer.ourworks = {
       var slideData = CurrentSlide.getBoundingClientRect();
       $(".ourworks .prev-arrow").css("left", slideData.left - 25);
       $(".ourworks .next-arrow").css("right", slideData.right - slideData.width - 25);
+    }, 0);
+  }
+
+};
+;
+grummer.oursalon = {
+  init() {
+    this.nav = $(".oursalon__nav");
+    this.title = $(".oursalon__title");
+    this.text = $(".oursalon__text");
+    this.slider = null;
+    this.initSlider();
+  },
+
+  initSlider() {
+    this.slider = $("._oursalon__slider");
+
+    if (!this.slider.length) {
+      return;
+    }
+
+    var slickParams = {
+      mobileFirst: true,
+      infinite: true,
+      dots: true,
+      centerMode: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      prevArrow: "<div class=\"prev-arrow slider-arrow\">".concat(arrow, "</div>"),
+      nextArrow: "<div class=\"next-arrow slider-arrow\">".concat(arrow, "</div>"),
+      responsive: [{
+        breakpoint: 768,
+        settings: {
+          variableWidth: true
+        }
+      }]
+    };
+    this.slider.slick(slickParams);
+    this.slider.on("setPosition", () => this.moveArrows(false));
+    this.moveArrows(true);
+  },
+
+  moveArrows(isInit) {
+    isInit && $("._oursalon__slider").slick("slickGoTo", 0);
+
+    if (window.innerWidth < 1024) {
+      $(".oursalon .prev-arrow").css("left", 12);
+      $(".oursalon .next-arrow").css("right", 12);
+      return;
+    }
+
+    setTimeout(() => {
+      var CurrentSlide = $(".oursalon .slick-current.slick-center").get(0);
+      var slideData = CurrentSlide.getBoundingClientRect();
+      $(".oursalon .prev-arrow").css("left", slideData.left - 25);
+      $(".oursalon .next-arrow").css("right", slideData.right - slideData.width - 25);
     }, 0);
   }
 
@@ -8507,6 +8563,7 @@ grummer.init = function () {
   this.header.init();
   this.services.init();
   this.ourworks.init();
+  this.oursalon.init();
   this.questions.init();
   this.promo.init();
   this.feedbacks.init();
