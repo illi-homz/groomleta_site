@@ -8238,8 +8238,8 @@ grummer.popupMain = {
       return true;
     });
     if (!imgs.length) return;
-    this.images = [...this.images, ...imgs];
-    console.log('this.images', this.images);
+    this.images = [...this.images, ...imgs]; // console.log('this.images', this.images);
+
     var dt = new DataTransfer();
     imgs.forEach(img => dt.items.add(img));
     el.files = dt.files;
