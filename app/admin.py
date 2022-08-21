@@ -30,6 +30,12 @@ class OurWorkAdmin(admin.ModelAdmin):
     list_editable = ['title', 'img']
     actions = [dublicate_ad]
 
+@admin.register(models.OurSalon)
+class OurSalonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'img')
+    list_editable = ['title', 'img']
+    actions = [dublicate_ad]
+
 @admin.register(models.Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'punkts')
@@ -165,7 +171,7 @@ class ClientAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'price', 'create_date', 'update_date', 'is_success']
     search_fields = ['price', 'create_date']
-    readonly_fields = ['create_date', 'update_date', 'products', 'services', 'client']
+    readonly_fields = ['create_date', 'update_date']
     list_per_page = 20
     ordering = ('-create_date',)
     actions = [dublicate_ad]

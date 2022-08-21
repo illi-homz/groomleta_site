@@ -15,3 +15,4 @@ from .Product import Product
 from .OrderService import OrderService
 from .OrderProduct import OrderProduct
 from .Order import Order
+from .OurSalon import OurSalon

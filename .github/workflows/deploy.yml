@@ -17,6 +17,8 @@ jobs:
             source env/bin/activate
             rm -rf ~/grummers/static/*
             ./manage.py collectstatic
+            ./manage.py makemigrations
+            ./manage.py migrate
             killall gunicorn
           host: ${{secrets.HOST}}
           user: www

@@ -7,6 +7,7 @@ def index(request):
     current_data = data.Index.data
     current_data['header']['banners'] = models.Banner.objects.all()
     current_data['ourworks'] = models.OurWork.objects.all()
+    current_data['oursalon'] = models.OurSalon.objects.all()
     current_data['promos'] = models.Promo.objects.all()
     current_data['feedbacks'] = models.Feedback.objects.filter(is_approved=True)
     current_data['services'] = {}
