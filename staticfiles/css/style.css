@@ -3756,12 +3756,20 @@ body.lock {
   text-align: center;
 }
 
+#ourworks {
+  margin-bottom: 55px;
+}
+
 .about {
   margin-bottom: 20px;
 }
 
+#oursalon {
+  margin-bottom: 55px;
+}
+
 .services {
-  margin-bottom: 110px;
+  margin-bottom: 55px;
 }
 
 .zootaxi {
@@ -4390,12 +4398,20 @@ body.lock {
             justify-content: center;
   }
 
+  #ourworks {
+    margin-bottom: 60px;
+  }
+
   .about {
     margin-bottom: 20px;
   }
 
+  #oursalon {
+    margin-bottom: 60px;
+  }
+
   .services {
-    margin-bottom: 170px;
+    margin-bottom: 60px;
   }
 
   .zootaxi {

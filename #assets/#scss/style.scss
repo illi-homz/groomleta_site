@@ -1,38 +1,38 @@
-@import "./settings/null";
-@import "./settings/variables";
-@import "./settings/mixins";
-@import "./settings/tipografy";
-@import "./settings/g-select";
-@import "./settings/fragments";
-@import "./settings/air-datepicker";
-@import "./settings/datepicker";
-@import "./settings/form";
-@import "./settings/fonts";
+@import './settings/null';
+@import './settings/variables';
+@import './settings/mixins';
+@import './settings/tipografy';
+@import './settings/g-select';
+@import './settings/fragments';
+@import './settings/air-datepicker';
+@import './settings/datepicker';
+@import './settings/form';
+@import './settings/fonts';
 
-@import "../components/header/style";
-@import "../components/footer/style";
-@import "../components/navbar/style";
+@import '../components/header/style';
+@import '../components/footer/style';
+@import '../components/navbar/style';
 
-@import "../blocks/about/style";
-@import "../blocks/services/style";
-@import "../blocks/ourworks/style.scss";
-@import "../blocks/questions/style.scss";
-@import "../blocks/promo/style.scss";
-@import "../blocks/feedbacks/style.scss";
-@import "../blocks/callback/style.scss";
-@import "../blocks/popup_feedback/style.scss";
-@import "../blocks/popup-ok/style.scss";
-@import "../blocks/popup-main/style.scss";
-@import "../blocks/popup-services/style.scss";
+@import '../blocks/about/style';
+@import '../blocks/services/style';
+@import '../blocks/ourworks/style.scss';
+@import '../blocks/questions/style.scss';
+@import '../blocks/promo/style.scss';
+@import '../blocks/feedbacks/style.scss';
+@import '../blocks/callback/style.scss';
+@import '../blocks/popup_feedback/style.scss';
+@import '../blocks/popup-ok/style.scss';
+@import '../blocks/popup-main/style.scss';
+@import '../blocks/popup-services/style.scss';
 
-@import "./popup";
+@import './popup';
 
-@import "../pages/page404/style.scss";
+@import '../pages/page404/style.scss';
 
 * {
-  font-family: "Raleway", sans-serif;
-  @include fontSet(14, 16, 400);
-  color: $textColor;
+	font-family: 'Raleway', sans-serif;
+	@include fontSet(14, 16, 400);
+	color: $textColor;
 }
 
 body {
@@ -46,167 +46,182 @@ body {
 }
 
 .container {
-  max-width: $lg + px;
-  margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px;
+	max-width: $lg + px;
+	margin: 0 auto;
+	padding-left: 15px;
+	padding-right: 15px;
 
-  @include desktop {
-    padding-left: 80px;
-    padding-right: 80px;
-  }
+	@include desktop {
+		padding-left: 80px;
+		padding-right: 80px;
+	}
 }
 
 .row {
-  display: flex;
+	display: flex;
 }
 
 .col {
 }
 
 .btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.04), 0px 10px 16px rgba(0, 0, 0, 0.05);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 12px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.04),
+		0px 10px 16px rgba(0, 0, 0, 0.05);
 
-  @include fontSet(16, 17, 600, -0.2);
+	@include fontSet(16, 17, 600, -0.2);
 
-  &:hover {
-    background-color: $textColor;
-    color: white;
+	&:hover {
+		background-color: $textColor;
+		color: white;
 
-    path {
-      stroke: white;
-    }
-  }
+		path {
+			stroke: white;
+		}
+	}
 
-  &:active {
-    transform: translateY(2px);
-  }
+	&:active {
+		transform: translateY(2px);
+	}
 }
 
 .btn-outlined {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
-  border: 2px solid $textColor;
-  background-color: transparent;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 18px;
-  cursor: pointer;
-  user-select: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 12px;
+	border: 2px solid $textColor;
+	background-color: transparent;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 18px;
+	cursor: pointer;
+	user-select: none;
 
-  &:hover {
-    background-color: $textColor;
-    color: #fff;
+	&:hover {
+		background-color: $textColor;
+		color: #fff;
 
-    path {
-      stroke: white;
-    }
-  }
+		path {
+			stroke: white;
+		}
+	}
 }
 
 .btn-costom {
-  border: 1px solid $textColor;
-  border-radius: 6px;
-  padding: 4px 8px;
+	border: 1px solid $textColor;
+	border-radius: 6px;
+	padding: 4px 8px;
 
-  &:hover {
-    background-color: $textColor;
-    color: #fff;
-  }
+	&:hover {
+		background-color: $textColor;
+		color: #fff;
+	}
 
-  &.active {
-    background-color: $yellow;
-    color: $textColor;
-    border-color: transparent;
-  }
+	&.active {
+		background-color: $yellow;
+		color: $textColor;
+		border-color: transparent;
+	}
 }
 
 .slider-arrow {
-  &:hover {
-    background-color: $yellow;
+	&:hover {
+		background-color: $yellow;
 
-    path {
-      stroke: $textColor;
-    }
-  }
+		path {
+			stroke: $textColor;
+		}
+	}
 
-  &:active {
-    transform: translateY(calc(-50% + 2px));
-  }
+	&:active {
+		transform: translateY(calc(-50% + 2px));
+	}
 }
 
 .yellow {
-  background-color: $yellow;
+	background-color: $yellow;
 }
 
 .gray {
-  background-color: $gray;
+	background-color: $gray;
 }
 
 .text-center {
-  text-align: center;
+	text-align: center;
+}
+
+#ourworks {
+	margin-bottom: 55px;
+	@include tablet {
+		margin-bottom: 60px;
+	}
 }
 
 .about {
-  margin-bottom: 20px;
-  @include tablet {
-    margin-bottom: 20px;
-  }
+	margin-bottom: 20px;
+	@include tablet {
+		margin-bottom: 20px;
+	}
+}
+
+#oursalon {
+	margin-bottom: 55px;
+	@include tablet {
+		margin-bottom: 60px;
+	}
 }
 
 .services {
-  margin-bottom: 110px;
-  @include tablet {
-    margin-bottom: 170px;
-  }
+	margin-bottom: 55px;
+	@include tablet {
+		margin-bottom: 60px;
+	}
 }
 
 .zootaxi {
-  margin-bottom: 55px;
-  @include tablet {
-    margin-bottom: 60px;
-  }
+	margin-bottom: 55px;
+	@include tablet {
+		margin-bottom: 60px;
+	}
 }
 
 .questions {
-  margin-bottom: 55px;
-  @include tablet {
-    margin-bottom: 50px;
-  }
+	margin-bottom: 55px;
+	@include tablet {
+		margin-bottom: 50px;
+	}
 }
 
 .promo {
-  margin-bottom: 55px;
-  @include tablet {
-    margin-bottom: 60px;
-  }
+	margin-bottom: 55px;
+	@include tablet {
+		margin-bottom: 60px;
+	}
 }
 
 .callback {
-  margin-bottom: 50px;
-  @include tablet {
-    margin-bottom: 100px;
-  }
+	margin-bottom: 50px;
+	@include tablet {
+		margin-bottom: 100px;
+	}
 }
 
 .feedbacks {
-  margin-bottom: 50px;
+	margin-bottom: 50px;
 
-  @include tablet {
-    margin-bottom: 68px;
-  }
+	@include tablet {
+		margin-bottom: 68px;
+	}
 }
 
 .pointer {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .hide {
-  display: none;
+	display: none;
 }
