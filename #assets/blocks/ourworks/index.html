@@ -1,5 +1,7 @@
 <section class="ourworks" id="ourworks">
-    <h1 class="text-center container">Наши работы</h1>
+	{% if title %}
+    <h1 class="text-center container">{{title}}</h1>
+	{% endif %}
     <div class="ourworks__slider">
         <!-- <script id="ourworks__slider-temp" type="tuts/template">
             <div class="ourworks__slider-item">

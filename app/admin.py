@@ -31,6 +31,12 @@ class OurWorkAdmin(admin.ModelAdmin):
     list_editable = ['title', 'img']
     actions = [dublicate_ad]
 
+@admin.register(models.OurSalon)
+class OurSalonAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'img')
+    list_editable = ['title', 'img']
+    actions = [dublicate_ad]
+
 
 @admin.register(models.Question)
 class QuestionAdmin(admin.ModelAdmin):
