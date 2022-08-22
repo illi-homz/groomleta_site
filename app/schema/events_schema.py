@@ -126,6 +126,28 @@ class RemoveEvent(graphene.Mutation):
 
         return RemoveEvent(event=None, all_events=models.Event.objects.all())
 
+class SuccessEvent(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+
+    event = graphene.Field(EventType)
+    all_events = graphene.List(EventType)
+
+    def mutate(
+        self,
+        root,
+        id,
+    ):
+        event = models.Event.objects.get(pk=id)
+
+        if (not event):
+            raise Exception(f'Not event by ID = {id}')
+
+        event.is_success = True
+        event.save()
+
+        return SuccessEvent(event=event, all_events=models.Event.objects.all())
+
 
 class Query(graphene.ObjectType):
     all_events = graphene.List(EventType)
@@ -139,3 +161,4 @@ class Mutation(graphene.ObjectType):
     create_event = CreateEvent.Field()
     update_event = UpdateEvent.Field()
     remove_event = RemoveEvent.Field()
+    success_event = SuccessEvent.Field()

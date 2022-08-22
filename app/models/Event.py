@@ -28,6 +28,7 @@ class Event(models.Model):
         default=None
     )
     comment = models.TextField(verbose_name='Комментарий', default='', blank=True)
+    is_success = models.BooleanField(verbose_name='Выполнен', default=False, blank=True)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
 

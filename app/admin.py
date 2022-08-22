@@ -170,8 +170,15 @@ class ClientAdmin(admin.ModelAdmin):
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'price', 'create_date', 'update_date', 'is_success']
+    list_editable = ['is_success']
     search_fields = ['price', 'create_date']
     readonly_fields = ['create_date', 'update_date']
     list_per_page = 20
     ordering = ('-create_date',)
+    actions = [dublicate_ad]
+
+@admin.register(models.OrderService)
+class OrderServiceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'service', 'count']
+    list_per_page = 20
     actions = [dublicate_ad]

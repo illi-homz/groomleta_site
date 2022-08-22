@@ -1,8 +1,6 @@
-<section class="ourworks" id="ourworks">
-	{% if title %}
-    <h1 class="text-center container">{{title}}</h1>
-	{% endif %}
-    <div class="ourworks__slider">
+<section class="ourworks g-photo-slider" id="ourworks">
+    <h1 class="text-center container">Наши работы</h1>
+    <div class="_ourworks__slider g-photo-slider__slider">
         <!-- <script id="ourworks__slider-temp" type="tuts/template">
             <div class="ourworks__slider-item">
                 <img src="img/ourworks/{{img}}">
@@ -10,7 +8,7 @@
         </script> -->
 
 		{% for slide in data  %}
-		<div class="ourworks__slider-item">
+		<div class="g-photo-slider__slider-item">
 			<img src="{{slide.img.url}}">
 		</div>
 		{% endfor %}

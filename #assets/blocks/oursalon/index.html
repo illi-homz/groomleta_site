@@ -1,0 +1,15 @@
+<section class="oursalon g-photo-slider" id="oursalon">
+    <div class="_oursalon__slider g-photo-slider__slider">
+        <!-- <script id="oursalon__slider-temp" type="tuts/template">
+            <div class="oursalon__slider-item">
+                <img src="img/oursalon/{{img}}">
+            </div>
+        </script> -->
+
+		{% for slide in data  %}
+		<div class="g-photo-slider__slider-item">
+			<img src="{{slide.img.url}}">
+		</div>
+		{% endfor %}
+    </div>
+</section>

@@ -37,6 +37,7 @@ const grummer = {
 
 @@include('@@webRoot/#assets/blocks/services/script.js');
 @@include('@@webRoot/#assets/blocks/ourworks/script.js');
+@@include('@@webRoot/#assets/blocks/oursalon/script.js');
 @@include('@@webRoot/#assets/blocks/questions/script.js');
 @@include('@@webRoot/#assets/blocks/promo/script.js');
 @@include('@@webRoot/#assets/blocks/feedbacks/script.js');
@@ -52,6 +53,7 @@ grummer.init = function () {
 	this.header.init();
 	this.services.init();
 	this.ourworks.init();
+	this.oursalon.init();
 	this.questions.init();
 	this.promo.init();
 	this.feedbacks.init();
