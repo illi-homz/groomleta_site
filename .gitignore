@@ -94,4 +94,3 @@ node_modules/
 images/**/*
 media/**/*
 static/**/*
-migrations/
