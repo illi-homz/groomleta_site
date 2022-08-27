@@ -1,4 +1,5 @@
 // Проверка поддержки webp браузером и добавление класса webp
+
 const testWebP = (callback) => {
     var webP = new Image();
     webP.onload = webP.onerror = function () {

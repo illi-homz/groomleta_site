@@ -40,6 +40,7 @@ class Validator {
 					$field.find('._error-msg').slideUp();
 					return true;
 				}
+
 				this.setMessage($field);
 				return false;
 			},
@@ -69,10 +70,12 @@ class Validator {
 				$input.each(function () {
 					if ($(this).prop('checked')) checker = true;
 				});
+
 				if (checker) {
 					$field.find('._error-msg').slideUp();
 					return true;
 				}
+
 				this.setMessage($field);
 				return false;
 			},

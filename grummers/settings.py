@@ -10,10 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
+
 from pathlib import Path
 import environ
 import os
-import dj_database_url 
+import dj_database_url
 
 env = environ.Env()
 
@@ -39,8 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'app',
+    'account',
     'django_cleanup.apps.CleanupConfig',
+    'graphene_django',
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'grummers.urls'
@@ -99,8 +109,6 @@ DATABASES = DB_DEV if DEBUG else DB_PROD
 # DB_PROD_HEROKU = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 # DATABASES = DB_PROD_HEROKU
 
-
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -138,4 +146,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = True
-CSRF_TRUSTED_ORIGINS = ['http://188.68.220.145', 'https://groomleta.ru', 'http://192.168.1.38']
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://188.68.220.145',
+    'https://groomleta.ru',
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+    'http://192.168.1.38'
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+]
+
+GRAPHENE = {
+    'SCHEMA': 'grummers.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+GRAPHQL_JWT = {
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_LONG_RUNNING_REFRESH_TOKEN': True,
+    'JWT_EXPIRATION_DELTA': timedelta(days=120),
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=124),
+}

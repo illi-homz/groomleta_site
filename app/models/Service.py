@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.html import mark_safe
+from .Сategory import Сategory
+from .Breed import Breed
 
 
 class Service(models.Model):
@@ -28,15 +30,15 @@ class Service(models.Model):
                             verbose_name='Продолжительность', blank=True)
     img = models.FileField(upload_to='services', verbose_name='Картинка')
     category = models.ForeignKey(
-        'Сategory',
+        Сategory,
         on_delete=models.CASCADE,
         verbose_name='Категория'
     )
     breed = models.ForeignKey(
-        'Breed',
+        Breed,
         on_delete=models.DO_NOTHING,
         blank=True, null=True,
-        verbose_name='Попрода'
+        verbose_name='Порода'
     )
 
     # def img_tag(self):

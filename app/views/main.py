@@ -1,9 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
-
-from . import data
-from . import models
+from app import data, models
 
 def index(request):
     current_data = data.Index.data
