@@ -9,6 +9,7 @@ class Client(models.Model):
     phone = models.CharField(max_length=20, verbose_name='Телефон', default='', blank=True)
     comment = models.TextField(verbose_name='Заметки', default='', blank=True)
     animal = models.CharField(max_length=100, verbose_name='Животное', default='', blank=True)
+    address = models.CharField(max_length=200, verbose_name='Адрес', default='', blank=True)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
 	

@@ -5,7 +5,6 @@ from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required, superuser_required
 
-from .events_schema import EventType
 from .orders_schema import OrderType
 
 class MasterType(DjangoObjectType):
@@ -14,7 +13,6 @@ class MasterType(DjangoObjectType):
 
 class MasterById(graphene.ObjectType):
     master = graphene.Field(MasterType)
-    all_events = graphene.List(EventType)
     all_orders = graphene.List(OrderType)
 
 class MasterInputType(graphene.InputObjectType):
