@@ -3,7 +3,7 @@ from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required
 
-from . import events_schema, products_schema, clients_schema, orders_schema, master_schema
+from . import events_schema, products_schema, clients_schema, orders_schema, master_schema, feedback_schema
 
 
 class ServiceType(DjangoObjectType):
@@ -19,6 +19,7 @@ class CategoryType(DjangoObjectType):
 class BreedType(DjangoObjectType):
     class Meta:
         model = models.Breed
+
 
 class OrderProductType(DjangoObjectType):
     class Meta:
@@ -36,6 +37,7 @@ class Query(
     clients_schema.Query,
     orders_schema.Query,
     master_schema.Query,
+    feedback_schema.Query,
     graphene.ObjectType
 ):
     all_services = graphene.List(ServiceType)
@@ -59,12 +61,14 @@ class Query(
     def resolve_all_breeds(root, info, **kwargs):
         return models.Breed.objects.all()
 
+
 class Mutation(
     events_schema.Mutation,
     products_schema.Mutation,
     clients_schema.Mutation,
     orders_schema.Mutation,
     master_schema.Mutation,
+    feedback_schema.Mutation,
     graphene.ObjectType
 ):
     pass
