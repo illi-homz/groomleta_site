@@ -9,6 +9,11 @@ from django.forms.models import model_to_dict
 from graphql_jwt.utils import get_http_authorization, get_payload, get_user_by_payload
 from graphql_jwt.exceptions import PermissionDenied
 
+import sys
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 from app.services import create_response
 
 botToken = os.getenv('BOT_TOKEN')
