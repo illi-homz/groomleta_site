@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseServerError
 import json
 import requests
 import os
@@ -6,6 +6,8 @@ import re
 from app import models
 from django.utils.timezone import datetime, localdate, now
 from django.forms.models import model_to_dict
+from graphql_jwt.utils import get_http_authorization, get_payload, get_user_by_payload
+from graphql_jwt.exceptions import PermissionDenied
 
 from app.services import create_response
 
@@ -148,14 +150,13 @@ def send_photos(request):
 
 
 def upload_master_avatar(request):
-    authorization = request.headers['Authorization']
+    token = get_http_authorization(request)
 
-    if not authorization and 'JWT' in authorization:
-        return JsonResponse({
-            'status': 'error',
-            'code': 400,
-            'ok': False
-        })
+    try:
+        payload = get_payload(token)
+        get_user_by_payload(payload)
+    except:
+        return HttpResponseServerError(PermissionDenied)
 
     master_id = request.POST['id']
     avatar = request.FILES.getlist('file')[0]
