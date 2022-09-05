@@ -9,7 +9,8 @@ from graphql_jwt.decorators import jwt_cookie
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    path('graphql/', jwt_cookie(csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG)))),
+    # path('graphql/', jwt_cookie(csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG)))),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG))),
 
     path('', include('app.urls'), name='main-view'),
 ]
