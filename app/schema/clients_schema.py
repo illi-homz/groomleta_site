@@ -4,10 +4,15 @@ from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required, superuser_required
 
+from .orders_schema import OrderType
 
 class ClientType(DjangoObjectType):
     class Meta:
         model = models.Client
+
+class ClientById(graphene.ObjectType):
+    client = graphene.Field(ClientType)
+    all_orders = graphene.List(OrderType)
 
 
 class ClientInputType(graphene.InputObjectType):
@@ -16,6 +21,7 @@ class ClientInputType(graphene.InputObjectType):
     phone = graphene.String()
     comment = graphene.String()
     animal = graphene.String()
+    address = graphene.String()
 
 
 class CreateClient(graphene.Mutation):
@@ -44,6 +50,7 @@ class CreateClient(graphene.Mutation):
             phone=client_data.phone or '',
             comment=client_data.comment or '',
             animal=client_data.animal or '',
+            address=client_data.address or '',
         )
 
         return CreateClient(client=client, all_clients=models.Client.objects.all())
@@ -106,10 +113,19 @@ class RemoveClient(graphene.Mutation):
 
 class Query(graphene.ObjectType):
     all_clients = graphene.List(ClientType)
+    client_by_id = graphene.Field(ClientById, id=graphene.String())
 
     @login_required
     def resolve_all_clients(root, info, **kwargs):
         return models.Client.objects.all()
+
+    @login_required
+    def resolve_client_by_id(root, info, id):
+        return {
+            "client": models.Client.objects.get(pk=id) or None,
+            "all_orders": models.Order.objects.filter(client__pk=id)
+        }
+
 
 
 class Mutation(graphene.ObjectType):
