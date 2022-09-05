@@ -11,7 +11,7 @@ def index(request):
     current_data['promos'] = models.Promo.objects.all()
     current_data['feedbacks'] = models.Feedback.objects.filter(is_approved=True)
     current_data['services'] = {}
-    current_data['services']['categories'] = models.Сategory.objects.all()
+    current_data['services']['categories'] = models.Category.objects.all()
     current_data['services']['breeds'] = models.Breed.objects.all()
     current_data['services']['services_list'] = models.Service.objects.all()
 

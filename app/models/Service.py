@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.html import mark_safe
-from .Сategory import Сategory
+from .Category import Category
 from .Breed import Breed
 
 
@@ -28,9 +28,9 @@ class Service(models.Model):
     price = models.CharField(max_length=20, default='0', verbose_name='Цена')
     time = models.CharField(max_length=20, default='',
                             verbose_name='Продолжительность', blank=True)
-    img = models.FileField(upload_to='services', verbose_name='Картинка')
+    img = models.FileField(upload_to='services', verbose_name='Картинка', null=True, blank=True)
     category = models.ForeignKey(
-        Сategory,
+        Category,
         on_delete=models.CASCADE,
         verbose_name='Категория'
     )

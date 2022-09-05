@@ -50,8 +50,8 @@ class PromoAdmin(admin.ModelAdmin):
     actions = [dublicate_ad]
     list_per_page = 20
 
-@admin.register(models.Сategory)
-class СategoryAdmin(admin.ModelAdmin):
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title',)
     list_editable = ['title']
     actions = [dublicate_ad]
