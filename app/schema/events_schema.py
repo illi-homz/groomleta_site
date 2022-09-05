@@ -15,7 +15,7 @@ class EventInputType(graphene.InputObjectType):
     start_date = graphene.DateTime()
     end_date = graphene.DateTime()
     services = graphene.List(graphene.ID)
-    client = graphene.String()
+    client = graphene.ID()
     master = graphene.ID()
     comment = graphene.String()
 

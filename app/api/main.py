@@ -174,3 +174,24 @@ def upload_master_avatar(request):
         'code': 200,
         'ok': True
     })
+
+def upload_service_img(request):
+    token = get_http_authorization(request)
+
+    try:
+        payload = get_payload(token)
+        get_user_by_payload(payload)
+    except:
+        return HttpResponseServerError(PermissionDenied)
+
+    service_id = request.POST['id']
+    img = request.FILES.getlist('file')[0]
+    service = models.Service.objects.get(pk=service_id)
+    service.img = img
+    service.save()
+
+    return JsonResponse({
+        'status': 'success',
+        'code': 200,
+        'ok': True
+    })

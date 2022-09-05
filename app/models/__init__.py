@@ -6,7 +6,7 @@ from .Feedback import Feedback
 from .Callback import Callback
 from .ServiceRecord import ServiceRecord
 from .Service import Service
-from .Сategory import Сategory
+from .Category import Category
 from .Breed import Breed
 from .OurSalon import OurSalon
 from .Master import Master

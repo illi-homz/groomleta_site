@@ -1,6 +1,6 @@
 from django.db import models
 
-class Сategory(models.Model):
+class Category(models.Model):
     title = models.CharField(max_length=30, verbose_name='Название')
 	
     def __str__(self):
