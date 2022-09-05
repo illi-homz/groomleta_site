@@ -187,4 +187,5 @@ GRAPHQL_JWT = {
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=124),
     'JWT_COOKIE_NAME': 'JWT-Token',
     'JWT_COOKIE_SAMESITE': 'Strict',
+    'JWT_CSRF_ROTATION': True,
 }
