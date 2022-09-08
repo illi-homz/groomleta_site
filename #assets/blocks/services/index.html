@@ -93,7 +93,9 @@
 			<div class="services__slide-wrapper">
 				<div>
 					<div class="services__slide-img">
+						{% if service.img %}
 						<img src="{{service.img.url}}" alt="">
+						{% endif %}
 					</div>
 				</div>
 				<div class="services__slide-data">

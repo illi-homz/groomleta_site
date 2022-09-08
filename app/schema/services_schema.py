@@ -133,10 +133,7 @@ class RemoveService(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
-    service = graphene.Field(ServiceType)
-    all_services = graphene.List(ServiceType)
-    all_categories = graphene.List(CategoryType)
-    all_breeds = graphene.List(BreedType)
+    success = graphene.Boolean()
 
     def mutate(
         self,
@@ -151,16 +148,15 @@ class RemoveService(graphene.Mutation):
         service.delete()
 
         return RemoveService(
-            service=service,
-            all_services=models.Service.objects.all(),
-            all_categories=models.Category.objects.all(),
-            all_breeds=models.Breed.objects.all(),
+            success=True
         )
+
 
 class AllServicesType(graphene.ObjectType):
     all_services = graphene.List(ServiceType)
     all_categories = graphene.List(CategoryType)
     all_breeds = graphene.List(BreedType)
+
 
 class Query(graphene.ObjectType):
     # all_services = graphene.List(ServiceType)
