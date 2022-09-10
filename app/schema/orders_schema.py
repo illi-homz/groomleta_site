@@ -1,5 +1,6 @@
 from itertools import product
 from app import models
+from datetime import datetime, timedelta
 from django.utils.timezone import now
 from graphene_django import DjangoObjectType
 import graphene
@@ -51,8 +52,6 @@ class CreateOrder(graphene.Mutation):
 
         products = []
         services = []
-
-        print(order_data)
 
         if len(order_data.products):
             for prod in order_data.products:
@@ -258,6 +257,18 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_all_orders(root, info, **kwargs):
+        orders = models.Order.objects.filter(is_reserved=True, is_success=False, is_cancel=False)
+
+        for order in orders:
+            create_date = order.create_date
+            now = datetime.now()
+            create_timedelta = now - create_date
+
+            if create_timedelta > timedelta(days=1):
+                cancelProductsCount(order)
+                order.delete()
+            
+
         return models.Order.objects.all()
 
 

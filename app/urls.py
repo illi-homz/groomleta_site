@@ -12,6 +12,7 @@ urlpatterns = [
     path('api/sendPhoto', api.send_photo),
     path('api/upload-master-avatar', jwt_cookie(csrf_exempt(api.upload_master_avatar))),
     path('api/upload-service-img', jwt_cookie(csrf_exempt(api.upload_service_img))),
+    path('api/upload-product-img', jwt_cookie(csrf_exempt(api.upload_product_img))),
     path('api/sendPhotos', api.send_photos),
     path('api/logout', csrf_exempt(api.logout)),
 

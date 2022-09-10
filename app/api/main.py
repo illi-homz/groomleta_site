@@ -195,3 +195,24 @@ def upload_service_img(request):
         'code': 200,
         'ok': True
     })
+
+def upload_product_img(request):
+    token = get_http_authorization(request)
+
+    try:
+        payload = get_payload(token)
+        get_user_by_payload(payload)
+    except:
+        return HttpResponseServerError(PermissionDenied)
+
+    product_id = request.POST['id']
+    img = request.FILES.getlist('file')[0]
+    product = models.Product.objects.get(pk=product_id)
+    product.img = img
+    product.save()
+
+    return JsonResponse({
+        'status': 'success',
+        'code': 200,
+        'ok': True
+    })

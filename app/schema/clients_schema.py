@@ -111,6 +111,34 @@ class RemoveClient(graphene.Mutation):
         return RemoveClient(client=None, all_clients=models.Client.objects.all(), success=True)
 
 
+class PutToBlock(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID(required=True)
+
+    client = graphene.Field(ClientType)
+    all_clients = graphene.List(ClientType)
+
+    def mutate(
+        self,
+        root,
+        id,
+    ):
+        client = models.Client.objects.get(pk=id)
+        user = root.context.user
+
+        if not user.is_authenticated:
+            raise Exception('Authentication credentials were not provided')
+
+        if (not client):
+            raise Exception(f'Not client by ID = {id}')
+
+        client.is_blocked = True
+        client.update_date = now()
+
+        client.save()
+
+        return PutToBlock(client=client, all_clients=models.Client.objects.all())
+
 class Query(graphene.ObjectType):
     all_clients = graphene.List(ClientType)
     client_by_id = graphene.Field(ClientById, id=graphene.String())
@@ -132,3 +160,4 @@ class Mutation(graphene.ObjectType):
     create_client = CreateClient.Field()
     update_client = UpdateClient.Field()
     remove_client = RemoveClient.Field()
+    put_to_block = PutToBlock.Field()

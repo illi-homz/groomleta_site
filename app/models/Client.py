@@ -12,6 +12,7 @@ class Client(models.Model):
     address = models.CharField(max_length=200, verbose_name='Адрес', default='', blank=True)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
+    is_blocked = models.BooleanField(verbose_name='Заблокирован', default=False, blank=True)
 	
     def __str__(self):
         return f'{self.username} {self.lastname}'
