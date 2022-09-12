@@ -33,7 +33,7 @@ class Product(models.Model):
             image = ImageOps.exif_transpose(image) # auto_rotate image according to EXIF data
             im_io = BytesIO()  # save image to BytesIO object
             image.save(im_io, 'JPEG', quality=70) # save image to BytesIO object
-            new_image = File(im_io, name='groomer.jpg') # create a django-friendly Files object
+            new_image = File(im_io, name='product.jpg') # create a django-friendly Files object
             self.img = new_image # Change to new image
         
         if (self.img):
