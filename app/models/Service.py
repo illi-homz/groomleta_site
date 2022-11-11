@@ -2,6 +2,16 @@ from django.db import models
 from django.utils.html import mark_safe
 from .Category import Category
 from .Breed import Breed
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+from django.core.validators import FileExtensionValidator
+
+
+def validate_svg_file(value):
+    FileExtensionValidator(
+        allowed_extensions=['svg'],
+        message=_('%(value)s файл должен быть векторным .svg изображением')
+    )(value)
 
 
 class Service(models.Model):
@@ -28,7 +38,13 @@ class Service(models.Model):
     price = models.CharField(max_length=20, default='0', verbose_name='Цена')
     time = models.CharField(max_length=20, default='',
                             verbose_name='Продолжительность', blank=True)
-    img = models.FileField(upload_to='services', verbose_name='Картинка', null=True, blank=True)
+    img = models.FileField(
+        upload_to='services',
+        verbose_name='Картинка',
+        null=True,
+        blank=True,
+        validators=[validate_svg_file]
+    )
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
