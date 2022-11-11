@@ -151,19 +151,22 @@ class SuccessEvent(graphene.Mutation):
 
 
 class Query(graphene.ObjectType):
-    all_events = graphene.List(EventType, year=graphene.String(), month=graphene.String())
+    all_events = graphene.List(
+        EventType,
+        start_year=graphene.String(),
+        start_month=graphene.String(),
+        end_year=graphene.String(),
+        end_month=graphene.String(),
+    )
 
     @login_required
-    def resolve_all_events(root, info, year, month, **kwargs):
-        today = datetime.date.today()
-        year_default = today.year
-        month_default = today.month
+    def resolve_all_events(root, info, start_year, start_month, end_year, end_month, **kwargs):
 
         return models.Event.objects.filter(
-            start_date__year__gte=year or year_default,
-            start_date__month__gte=month or month_default,
-            start_date__year__lte=year or year_default,
-            start_date__month__lte=month or month_default,
+            start_date__year__gte=start_year,
+            start_date__month__gte=start_month,
+            start_date__year__lte=end_year,
+            start_date__month__lte=end_month,
         )
 
 
