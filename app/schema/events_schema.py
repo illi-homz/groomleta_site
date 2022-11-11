@@ -154,19 +154,17 @@ class Query(graphene.ObjectType):
     all_events = graphene.List(EventType, year=graphene.String(), month=graphene.String())
 
     @login_required
-    def resolve_all_events(root, info, **kwargs):
-    # def resolve_all_events(root, info, year, month, **kwargs):
-        # today = datetime.date.today()
-        # year_default = today.year
-        # month_default = today.month
+    def resolve_all_events(root, info, year, month, **kwargs):
+        today = datetime.date.today()
+        year_default = today.year
+        month_default = today.month
 
-        # return models.Event.objects.filter(
-        #     start_date__year__gte=year or year_default,
-        #     start_date__month__gte=month or month_default,
-        #     start_date__year__lte=year or year_default,
-        #     start_date__month__lte=month or month_default,
-        # )
-        return models.Event.objects.all()
+        return models.Event.objects.filter(
+            start_date__year__gte=year or year_default,
+            start_date__month__gte=month or month_default,
+            start_date__year__lte=year or year_default,
+            start_date__month__lte=month or month_default,
+        )
 
 
 class Mutation(graphene.ObjectType):
