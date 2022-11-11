@@ -10,15 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import dj_database_url
+import os
+import environ
+from pathlib import Path
 from datetime import timedelta
 import django
 from django.utils.encoding import force_str
 django.utils.encoding.force_text = force_str
 
-from pathlib import Path
-import environ
-import os
-import dj_database_url
 
 env = environ.Env()
 
