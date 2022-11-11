@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='service',
             name='img',
-            field=models.FileField(blank=True, null=True, upload_to='services', validators=[app.models.Service.validate_svg_file], verbose_name='Картинка'),
+            field=models.FileField(blank=True, null=True, upload_to='services', verbose_name='Картинка'),
         ),
     ]

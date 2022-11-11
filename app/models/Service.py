@@ -43,7 +43,7 @@ class Service(models.Model):
         verbose_name='Картинка',
         null=True,
         blank=True,
-        validators=[validate_svg_file]
+        # validators=[validate_svg_file]  
     )
     category = models.ForeignKey(
         Category,
