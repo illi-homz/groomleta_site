@@ -2,15 +2,21 @@ from itertools import product
 from app import models
 from datetime import datetime, timedelta
 from django.utils.timezone import now
+from django.core.paginator import Paginator
+from django.db.models.functions import Ceil
 from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required, superuser_required
-
+import math
 
 class OrderType(DjangoObjectType):
     class Meta:
         model = models.Order
 
+class OrderWithPaginationType(graphene.ObjectType):
+    nodes = graphene.List(OrderType)
+    nodes_size = graphene.Int()
+    page_count = graphene.Int()
 
 class OrderProductInputType(graphene.InputObjectType):
     id = graphene.ID()
@@ -134,6 +140,17 @@ def cancelProductsCount(order):
         prodObj.count = prodObj.count + product.count
         prodObj.save()
 
+def checkOrders():
+    orders = models.Order.objects.filter(is_reserved=True, is_success=False, is_cancel=False)
+
+    for order in orders:
+        create_date = order.create_date
+        now = datetime.now()
+        create_timedelta = now - create_date
+
+        if create_timedelta > timedelta(days=1):
+            cancelProductsCount(order)
+            order.delete()
 
 class UpdateAndPayOrder(graphene.Mutation):
     class Arguments:
@@ -251,25 +268,38 @@ class CancelOrder(graphene.Mutation):
 
         return CancelOrder(order=order, all_orders=models.Order.objects.all())
 
-
 class Query(graphene.ObjectType):
     all_orders = graphene.List(OrderType)
+    orders = graphene.Field(
+        OrderWithPaginationType,
+        page=graphene.Int(),
+        objects_per_page=graphene.Int(),
+        sort=graphene.String(),
+    )
 
     @login_required
     def resolve_all_orders(root, info, **kwargs):
-        orders = models.Order.objects.filter(is_reserved=True, is_success=False, is_cancel=False)
-
-        for order in orders:
-            create_date = order.create_date
-            now = datetime.now()
-            create_timedelta = now - create_date
-
-            if create_timedelta > timedelta(days=1):
-                cancelProductsCount(order)
-                order.delete()
+        checkOrders()
             
 
         return models.Order.objects.all()
+
+    @login_required
+    def resolve_orders(root, info, page, objects_per_page, sort, **kwargs):
+        checkOrders()
+
+        key = Ceil('pk')
+        sortBy = key.asc() if sort == 'asc' else key.desc()
+        orders = models.Order.objects.order_by(sortBy)
+        paginator = Paginator(orders, objects_per_page or 15)
+        nodes_size = models.Order.objects.all().count()
+        page_count = nodes_size / objects_per_page
+
+        return {
+            'nodes': paginator.get_page(page),
+            'nodes_size': nodes_size,
+            'page_count': math.ceil(page_count)
+        }
 
 
 class Mutation(graphene.ObjectType):
@@ -277,3 +307,4 @@ class Mutation(graphene.ObjectType):
     pay_for_order = PayForOrder.Field()
     cancel_order = CancelOrder.Field()
     update_and_pay_order = UpdateAndPayOrder.Field()
+
