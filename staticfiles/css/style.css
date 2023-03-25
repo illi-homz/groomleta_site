@@ -2147,7 +2147,7 @@ h1 {
 
 .services__slider {
   position: relative;
-  height: 440px;
+  min-height: 440px;
   padding-left: 15px;
   padding-right: 15px;
   overflow: hidden;

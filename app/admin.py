@@ -58,8 +58,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Breed)
 class BreedAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title',)
-    list_editable = ['title']
+    list_display = ('id', 'title', 'show')
+    list_editable = ['title', 'show']
     actions = [dublicate_ad]
 
 @admin.register(models.Service)

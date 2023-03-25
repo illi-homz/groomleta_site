@@ -148,7 +148,9 @@
 	}
 	&__slider {
 		position: relative;
-		height: 440px;
+		// height: 440px;
+		// height: 1px;
+		min-height: 440px;
 		padding-left: 15px;
 		padding-right: 15px;
 		overflow: hidden;
