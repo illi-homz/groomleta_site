@@ -26,7 +26,6 @@ class CreateEvent(graphene.Mutation):
         event_data = EventInputType(required=True)
 
     event = graphene.Field(EventType)
-    all_events = graphene.List(EventType)
 
     def mutate(
         self,
@@ -55,7 +54,7 @@ class CreateEvent(graphene.Mutation):
         event.services.set(models.Service.objects.filter(
             id__in=event_data.services))
 
-        return CreateEvent(event=event, all_events=models.Event.objects.all())
+        return CreateEvent(event=event)
 
 
 class UpdateEvent(graphene.Mutation):
@@ -64,7 +63,6 @@ class UpdateEvent(graphene.Mutation):
         event_data = EventInputType(required=True)
 
     event = graphene.Field(EventType)
-    all_events = graphene.List(EventType)
 
     def mutate(
         self,
@@ -79,8 +77,6 @@ class UpdateEvent(graphene.Mutation):
 
         if (not event):
             raise Exception(f'Not event by ID = {id}')
-
-        print('event_data', event_data)
 
         for key in event_data:
             data = None
@@ -103,7 +99,7 @@ class UpdateEvent(graphene.Mutation):
 
         event.save()
 
-        return UpdateEvent(event=event, all_events=models.Event.objects.all())
+        return UpdateEvent(event=event)
 
 
 class RemoveEvent(graphene.Mutation):
@@ -111,7 +107,6 @@ class RemoveEvent(graphene.Mutation):
         id = graphene.ID(required=True)
 
     event = graphene.Field(EventType)
-    all_events = graphene.List(EventType)
 
     def mutate(
         self,
@@ -125,14 +120,13 @@ class RemoveEvent(graphene.Mutation):
 
         event.delete()
 
-        return RemoveEvent(event=None, all_events=models.Event.objects.all())
+        return RemoveEvent(event=None)
 
 class SuccessEvent(graphene.Mutation):
     class Arguments:
         id = graphene.ID(required=True)
 
     event = graphene.Field(EventType)
-    all_events = graphene.List(EventType)
 
     def mutate(
         self,
@@ -147,7 +141,7 @@ class SuccessEvent(graphene.Mutation):
         event.is_success = True
         event.save()
 
-        return SuccessEvent(event=event, all_events=models.Event.objects.all())
+        return SuccessEvent(event=event)
 
 
 class Query(graphene.ObjectType):
