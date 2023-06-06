@@ -14,7 +14,8 @@ def index(request):
     current_data['services']['categories'] = models.Category.objects.all()
     # current_data['services']['breeds'] = models.Breed.objects.all()
     current_data['services']['breeds'] = models.Breed.objects.filter(show=True)
-    current_data['services']['services_list'] = models.Service.objects.all()
+    # current_data['services']['services_list'] = models.Service.objects.all()
+    current_data['services']['services_list'] = models.Service.objects.order_by('breed__id')
 
     questions = models.Question.objects.all()
     for question in questions:
