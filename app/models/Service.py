@@ -41,8 +41,7 @@ class Service(models.Model):
     img = models.FileField(
         upload_to='services',
         verbose_name='Картинка',
-        null=True,
-        blank=True,
+        null=True
         # validators=[validate_svg_file]  
     )
     category = models.ForeignKey(
@@ -53,8 +52,8 @@ class Service(models.Model):
     breed = models.ForeignKey(
         Breed,
         on_delete=models.DO_NOTHING,
-        blank=True, null=True,
-        verbose_name='Порода'
+        verbose_name='Порода',
+        null=True
     )
 
     # def img_tag(self):
