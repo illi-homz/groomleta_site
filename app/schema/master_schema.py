@@ -15,7 +15,6 @@ class MasterType(DjangoObjectType):
 
 class MasterById(graphene.ObjectType):
     master = graphene.Field(MasterType)
-    all_orders = graphene.List(OrderType)
     orders = graphene.List(OrderType)
     orders_size = graphene.Int()
     orders_pages_size = graphene.Int()
