@@ -1,9 +1,11 @@
 from doctest import master
 from django.utils.timezone import now
 from app import models
+from django.core.paginator import Paginator
 from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required, superuser_required
+import math
 
 from .orders_schema import OrderType
 
@@ -14,6 +16,9 @@ class MasterType(DjangoObjectType):
 class MasterById(graphene.ObjectType):
     master = graphene.Field(MasterType)
     all_orders = graphene.List(OrderType)
+    orders = graphene.List(OrderType)
+    orders_size = graphene.Int()
+    orders_pages_size = graphene.Int()
 
 class MasterInputType(graphene.InputObjectType):
     username = graphene.String()
@@ -128,17 +133,29 @@ class RemoveMaster(graphene.Mutation):
 
 class Query(graphene.ObjectType):
     all_groomers = graphene.List(MasterType)
-    master_by_id = graphene.Field(MasterById, id=graphene.String())
+    master_by_id = graphene.Field(
+        MasterById,
+        id=graphene.String(),
+        orders_page=graphene.Int(),
+        orders_per_page=graphene.Int(),
+    )
 
     @login_required
     def resolve_all_clients(root, info, **kwargs):
         return models.Client.objects.all()
 
     @login_required
-    def resolve_master_by_id(root, info, id):
+    def resolve_master_by_id(root, info, id, orders_page, orders_per_page):
+        master_orders = models.Order.objects.filter(master__pk=id)
+        paginator = Paginator(master_orders, orders_per_page or 15)
+        orders_size = master_orders.count()
+        orders_pages_size = orders_size / orders_per_page
+        
         return {
             "master": models.Master.objects.get(pk=id) or None,
-            "all_orders": models.Order.objects.filter(master__pk=id)
+            "orders": paginator.get_page(orders_page),
+            "orders_size": master_orders.count(),
+            "orders_pages_size": math.ceil(orders_pages_size),
         }
 
 
