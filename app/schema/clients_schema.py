@@ -106,7 +106,8 @@ class RemoveClient(graphene.Mutation):
         if (not client):
             raise Exception(f'Not client by ID = {id}')
 
-        client.delete()
+        client.is_active = False
+        client.save()
 
         return RemoveClient(client=None, all_clients=models.Client.objects.all(), success=True)
 

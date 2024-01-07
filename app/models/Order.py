@@ -1,10 +1,13 @@
-from tkinter import CASCADE
 from django.db import models
 from django.utils.timezone import now
 from .Master import Master
 from .Client import Client
 from .OrderProduct import OrderProduct
 from .OrderService import OrderService
+
+class OrderManager(models.Manager):
+    def get_queryset(self):
+        return super(OrderManager, self).get_queryset().filter(is_active=True)
 
 
 class Order(models.Model):
@@ -32,6 +35,10 @@ class Order(models.Model):
     is_reserved = models.BooleanField(verbose_name='Забронирован', default=False, blank=True)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
+    is_active = models.BooleanField(default=True)
+
+    objects = OrderManager()
+
 	
     class Meta:
         verbose_name = 'Заказ'

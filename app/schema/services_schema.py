@@ -145,7 +145,8 @@ class RemoveService(graphene.Mutation):
         if (not service):
             raise Exception(f'Not service by ID = {id}')
 
-        service.delete()
+        service.is_active = False
+        service.save()
 
         return RemoveService(
             success=True

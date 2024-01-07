@@ -5,6 +5,10 @@ from io import BytesIO
 from django.core.files import File
 
 
+class MasterManager(models.Manager):
+    def get_queryset(self):
+        return super(MasterManager, self).get_queryset().filter(is_active=True)
+
 class Master(models.Model):
     MAIN_GROOMMER = 'main_groommer'
     GROOMMER = 'groommer'
@@ -38,6 +42,10 @@ class Master(models.Model):
         verbose_name='Дата регистрации', default=now)
     update_date = models.DateTimeField(
         verbose_name='Дата обновления', default=now)
+    is_active = models.BooleanField(default=True)
+
+    objects = MasterManager()
+
 
     def __str__(self):
         return f'{self.username} {self.lastname}'

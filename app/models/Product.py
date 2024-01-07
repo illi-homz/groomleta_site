@@ -4,6 +4,10 @@ from PIL import Image, ImageOps
 from io import BytesIO
 from django.core.files import File
 
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(is_active=True)
+
 class Product(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название товара')
     vendor_code = models.CharField(max_length=30, verbose_name='Артикул', blank=True, default='')
@@ -13,6 +17,9 @@ class Product(models.Model):
     img = models.FileField(upload_to='products', verbose_name='Картинка', blank=True, null=True)
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
+    is_active = models.BooleanField(default=True)
+
+    objects = ProductManager()
 
     def __str__(self):
         return f'{self.vendor_code} - {self.title}'

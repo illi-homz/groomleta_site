@@ -68,6 +68,7 @@ class ServiceAdmin(admin.ModelAdmin):
     list_editable = ['title', 'breed', 'animal', 'price']
     list_filter = ['title', 'animal', 'category']
     search_fields = ['title']
+    exclude = ('is_active',)
     actions = [dublicate_ad]
     list_per_page = 20
     ordering = ('id',)
@@ -130,6 +131,7 @@ class MasterAdmin(admin.ModelAdmin):
     list_editable = ['username', 'lastname', 'phone', 'post']
     search_fields = ['username', 'lastname', 'phone']
     readonly_fields = ['create_date', 'update_date']
+    exclude = ('is_active',)
     list_per_page = 20
     ordering = ('id',)
     actions = [dublicate_ad]
@@ -150,6 +152,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['vendor_code', 'count', 'price']
     search_fields = ['title', 'vendor_code']
     readonly_fields = ['create_date', 'update_date']
+    exclude = ('is_active',)
     list_per_page = 20
     ordering = ('title',)
     actions = [dublicate_ad]
@@ -160,6 +163,7 @@ class ClientAdmin(admin.ModelAdmin):
     list_editable = ['username', 'lastname', 'phone']
     search_fields = ['title']
     readonly_fields = ['create_date', 'update_date']
+    exclude = ('is_active',)
     list_per_page = 20
     ordering = ('id',)
     actions = [dublicate_ad]
@@ -173,6 +177,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_editable = ['is_success']
     search_fields = ['price', 'create_date']
     readonly_fields = ['create_date', 'update_date']
+    exclude = ('is_active',)
     list_per_page = 20
     ordering = ('-create_date',)
     actions = [dublicate_ad]

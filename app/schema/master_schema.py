@@ -115,12 +115,13 @@ class RemoveMaster(graphene.Mutation):
         if not user.is_authenticated:
             raise Exception('Authentication credentials were not provided')
 
-        client = models.Client.objects.get(pk=id)
+        master = models.Master.objects.get(pk=id)
 
-        if (not client):
-            raise Exception(f'Not client by ID = {id}')
+        if (not master):
+            raise Exception(f'Not master by ID = {id}')
 
-        client.delete()
+        master.is_active = False
+        master.save()
 
         return RemoveMaster(master=None, all_masters=models.Master.objects.all(), success=True)
 

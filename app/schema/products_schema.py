@@ -99,7 +99,8 @@ class RemoveProduct(graphene.Mutation):
         if (not product):
             raise Exception(f'Not product by ID = {id}')
 
-        product.delete()
+        product.is_active = False
+        product.save()
 
         return RemoveProduct(product=None, all_products=models.Product.objects.all(), success=True)
 

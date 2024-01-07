@@ -13,6 +13,10 @@ def validate_svg_file(value):
         message=_('%(value)s файл должен быть векторным .svg изображением')
     )(value)
 
+class ServiceManager(models.Manager):
+    def get_queryset(self):
+        return super(ServiceManager, self).get_queryset().filter(is_active=True)
+
 
 class Service(models.Model):
     CAT = 'cat'
@@ -55,6 +59,9 @@ class Service(models.Model):
         verbose_name='Порода',
         null=True
     )
+    is_active = models.BooleanField(default=True)
+
+    objects = ServiceManager()
 
     # def img_tag(self):
     #     return u'<img src="%s" />' % mark_safe(f'<img src="/services/{self.img}" width="150" height="150" />')

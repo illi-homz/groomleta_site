@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils.timezone import now
 
+class ClientManager(models.Manager):
+    def get_queryset(self):
+        return super(ClientManager, self).get_queryset().filter(is_active=True)
+
 
 class Client(models.Model):
     username = models.CharField(max_length=50, verbose_name='Имя')
@@ -13,6 +17,10 @@ class Client(models.Model):
     create_date = models.DateTimeField(verbose_name='Дата регистрации', default=now)
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
     is_blocked = models.BooleanField(verbose_name='Заблокирован', default=False, blank=True)
+    is_active = models.BooleanField(default=True)
+
+    objects = ClientManager()
+
 	
     def __str__(self):
         return f'{self.username} {self.lastname}'
