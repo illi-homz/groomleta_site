@@ -131,7 +131,7 @@ class RemoveMaster(graphene.Mutation):
 
 
 class Query(graphene.ObjectType):
-    all_groomers = graphene.List(MasterType)
+    all_masters = graphene.List(MasterType)
     master_by_id = graphene.Field(
         MasterById,
         id=graphene.String(),
@@ -140,8 +140,8 @@ class Query(graphene.ObjectType):
     )
 
     @login_required
-    def resolve_all_clients(root, info, **kwargs):
-        return models.Client.objects.all()
+    def resolve_all_masters(root, info, **kwargs):
+        return models.Master.objects.all()
 
     @login_required
     def resolve_master_by_id(root, info, id, orders_page, orders_per_page):
