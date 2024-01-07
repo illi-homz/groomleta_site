@@ -1,4 +1,4 @@
-### Groomleta Dgango project
+### Groomleta Dgango project (4.0.3)
 
 > python3 -m venv env
 > source env/bin/activate
