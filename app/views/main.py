@@ -28,6 +28,7 @@ def index(request):
 
 def oferta(request):
     current_data = data.Index.get_data('/#')
+    current_data['oferta_text'] = data.Oferta.oferta_text
     return HttpResponse(render(request, 'Oferta.html', current_data))
 
 def handle_page_not_found(request, exception):
@@ -42,7 +43,13 @@ def robots_txt(request):
         "User-Agent: *",
         "Crawl-delay: 5",
         "Host: groomleta.ru",
-        "Disallow: /admin/",
+        "Disallow: /admin",
+
+        "User-Agent: *",
+        "Disallow: /crm",
+
+        "User-Agent: *",
+        "Disallow: /oferta",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
