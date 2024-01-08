@@ -11,7 +11,9 @@
 {% block content %}
 
 <div class="container oferta">
-{{oferta_text}}
+{% for punkt in oferta_text %}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{punkt}}<br>
+{% endfor %}
 </div>
 
 {% endblock %}

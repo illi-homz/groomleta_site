@@ -28,7 +28,10 @@ def index(request):
 
 def oferta(request):
     current_data = data.Index.get_data('/#')
-    current_data['oferta_text'] = data.Oferta.oferta_text
+    oferta_text = data.Oferta.oferta_text
+    punkts = oferta_text.split('\n')
+
+    current_data['oferta_text'] = [punkt.strip() for punkt in punkts]
     return HttpResponse(render(request, 'Oferta.html', current_data))
 
 def handle_page_not_found(request, exception):
