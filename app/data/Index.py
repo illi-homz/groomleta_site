@@ -4,9 +4,9 @@ static = settings.STATIC_URL
 
 # global_data = get_global_data('#')
 
-def get_data(linkPrefix = '#'):
+def get_data(linkPrefix = '#', header_links_filters = []):
     return {
-        **get_global_data(linkPrefix),
+        **get_global_data(linkPrefix, header_links_filters),
         'title': 'Стрижка собак и кошек Вологда',
         'about': {
             'texts': [

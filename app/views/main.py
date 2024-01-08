@@ -4,17 +4,22 @@ from django.views.decorators.http import require_GET
 from app import data, models
 
 def index(request):
-    current_data = data.Index.get_data()
+    prefix = '#'
+    header_links_filters = []
+    promos = models.Promo.objects.all()
+
+    if not promos.count():
+        header_links_filters.append(f'{prefix}promo')
+
+    current_data = data.Index.get_data(prefix, header_links_filters)
     current_data['header']['banners'] = models.Banner.objects.all()
     current_data['ourworks'] = models.OurWork.objects.all()
     current_data['oursalon'] = models.OurSalon.objects.all()
-    current_data['promos'] = models.Promo.objects.all()
+    current_data['promos'] = promos
     current_data['feedbacks'] = models.Feedback.objects.filter(is_approved=True)
     current_data['services'] = {}
     current_data['services']['categories'] = models.Category.objects.all()
-    # current_data['services']['breeds'] = models.Breed.objects.all()
     current_data['services']['breeds'] = models.Breed.objects.filter(show=True)
-    # current_data['services']['services_list'] = models.Service.objects.all()
     current_data['services']['services_list'] = models.Service.objects.order_by('breed__id')
 
     questions = models.Question.objects.all()
@@ -27,7 +32,14 @@ def index(request):
     return HttpResponse(render(request, 'Index.html', current_data))
 
 def oferta(request):
-    current_data = data.Index.get_data('/#')
+    prefix = '/#'
+    header_links_filters = []
+    promos = models.Promo.objects.all()
+
+    if not promos.count():
+        header_links_filters.append(f'{prefix}promo')
+
+    current_data = data.Index.get_data(prefix, header_links_filters)
     oferta_text = data.Oferta.oferta_text
     punkts = oferta_text.split('\n')
 
