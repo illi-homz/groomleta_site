@@ -8,8 +8,9 @@
             justify-content: space-between;
             padding-right: 50px;
             padding-top: 30px;
+			column-gap: 20px;
         }
-        @media ($desctop) {
+        @media ($desktop) {
             padding-right: 155px;
         }
     }
@@ -24,19 +25,27 @@
     }
     &__links {
         flex: 1 0;
-        max-width: 350px;
+		display: flex;
+		flex-direction: column;
+		row-gap: 45px;
+		margin-bottom: 36px;
+
+		@media ($desktop) {
+			row-gap: 35px;
+			margin-bottom: 0;
+		}
 
         @include tablet {
             margin-left: 20px;
+			max-width: 350px;
         }
 
         &-on-bloks {
             display: flex;
             flex-direction: column;
-            margin-bottom: 56px;
+			row-gap: 16px;
 
             li:not(:last-child) {
-                margin-bottom: 32px;
                 @include fontSet(16, 16.44, 500);
             }
 
@@ -44,17 +53,12 @@
                 padding-top: 24px;
             }
 
-            @media ($desctop) {
+            @media ($desktop) {
                 flex-direction: row;
-                margin-bottom: 35px;
                 justify-content: space-between;
 
                 li:hover {
                     text-decoration: underline;
-                }
-
-                li:not(:last-child) {
-                    margin-bottom: 0;
                 }
             }
         }
@@ -87,6 +91,11 @@
                 transform: translateX(0);
             }
         }
+
+		a {
+			display: block;
+			text-align: right;
+		}
     }
     &__contacts {
         @include tablet {
@@ -115,7 +124,7 @@
                 }
             }
 
-            @media ($desctop) {
+            @media ($desktop) {
                 &:hover {
                     // text-decoration: underline;
 					color: $yellow;

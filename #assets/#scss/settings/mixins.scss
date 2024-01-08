@@ -28,7 +28,7 @@
 }
 
 @mixin desktop {
-    @media ($desctop) {
+    @media ($desktop) {
         @content;
     }
 }
