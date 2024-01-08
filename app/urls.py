@@ -5,6 +5,7 @@ from graphql_jwt.decorators import jwt_cookie
 
 urlpatterns = [
     path('', views.index),
+    path('oferta', views.oferta),
 
     path('api/sendCallback', api.send_callback),
     path('api/sendFeedback', api.send_feedback),

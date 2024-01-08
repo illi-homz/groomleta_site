@@ -17,6 +17,13 @@ var grummer = {
   breesTemplate: null,
 
   goToBlock(target, event) {
+    var url = new URL(target.href);
+    var block = $(url.hash);
+
+    if (!block.length) {
+      return;
+    }
+
     if (event) event.preventDefault();
     $("html,body").animate({
       scrollTop: typeof target === "string" ? target : $(target.hash).offset().top

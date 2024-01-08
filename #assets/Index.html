@@ -4,6 +4,10 @@
 <title>{{title}}</title>
 {% endblock %}
 
+{% block header %}
+{% include 'components/header/index.html' %}
+{% endblock %}
+
 {% block content %}
 
 {% include 'blocks/about/index.html' %}

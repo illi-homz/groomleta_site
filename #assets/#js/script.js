@@ -9,6 +9,13 @@ const grummer = {
 	breesTemplate: null,
 	
 	goToBlock(target, event) {
+		const url = new URL(target.href)
+		const block = $(url.hash)
+
+		if (!block.length) {
+			return
+		}
+		
 		if (event) event.preventDefault();
 		
 		$("html,body").animate({

@@ -4,7 +4,7 @@ from django.views.decorators.http import require_GET
 from app import data, models
 
 def index(request):
-    current_data = data.Index.data
+    current_data = data.Index.get_data()
     current_data['header']['banners'] = models.Banner.objects.all()
     current_data['ourworks'] = models.OurWork.objects.all()
     current_data['oursalon'] = models.OurSalon.objects.all()
@@ -25,6 +25,10 @@ def index(request):
     current_data['questions'] = questions
 
     return HttpResponse(render(request, 'Index.html', current_data))
+
+def oferta(request):
+    current_data = data.Index.get_data('/#')
+    return HttpResponse(render(request, 'Oferta.html', current_data))
 
 def handle_page_not_found(request, exception):
     current_data = data.Page404.data

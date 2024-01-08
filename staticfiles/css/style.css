@@ -3607,6 +3607,13 @@ h1 {
       align-self: center;
 }
 
+.oferta {
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 22px;
+  padding-bottom: 40px;
+}
+
 * {
   font-family: "Raleway", sans-serif;
   font-size: 14px;
