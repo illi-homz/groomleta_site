@@ -90,14 +90,15 @@ class CreateOrder(graphene.Mutation):
 
         is_success = order_data.is_success or False
 
+        client_pk = order_data.client
+        master_pk = order_data.master
+
         order = models.Order.objects.create(
             price=order_data.price or 0,
             is_success=is_success,
             is_reserved=False if is_success else order_data.is_reserved or True,
-            client=models.Client.objects.get(
-                pk=order_data.client) if order_data.client else None,
-            master=models.Master.objects.get(
-                pk=order_data.master) if order_data.master else None,
+            client=models.Client.objects.get(pk=client_pk) if client_pk else None,
+            master=models.Master.objects.get(pk=master_pk) if master_pk else None,
         )
 
         if len(products):

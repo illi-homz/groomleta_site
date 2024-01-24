@@ -1,18 +1,18 @@
 from app import models
-from graphene_django import DjangoObjectType
+# from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required
 
 from . import events_schema, products_schema, clients_schema, orders_schema, master_schema, feedback_schema, services_schema
 
-class OrderProductType(DjangoObjectType):
-    class Meta:
-        model = models.OrderProduct
+# class OrderProductType(DjangoObjectType):
+#     class Meta:
+#         model = models.OrderProduct
 
 
-class OrderServiceType(DjangoObjectType):
-    class Meta:
-        model = models.OrderService
+# class OrderServiceType(DjangoObjectType):
+#     class Meta:
+#         model = models.OrderService
 
 class Query(
     events_schema.Query,
@@ -26,12 +26,8 @@ class Query(
 ):
     all_categories = graphene.List(services_schema.CategoryType)
     all_breeds = graphene.List(services_schema.BreedType)
-    all_order_products = graphene.List(OrderProductType)
-    all_order_services = graphene.List(OrderServiceType)
-
-    @login_required
-    def resolve_all_groomers(root, info, **kwargs):
-        return models.Master.objects.all()
+    # all_order_products = graphene.List(OrderProductType)
+    # all_order_services = graphene.List(OrderServiceType)
 
     @login_required
     def resolve_all_categories(root, info, **kwargs):
