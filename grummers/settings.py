@@ -19,7 +19,7 @@ import django
 from django.utils.encoding import force_str
 django.utils.encoding.force_text = force_str
 import sentry_sdk
-from sentry_sdk.integrations.graphene import GrapheneIntegration
+# from sentry_sdk.integrations.graphene import GrapheneIntegration
 
 
 env = environ.Env()
@@ -196,7 +196,7 @@ GRAPHQL_JWT = {
 sentry_sdk.init(
     dsn=SENTRY_DSN,
     enable_tracing=True,
-    integrations=[
-        GrapheneIntegration(),
-    ],
+    # integrations=[
+    #     GrapheneIntegration(),
+    # ],
 )
