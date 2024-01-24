@@ -77,7 +77,8 @@ coverage.xml
 .python-version 
 
 # Environments 
-.env 
+.env
+.env.production
 env/
 
 # Visual Studio Code # 
