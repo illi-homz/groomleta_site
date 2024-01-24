@@ -18,6 +18,7 @@ from datetime import timedelta
 import django
 from django.utils.encoding import force_str
 django.utils.encoding.force_text = force_str
+import sentry_sdk
 
 
 env = environ.Env()
@@ -27,6 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
+SENTRY_DSN = env('SENTRY_DSN')
 
 # DEBUG = False
 # DEBUG = True
@@ -189,3 +191,8 @@ GRAPHQL_JWT = {
     'JWT_COOKIE_SAMESITE': 'Strict',
     'JWT_CSRF_ROTATION': True,
 }
+
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    enable_tracing=True,
+)
