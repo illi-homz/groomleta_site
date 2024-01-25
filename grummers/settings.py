@@ -30,6 +30,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SECRET_KEY = env('SECRET_KEY')
 SENTRY_DSN = env('SENTRY_DSN')
+SMSAERO_URL = env('SMSAERO_URL')
+SMSAERO_API_KEY = env('SMSAERO_API_KEY')
+EMAIL = env('EMAIL')
 
 # DEBUG = False
 # DEBUG = True
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'graphene_django',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -193,10 +197,15 @@ GRAPHQL_JWT = {
     'JWT_CSRF_ROTATION': True,
 }
 
-sentry_sdk.init(
-    dsn=SENTRY_DSN,
-    enable_tracing=True,
-    integrations=[
-        GrapheneIntegration(),
-    ],
-)
+# sentry_sdk.init(
+#     dsn=SENTRY_DSN,
+#     enable_tracing=True,
+#     integrations=[
+#         GrapheneIntegration(),
+#     ],
+# )
+
+CRON_CLASSES = [
+    "app.cron.LongWaitUsersCron.LongWaitUsersCron",
+    # ...
+]
