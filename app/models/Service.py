@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.html import mark_safe
 from .Category import Category
 from .Breed import Breed
-from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import FileExtensionValidator
 
