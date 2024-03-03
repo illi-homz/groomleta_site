@@ -43,6 +43,7 @@ DEBUG = bool(int(env('IS_DEBUG')))
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
+    'django_crontab',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,7 +57,6 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'graphene_django',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
-    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -197,14 +197,14 @@ GRAPHQL_JWT = {
     'JWT_CSRF_ROTATION': True,
 }
 
-# sentry_sdk.init(
-#     dsn=SENTRY_DSN,
-#     enable_tracing=True,
-#     integrations=[
-#         GrapheneIntegration(),
-#     ],
-# )
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    enable_tracing=True,
+    integrations=[
+        GrapheneIntegration(),
+    ],
+)
 
 CRONJOBS = [
-    ('* * * * *', 'app.cron.my_scheduled_job'),
+    ('*/5 * * * *', 'app.cron.my_scheduled_job')
 ]

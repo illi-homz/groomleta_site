@@ -1,17 +1,15 @@
 import requests
 from app import services
+from django.conf import settings
+
 SMSAERO_API_KEY = settings.SMSAERO_API_KEY
 EMAIL = settings.EMAIL
 
-count = 0
-
 def my_scheduled_job():
+    print('my_scheduled_job start')
     # requests.get('http://127.0.0.1:8000')
 
-    if count == 1:
-        return
-
-    # services.sms_sender.send_sms()
+    services.sms_sender.send_sms()
     url = f'https://{EMAIL}:{SMSAERO_API_KEY}@gate.smsaero.ru/v2/' + 'sms/send'
     params = {
         'number': '+79618228448',
@@ -20,4 +18,6 @@ def my_scheduled_job():
     }
 
     requests.get(url, params)
-    count += 1
+    print('my_scheduled_job end')
+
+    return 'my_scheduled_job end 2'
