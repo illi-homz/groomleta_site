@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'graphene_django',
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
-    'django_cron',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -205,7 +205,6 @@ GRAPHQL_JWT = {
 #     ],
 # )
 
-CRON_CLASSES = [
-    "app.cron.LongWaitUsersCron.LongWaitUsersCron",
-    # ...
+CRONJOBS = [
+    ('* * * * *', 'app.cron.my_scheduled_job'),
 ]

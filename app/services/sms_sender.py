@@ -25,7 +25,7 @@ class SmsSender:
     def send_sms(self):
         url = self.url + 'sms/send'
         params = {
-            'number': '+7961828448',
+            'number': '+79618228448',
             'text': 'Это тестовое сообщение, отправляю сам себе',
             'sign': 'SMS Aero'
         }
