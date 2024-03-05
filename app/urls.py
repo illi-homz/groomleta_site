@@ -17,9 +17,9 @@ urlpatterns = [
     path('api/upload-product-img', jwt_cookie(csrf_exempt(api.upload_product_img))),
     path('api/sendPhotos', api.send_photos),
     path('api/logout', csrf_exempt(api.logout)),
-    path('sms', views.sms),
-    path('status/<int:pk>', views.status),
-    path('balance', views.balance),
+    # path('sms', views.sms),
+    # path('status/<int:pk>', views.status),
+    # path('balance', views.balance),
 
     path("robots.txt", views.robots_txt),
     path("manifest.json", views.manifest),

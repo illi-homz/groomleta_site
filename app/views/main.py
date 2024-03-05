@@ -52,17 +52,17 @@ def handle_page_not_found(request, exception):
 
     return response
 
-def sms(request):
-    json = services.sms_sender.send_sms()
-    return JsonResponse(json)
+# def sms(request):
+#     services.sms_sender.check_and_send_sms_for_long_wait()
+#     return JsonResponse({})
 
-def status(request, pk):
-    json = services.sms_sender.check_sms_status(pk)
-    return JsonResponse(json)
+# def status(request, pk):
+#     json = services.sms_sender.check_sms_status(pk)
+#     return JsonResponse(json)
 
-def balance(request):
-    json = services.sms_sender.balance()
-    return JsonResponse(json)
+# def balance(request):
+#     json = services.sms_sender.balance()
+#     return JsonResponse(json)
 
 @require_GET
 def robots_txt(request):

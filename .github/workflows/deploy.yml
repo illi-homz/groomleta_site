@@ -16,11 +16,13 @@ jobs:
             git pull
             source env/bin/activate
             pip install -r requirements.txt
+            ./manage.py crontab remove
             rm -rf ~/grummers/static/*
             ./manage.py collectstatic
             ./manage.py makemigrations
             ./manage.py migrate
             killall gunicorn
+            ./manage.py crontab add
           host: ${{secrets.HOST}}
           user: www
           key: ${{secrets.SSH_PRIVATE_KEY}}
