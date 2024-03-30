@@ -52,9 +52,9 @@ def handle_page_not_found(request, exception):
 
     return response
 
-# def sms(request):
-#     services.sms_sender.check_and_send_sms_for_long_wait()
-#     return JsonResponse({})
+def run(request):
+    services.sms_sender.run()
+    return JsonResponse({})
 
 # def status(request, pk):
 #     json = services.sms_sender.check_sms_status(pk)

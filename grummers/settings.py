@@ -196,16 +196,16 @@ GRAPHQL_JWT = {
     'JWT_CSRF_ROTATION': True,
 }
 
-# sentry_sdk.init(
-#     dsn=SENTRY_DSN,
-#     enable_tracing=True,
-#     integrations=[
-#         GrapheneIntegration(),
-#     ],
-# )
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    enable_tracing=True,
+    integrations=[
+        GrapheneIntegration(),
+    ],
+)
 
 CRONJOBS = [
-    ('* * * * *', 'app.cron.check_and_send_sms_for_long_wait')
+    ('* * * * *', 'app.cron.run_sms_sender')
 ]
 
 APP_LOG_FILENAME = os.path.join(BASE_DIR, 'log/app.log')
