@@ -52,8 +52,8 @@ class PromoAdmin(admin.ModelAdmin):
 
 @admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'is_notificate')
-    list_editable = ['title', 'is_notificate']
+    list_display = ('id', 'title')
+    list_editable = ['title']
     actions = [dublicate_ad]
 
 @admin.register(models.Breed)
@@ -64,8 +64,8 @@ class BreedAdmin(admin.ModelAdmin):
 
 @admin.register(models.Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'breed', 'category', 'animal', 'price', 'image_tag')
-    list_editable = ['title', 'breed', 'animal', 'price']
+    list_display = ('id', 'title', 'breed', 'category', 'animal', 'price', 'image_tag', 'is_notificate')
+    list_editable = ['title', 'breed', 'animal', 'price', 'is_notificate']
     list_filter = ['title', 'animal', 'category']
     search_fields = ['title']
     exclude = ('is_active',)

@@ -59,6 +59,7 @@ class Service(models.Model):
         null=True
     )
     is_active = models.BooleanField(default=True)
+    is_notificate = models.BooleanField(verbose_name='Уведомлять?', default=True)
 
     objects = ServiceManager()
 

@@ -83,7 +83,7 @@ class SmsSender:
             order_services = client_last_order.services.all()
 
             for order_service in order_services:
-               if not order_service.service.category.is_notificate:
+               if not order_service.service.is_notificate:
                    continue
 
             self.check_and_send_sms_for_long_wait(client, client_last_order)

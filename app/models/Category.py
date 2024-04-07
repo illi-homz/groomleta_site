@@ -2,7 +2,6 @@ from django.db import models
 
 class Category(models.Model):
     title = models.CharField(max_length=30, verbose_name='Название')
-    is_notificate = models.BooleanField(verbose_name='Уведомлять?', default=True)
 	
     def __str__(self):
         return self.title
