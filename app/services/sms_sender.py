@@ -112,6 +112,6 @@ class SmsSender:
         if response and response['success']:
             logger.info(f'[{now()}] sms is send {client.id} {client.username}')
         else:
-            logger.warn(f'[{now()}] sms is not send with exeption: [{response['message']}]')
+            logger.warn(f'[{now()}] sms is not send with exeption')
 
 sms_sender = SmsSender(SMSAERO_API_KEY, EMAIL)
