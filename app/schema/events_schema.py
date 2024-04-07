@@ -1,10 +1,13 @@
 from app import models
 from django.utils.timezone import now
 from graphene_django import DjangoObjectType
+from app.services import sms_sender
 import graphene
 from graphql_jwt.decorators import login_required, superuser_required
 import datetime
-
+import asyncio, time
+from threading import Thread
+import locale
 
 class EventType(DjangoObjectType):
     class Meta:
@@ -19,7 +22,6 @@ class EventInputType(graphene.InputObjectType):
     client = graphene.ID()
     master = graphene.ID()
     comment = graphene.String()
-
 
 class CreateEvent(graphene.Mutation):
     class Arguments:
@@ -40,19 +42,26 @@ class CreateEvent(graphene.Mutation):
             if not event_data[prop]:
                 raise Exception('Missing main props')
 
+        client = models.Client.objects.get(pk=event_data.client) if event_data.client else None
+
         event = models.Event.objects.create(
             title=event_data.title,
             start_date=event_data.start_date,
             end_date=event_data.end_date,
             comment=event_data.comment,
-            client=models.Client.objects.get(
-                pk=event_data.client) if event_data.client else None,
+            client=client,
             master=models.Master.objects.get(
                 pk=event_data.master) if event_data.master else None,
         )
 
         event.services.set(models.Service.objects.filter(
             id__in=event_data.services))
+
+        try:
+            sms_sender.send_sms_to_client_by_event_create(client, event)
+        except Exception as e:
+            message = e.message if hasattr(e, 'message') else e
+            print('send_sms_to_client_by_event_create exeption:', message)
 
         return CreateEvent(event=event)
 

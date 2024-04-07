@@ -18,6 +18,7 @@ class Client(models.Model):
     update_date = models.DateTimeField(verbose_name='Дата обновления', default=now)
     is_blocked = models.BooleanField(verbose_name='Заблокирован', default=False, blank=True)
     is_active = models.BooleanField(default=True)
+    is_notificate = models.BooleanField(verbose_name='Уведомлять?', default=True)
 
     objects = ClientManager()
 

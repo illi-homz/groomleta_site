@@ -1,7 +1,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET
-from app import data, models
+from app import data, models, services
 
 def index(request):
     prefix = '#'
@@ -51,6 +51,20 @@ def handle_page_not_found(request, exception):
     response = HttpResponse(render(request, 'Page404.html', current_data))
 
     return response
+
+def run(request):
+    print('SERVICES.SMS_SENDER.RUN START')
+    services.sms_sender.run()
+    print('SERVICES.SMS_SENDER.RUN FINISH')
+    return JsonResponse({})
+
+# def status(request, pk):
+#     json = services.sms_sender.check_sms_status(pk)
+#     return JsonResponse(json)
+
+# def balance(request):
+#     json = services.sms_sender.balance()
+#     return JsonResponse(json)
 
 @require_GET
 def robots_txt(request):
