@@ -3,7 +3,6 @@ from app import models
 from django.conf import settings
 import logging
 from django.utils.timezone import now
-import time
 from threading import Thread
 import locale, datetime
 
@@ -24,8 +23,6 @@ class SmsSender:
         self.url = f'https://{email}:{api_key}@gate.smsaero.ru/v2/'
 
     def send_sms(self, number = '+79618228448', text = 'Это тестовое сообщение, отправляю сам себе'):
-        print('number', number)
-        print('text', text)
         url = self.url + 'sms/send'
         params = {
             'number': number,
@@ -33,7 +30,10 @@ class SmsSender:
             'sign': 'SMS Aero'
         }
 
-        return requests.get(url, params).json()
+        try:
+            return requests.get(url, params).json()
+        except Exception as e:
+            logger.warn(f'send_sms exeption: {e}')
 
     def check_sms_status(self, id):
         if (not id): return ''
@@ -62,18 +62,16 @@ class SmsSender:
         t.start()
     
     def run(self):
-        logger.info('run start')
+        logger.info(f'[{now()}] run start')
 
         def run_checkers():
             self.run_long_wait_checker()
-            logger.info('run finish')
+            logger.info(f'[{now()}] run finish')
 
         t = Thread(target=run_checkers)
         t.start()
     
     def run_long_wait_checker(self):
-        time.sleep(5)
-        logger.info(f'run_long_wait_checker start')
         clients = models.Client.objects.filter(is_blocked=False, is_notificate=True)
 
         for client in clients:
@@ -89,34 +87,31 @@ class SmsSender:
                    continue
 
             self.check_and_send_sms_for_long_wait(client, client_last_order)
-
-        logger.info(f'run_long_wait_checker finish')
     
     def check_and_send_sms_for_long_wait(self, client, last_order):
-        last_order_date = last_order.update_date
-        order_delta = now() - last_order_date
-
         if not client.phone:
             return
 
+        last_order_date = last_order.update_date
+        order_delta = now() - last_order_date
+        days = order_delta.days
         message = ''
 
-        if order_delta.days == 60:
+        if days == 60:
             message = 'Здравствуйте, напоминаем Вам, что регулярный уход за питомцем это залог его комфортной жизнедеятельности, не забудьте записаться, с уважением салон ГрумЛета'
-        elif order_delta.days == 90:
+        elif days == 90:
             message = 'Здравствуйте, мы заметили, что Вы давно не записывали своего питомца, пора наводить красоту, регулярный уход за питомцем это залог его комфортной жизнедеятельности, с уважением салон ГрумЛета'
-        elif order_delta.days == 21:
+        elif days == 21:
             message = 'Здравствуйте, пора стричь когти Вашему питомцу, с уважением салон ГрумЛета'
         else:
             return
 
-        logger.info(f'sms sender message: {message}')
         response = self.send_sms(client.phone, message)
-        logger.info(f'sms sender response: {response}')
+        logger.info(f'[{now()}] sms sender response: {response}')
 
         if response and response['success']:
-            logger.info(f'sms is send {client.id} {client.username} {now()}')
+            logger.info(f'[{now()}] sms is send {client.id} {client.username}')
         else:
-            logger.warn(f'sms is not send with exeption: [{response['message']}]')
+            logger.warn(f'[{now()}] sms is not send with exeption: [{response['message']}]')
 
 sms_sender = SmsSender(SMSAERO_API_KEY, EMAIL)
