@@ -205,7 +205,7 @@ sentry_sdk.init(
 )
 
 CRONJOBS = [
-    ('* * * * *', 'app.cron.run_sms_sender')
+    ('0 12 * * *', 'app.cron.run_sms_sender')
 ]
 
 APP_LOG_FILENAME = os.path.join(BASE_DIR, 'log/app.log')

@@ -53,7 +53,9 @@ def handle_page_not_found(request, exception):
     return response
 
 def run(request):
+    print('SERVICES.SMS_SENDER.RUN START')
     services.sms_sender.run()
+    print('SERVICES.SMS_SENDER.RUN FINISH')
     return JsonResponse({})
 
 # def status(request, pk):

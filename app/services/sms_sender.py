@@ -33,8 +33,6 @@ class SmsSender:
             'sign': 'SMS Aero'
         }
 
-        print('params', params)
-
         return requests.get(url, params).json()
 
     def check_sms_status(self, id):
@@ -50,7 +48,7 @@ class SmsSender:
     def balance(self):
         url = self.url + 'balance'
         return requests.get(url).json()
-    
+
     def send_sms_to_client_by_event_create(self, client, event):
         if not client or not event:
             return
@@ -64,72 +62,61 @@ class SmsSender:
         t.start()
     
     def run(self):
-        logger.info('start sms_sender.run')
-        clients = models.Client.objects.filter(is_blocked=False)
-        threads = []
+        logger.info('run start')
+
+        def run_checkers():
+            self.run_long_wait_checker()
+            logger.info('run finish')
+
+        t = Thread(target=run_checkers)
+        t.start()
+    
+    def run_long_wait_checker(self):
+        time.sleep(5)
+        logger.info(f'run_long_wait_checker start')
+        clients = models.Client.objects.filter(is_blocked=False, is_notificate=True)
 
         for client in clients:
             client_last_order = models.Order.objects.filter(client__id=client.id).last()
-            client_last_notification = models.SmsNotification.objects.filter(user__id=client.id, success=True).last()
-
-            logger.info(f'start sms_sender.run client_last_order {client_last_order}')
 
             if not client_last_order:
                 continue
+            
+            order_services = client_last_order.services.all()
 
-            t = self.check_and_send_sms_for_long_wait(client, client_last_order, client_last_notification)
-            t and threads.append(t)
+            for order_service in order_services:
+               if not order_service.service.category.is_notificate:
+                   continue
 
-        for t in threads:
-            t.join()
+            self.check_and_send_sms_for_long_wait(client, client_last_order)
+
+        logger.info(f'run_long_wait_checker finish')
     
-    def check_and_send_sms_for_long_wait(self, client, last_order, last_notification):
-        logger.info(f'start sms_sender.check_and_send_sms_for_long_wait')
+    def check_and_send_sms_for_long_wait(self, client, last_order):
         last_order_date = last_order.update_date
         order_delta = now() - last_order_date
 
-        # if order_delta.days < 60:
-        #     return
+        if not client.phone:
+            return
 
         message = ''
 
-        if last_notification:
-            last_notification_date = last_notification.created
-            notification_delta = now() - last_notification_date
-
-            if notification_delta.days == 60:
-                message = 'Здравствуйте, напоминаем Вам, что регулярный уход за питомцем это залог его комфортной жизнедеятельности, не забудьте записаться, с уважением салон ГрумЛета'
-            elif notification_delta.days == 90:
-                message = 'Здравствуйте, мы заметили, что Вы давно не записывали своего питомца, пора наводить красоту, регулярный уход за питомцем это залог его комфортной жизнедеятельности, с уважением салон ГрумЛета'
-            else:
-                message = 'Тестовая отправка'
-                # return
+        if order_delta.days == 60:
+            message = 'Здравствуйте, напоминаем Вам, что регулярный уход за питомцем это залог его комфортной жизнедеятельности, не забудьте записаться, с уважением салон ГрумЛета'
+        elif order_delta.days == 90:
+            message = 'Здравствуйте, мы заметили, что Вы давно не записывали своего питомца, пора наводить красоту, регулярный уход за питомцем это залог его комфортной жизнедеятельности, с уважением салон ГрумЛета'
+        elif order_delta.days == 21:
+            message = 'Здравствуйте, пора стричь когти Вашему питомцу, с уважением салон ГрумЛета'
         else:
-            message = 'Тестовая отправка'
-
-        logger.info(f'sms sender message: {message}')
-
-        if (not client.phone):
             return
 
-        # response = self.send_sms(client.phone, message)
-        def send():
-            response = self.send_sms()
+        logger.info(f'sms sender message: {message}')
+        response = self.send_sms(client.phone, message)
+        logger.info(f'sms sender response: {response}')
 
-            logger.info(f'sms sender response: {response}')
-
-            if response and response['success']:
-                logger.info(f'sms is send {client.id} {client.username} {now()}')
-                models.SmsNotification.objects.create(user=client, success=True)
-            else:
-                models.SmsNotification.objects.create(
-                    user=client,
-                    success=False,
-                    error_message=response['success']
-                )
-                logger.warn(f'sms is not send with exeption: [{response['message']}]')
-
-        t = Thread(target=send)
-        return t.start()
+        if response and response['success']:
+            logger.info(f'sms is send {client.id} {client.username} {now()}')
+        else:
+            logger.warn(f'sms is not send with exeption: [{response['message']}]')
 
 sms_sender = SmsSender(SMSAERO_API_KEY, EMAIL)
