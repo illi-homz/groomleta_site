@@ -76,25 +76,31 @@ class SmsSender:
 
         for client in clients:
             client_last_order = models.Order.objects.filter(client__id=client.id).last()
+            client_last_upcoming_events_count = models.Event.objects.filter(
+                client__id=client.id,
+                start_date__gte=now()
+            ).count()
 
-            if not client_last_order:
+            if not client_last_order or client_last_upcoming_events_count:
                 continue
             
             order_services = client_last_order.services.all()
+            is_not_notificate_services_count = order_services.filter(service__is_notificate=False).count()
 
-            for order_service in order_services:
-               if not order_service.service.is_notificate:
-                   continue
+            if is_not_notificate_services_count:
+                continue
 
             self.check_and_send_sms_for_long_wait(client, client_last_order)
     
     def check_and_send_sms_for_long_wait(self, client, last_order):
+        logger.info(f'check_and_send_sms_for_long_wait start')
         if not client.phone:
             return
 
         last_order_date = last_order.update_date
         order_delta = now() - last_order_date
         days = order_delta.days
+        logger.info(f'days: {days}')
         message = ''
 
         if days == 60:
@@ -105,6 +111,7 @@ class SmsSender:
             message = 'Здравствуйте, пора стричь когти Вашему питомцу, с уважением салон ГрумЛета'
         else:
             return
+
 
         response = self.send_sms(client.phone, message)
         logger.info(f'[{now()}] sms sender response: {response}')
