@@ -60,6 +60,17 @@ class SmsSender:
         msg = f'Вы записаны в салон ГрумЛета на {date_time_str}'
         t = Thread(target=self.send_sms, args=[client.phone, msg])
         t.start()
+
+    def send_sms_to_client_by_order_create(self, client, is_sms_with_link = False):
+        if not client:
+            return
+        
+        locale.setlocale(locale.LC_ALL, '')
+        msg = 'Спасибо, что выбрали салон ГрумЛета! Мы всегда стремимся улучшать качество и сервис наших услуг.'
+        if is_sms_with_link:
+            msg += ' Ваш отзыв поможет нам стать лучше! https://yandex.ru/maps/org/2393762986932'
+        t = Thread(target=self.send_sms, args=[client.phone, msg])
+        t.start()
     
     def run(self):
         logger.info(f'[{now()}] run start')

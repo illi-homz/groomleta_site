@@ -8,6 +8,7 @@ from graphene_django import DjangoObjectType
 import graphene
 from graphql_jwt.decorators import login_required, superuser_required
 import math
+from app.services import sms_sender
 
 class OrderType(DjangoObjectType):
     class Meta:
@@ -38,6 +39,7 @@ class OrderInputType(graphene.InputObjectType):
     services = graphene.List(OrderServiceInputType)
     is_success = graphene.Boolean()
     is_reserved = graphene.Boolean()
+    is_sms_with_link = graphene.Boolean()
 
 
 class CreateOrder(graphene.Mutation):
@@ -91,13 +93,14 @@ class CreateOrder(graphene.Mutation):
         is_success = order_data.is_success or False
 
         client_pk = order_data.client
+        client = models.Client.objects.get(pk=client_pk) if client_pk else None
         master_pk = order_data.master
 
         order = models.Order.objects.create(
             price=order_data.price or 0,
             is_success=is_success,
             is_reserved=False if is_success else order_data.is_reserved or True,
-            client=models.Client.objects.get(pk=client_pk) if client_pk else None,
+            client=client,
             master=models.Master.objects.get(pk=master_pk) if master_pk else None,
         )
 
@@ -106,6 +109,12 @@ class CreateOrder(graphene.Mutation):
 
         if len(services):
             order.services.set(services)
+
+        try:
+            sms_sender.send_sms_to_client_by_order_create(client, order_data.is_sms_with_link)
+        except Exception as e:
+            message = e.message if hasattr(e, 'message') else e
+            print('send_sms_to_client_by_order_create exeption:', message)
 
         return CreateOrder(order=order, all_orders=models.Order.objects.all())
 
