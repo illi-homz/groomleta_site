@@ -39,7 +39,7 @@ class OrderInputType(graphene.InputObjectType):
     services = graphene.List(OrderServiceInputType)
     is_success = graphene.Boolean()
     is_reserved = graphene.Boolean()
-    is_sms_with_link = graphene.Boolean()
+    is_sms_send = graphene.Boolean()
 
 
 class CreateOrder(graphene.Mutation):
@@ -110,11 +110,12 @@ class CreateOrder(graphene.Mutation):
         if len(services):
             order.services.set(services)
 
-        # try:
-        #     sms_sender.send_sms_to_client_by_order_create(client, order_data.is_sms_with_link)
-        # except Exception as e:
-        #     message = e.message if hasattr(e, 'message') else e
-        #     print('send_sms_to_client_by_order_create exeption:', message)
+        try:
+            if order_data.is_sms_send:
+                sms_sender.send_sms_to_client_by_order_create(client)
+        except Exception as e:
+            message = e.message if hasattr(e, 'message') else e
+            print('send_sms_to_client_by_order_create exeption:', message)
 
         return CreateOrder(order=order, all_orders=models.Order.objects.all())
 
