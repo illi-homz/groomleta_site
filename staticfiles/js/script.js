@@ -8229,7 +8229,7 @@ grummer.popupMain = {
   },
 
   createServicesStr(nodeList) {
-    return Array.from(nodeList).map(el => "".concat(el.breed, " - ").concat(el.value)).join(', ');
+    return Array.from(nodeList).map(el => el.value).join(', ');
   },
 
   submit(form, event) {

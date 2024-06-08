@@ -106,7 +106,7 @@ grummer.popupMain = {
 	},
 	createServicesStr(nodeList) {
 		return Array.from(nodeList)
-			.map(el => `${el.breed} - ${el.value}`)
+			.map(el => el.value)
 			.join(', ');
 	},
 	async submit(form, event) {
