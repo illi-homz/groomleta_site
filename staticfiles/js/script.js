@@ -7404,7 +7404,7 @@ grummer.tlg = {
         return json;
       });
     } catch (e) {
-      console.error('sendCallback exeption:', e);
+      console.error('sendData exeption:', e);
       return {
         status: 'error'
       };
@@ -8229,9 +8229,7 @@ grummer.popupMain = {
   },
 
   createServicesStr(nodeList) {
-    return Array.from(nodeList).map(el => {
-      return "".concat(el.breed, " - ").concat(el.value);
-    }).join(', ');
+    return Array.from(nodeList).map(el => "".concat(el.breed, " - ").concat(el.value)).join(', ');
   },
 
   submit(form, event) {
@@ -8348,6 +8346,7 @@ grummer.popupMain = {
 
   removeAllRenderedImages() {
     $('._popup-main__form-image-wrapper').remove();
+    this.images = [];
   },
 
   changeCounter(fieldInput) {

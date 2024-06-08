@@ -106,9 +106,7 @@ grummer.popupMain = {
 	},
 	createServicesStr(nodeList) {
 		return Array.from(nodeList)
-			.map(el => {
-				return `${el.breed} - ${el.value}`;
-			})
+			.map(el => `${el.breed} - ${el.value}`)
 			.join(', ');
 	},
 	async submit(form, event) {
@@ -243,6 +241,7 @@ grummer.popupMain = {
 	},
 	removeAllRenderedImages() {
 		$('._popup-main__form-image-wrapper').remove();
+		this.images = []
 	},
 
 	changeCounter(fieldInput) {

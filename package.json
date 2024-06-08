@@ -40,7 +40,5 @@
     "gulp-webp": "^4.0.1",
     "gulp-webp-css": "^1.1.0",
     "sass": "^1.49.9"
-  },
-  "dependencies": {
   }
 }

@@ -25,7 +25,7 @@ grummer.tlg = {
 					return json;
 				});
 		} catch (e) {
-			console.error('sendCallback exeption:', e);
+			console.error('sendData exeption:', e);
 			return {
 				status: 'error',
 			};

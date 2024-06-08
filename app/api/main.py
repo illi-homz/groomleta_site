@@ -109,49 +109,56 @@ def send_feedback(request):
 
 
 def send_services(request):
-    data = json.loads(request.body)
-    print('data', data)
+    try:
+        data = json.loads(request.body)
+        service = models.ServiceRecord.objects.create(
+            name=concatFio(data),
+            phone=data['tel'],
+            min_price=data['price'],
+            services=data['services'],
+            comment=data['comment'],
+            current_date=data['date']
+        )
+        service.save()
 
-    service = models.ServiceRecord.objects.create(
-        name=concatFio(data),
-        phone=data['tel'],
-        min_price=data['price'],
-        services=data['services'],
-        comment=data['comment'],
-        current_date=data['date']
-    )
-    service.save()
+        message = create_services_msg(data)
+        resp = requests.post(url, create_telegram_msg(message))
 
-    message = create_services_msg(data)
-    resp = requests.post(url, create_telegram_msg(message))
-
-    return JsonResponse(create_response(resp))
+        return JsonResponse(create_response(resp))
+    except:
+        return HttpResponseServerError('Ошибка отправки данных')
 
 
 def send_photo(request):
-    photo = request.FILES.getlist('file')[0]
-    params = {'chat_id': chat_id}
-    files = {'photo': photo}
-    resp = requests.post(url_photo, params, files=files)
+    try:
+        photo = request.FILES.getlist('file')[0]
+        params = {'chat_id': chat_id}
+        files = {'photo': photo}
+        resp = requests.post(url_photo, params, files=files)
 
-    return JsonResponse(create_response(resp))
+        return JsonResponse(create_response(resp))
+    except:
+        return HttpResponseServerError('Невозможно отправить фото')
 
 
 def send_photos(request):
-    files = request.FILES.getlist('files')
-    params = {
-        'chat_id': chat_id,
-        'media': [{'type': 'photo', 'media': f'attach://{file.name}'} for file in files]
-    }
-    params['media'] = json.dumps(params['media'])
-    current_files = {}
+    try:
+        files = request.FILES.getlist('files')
+        params = {
+            'chat_id': chat_id,
+            'media': [{'type': 'photo', 'media': f'attach://{file.name}'} for file in files]
+        }
+        params['media'] = json.dumps(params['media'])
+        current_files = {}
 
-    for file in files:
-        current_files[file.name] = file
+        for file in files:
+            current_files[file.name] = file
 
-    resp = requests.post(url_media_group, params, files=current_files)
+        resp = requests.post(url_media_group, params, files=current_files)
 
-    return JsonResponse(create_response(resp))
+        return JsonResponse(create_response(resp))
+    except:
+        return HttpResponseServerError('Невозможно отправить фото')
 
 
 def upload_master_avatar(request):

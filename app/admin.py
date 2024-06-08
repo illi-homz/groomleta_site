@@ -161,7 +161,7 @@ class ProductAdmin(admin.ModelAdmin):
 class ClientAdmin(admin.ModelAdmin):
     list_display = ['id', 'username', 'lastname', 'phone', 'image_tag', 'is_blocked', 'is_notificate']
     list_editable = ['username', 'lastname', 'phone', 'is_blocked', 'is_notificate']
-    search_fields = ['title']
+    search_fields = ['username', 'lastname', 'phone']
     readonly_fields = ['create_date', 'update_date']
     exclude = ('is_active',)
     list_per_page = 20
