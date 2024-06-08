@@ -7399,63 +7399,62 @@ grummer.tlg = {
           'X-CSRFToken': csrf
         },
         body: JSON.stringify(msg)
-      }).then(response => response.json()).then(json => {
-        if (json.status !== 'success') throw json;
-        return json;
-      });
+      }).then(response => response.json());
     } catch (e) {
       console.error('sendData exeption:', e);
-      return {
+      return Promise.reject({
         status: 'error'
-      };
+      });
     }
   },
 
   sendPhoto(photo, csrf) {
-    var formData = new FormData();
-    formData.append('file', photo);
-
     try {
+      var formData = new FormData();
+      formData.append('file', photo);
       return fetch('/api/sendPhoto', {
         method: 'POST',
         headers: {
           'X-CSRFToken': csrf
         },
         body: formData
-      }).then(json => {
-        if (json.status !== 'success') throw json;
-        return json;
+      }).catch(e => {
+        console.error('sendPhoto exeption1:', e);
+        return {
+          status: 'error'
+        };
       });
     } catch (e) {
-      console.error('sendPhoto exeption:', e);
-      return {
+      console.error('sendPhoto exeption2:', e);
+      return Promise.reject({
         status: 'error'
-      };
+      });
     }
   },
 
   sendPhotos(photos, csrf) {
-    var formData = new FormData();
-    photos.forEach(img => {
-      formData.append('files', img);
-    });
-
     try {
+      var formData = new FormData();
+      photos.forEach(img => {
+        formData.append('files', img);
+      });
       return fetch('/api/sendPhotos', {
         method: 'POST',
         headers: {
           'X-CSRFToken': csrf
         },
         body: formData
-      }).then(json => {
-        if (json.status !== 'success') throw json;
-        return json;
+      }).catch(e => {
+        console.error('sendPhotos exeption1:', e);
+        return {
+          status: 'error'
+        };
       });
     } catch (e) {
-      console.error('sendPhotos exeption:', e);
-      return {
+      console.error('sendPhotos exeption2:', e);
+      return Promise.reject({
         status: 'error'
-      };
+      });
     }
   }
 
@@ -7631,9 +7630,11 @@ grummer.header = {
     var $bgs = $("._header__bg");
     var arrLen = $bgs.length;
     return setInterval(() => {
+      var _$bgs$count, _$bgs$count$classList, _$bgs$count$classList2;
+
       if (count > arrLen - 1) count = 0;
       $bgs.removeClass("active");
-      $bgs[count].classList.add("active");
+      (_$bgs$count = $bgs[count]) === null || _$bgs$count === void 0 ? void 0 : (_$bgs$count$classList = _$bgs$count.classList) === null || _$bgs$count$classList === void 0 ? void 0 : (_$bgs$count$classList2 = _$bgs$count$classList.add) === null || _$bgs$count$classList2 === void 0 ? void 0 : _$bgs$count$classList2.call(_$bgs$count$classList, "active");
       count++;
     }, timeChange);
   }
@@ -8229,7 +8230,7 @@ grummer.popupMain = {
   },
 
   createServicesStr(nodeList) {
-    return Array.from(nodeList).map(el => el.value).join(', ');
+    return Array.from(nodeList).map(el => "".concat(el.breed, " - ").concat(el.title)).join(', ');
   },
 
   submit(form, event) {
@@ -8240,8 +8241,12 @@ grummer.popupMain = {
       var validator = new Validator(form);
       var v = validator.validate();
       if (!v) return;
-      var services;
-      form.services instanceof RadioNodeList ? services = _this.createServicesStr(form.services) : services = form.services.value;
+
+      var services = _this.createServicesStr(grummer.currentServices); // form.services instanceof RadioNodeList
+      // 	? (services = this.createServicesStr(form.services))
+      // 	: (services = form.services.value);
+
+
       var [day, month, year] = form.date.value.split('.');
       var csrf = form.csrfmiddlewaretoken.value;
       var msg = {
@@ -8258,16 +8263,17 @@ grummer.popupMain = {
 
       if (files.length) {
         if (files.length === 1) {
-          var photoResponse = grummer.tlg.sendPhoto(files[0], csrf);
+          var photoResponse = yield grummer.tlg.sendPhoto(files[0], csrf);
           console.log('photoResponse', photoResponse);
         } else {
-          var photosResponse = grummer.tlg.sendPhotos(files, csrf);
+          var photosResponse = yield grummer.tlg.sendPhotos(files, csrf);
           console.log('photosResponse', photosResponse);
         }
       }
 
       _this.removeAllRenderedImages();
 
+      grummer.currentServices = [];
       if (msgResponse) setTimeout(() => {
         form.reset();
         grummer.popupOk.setPopupOkData({
@@ -8289,18 +8295,17 @@ grummer.popupMain = {
   },
 
   onUploadImages(el) {
-    var imgs = Array.from(el.files).slice(0, 4 - this.images.length).filter(img => {
-      for (var i = 0; i < this.images.length; i++) {
-        if (img.name === this.images[i].name) {
-          return false;
-        }
-      }
-
-      return true;
+    var imgs = Array.from(el.files).filter((img, idx) => {
+      var isImageUploaded = this.images.find(_ref4 => {
+        var {
+          name
+        } = _ref4;
+        return name === img.name;
+      });
+      return !isImageUploaded;
     });
     if (!imgs.length) return;
-    this.images = [...this.images, ...imgs]; // console.log('this.images', this.images);
-
+    this.images = [...this.images, ...imgs].slice(0, 4);
     var dt = new DataTransfer();
     imgs.forEach(img => dt.items.add(img));
     el.files = dt.files;
@@ -8345,8 +8350,9 @@ grummer.popupMain = {
   },
 
   removeAllRenderedImages() {
-    $('._popup-main__form-image-wrapper').remove();
     this.images = [];
+    $('._popup-main__form-image-wrapper').remove();
+    $('._popup-main__form-img-loader').removeClass('active');
   },
 
   changeCounter(fieldInput) {
@@ -8398,12 +8404,12 @@ grummer.popupServices = {
     });
   },
 
-  filter(_ref4) {
+  filter(_ref5) {
     var {
       animal = '',
       category = '',
       breed = ''
-    } = _ref4;
+    } = _ref5;
     $('.popup-services__slider-services').slick('slickUnfilter');
 
     if (!animal && !category && !breed) {

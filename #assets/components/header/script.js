@@ -13,7 +13,7 @@ grummer.header = {
 		return setInterval(() => {
 			if (count > arrLen - 1) count = 0;
 			$bgs.removeClass("active");
-			$bgs[count].classList.add("active");
+			$bgs[count]?.classList?.add?.("active");
 			count++;
 		}, timeChange);
 	},

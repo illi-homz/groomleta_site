@@ -106,7 +106,7 @@ grummer.popupMain = {
 	},
 	createServicesStr(nodeList) {
 		return Array.from(nodeList)
-			.map(el => el.value)
+			.map(el => `${el.breed} - ${el.title}`)
 			.join(', ');
 	},
 	async submit(form, event) {
@@ -116,11 +116,10 @@ grummer.popupMain = {
 		const v = validator.validate();
 		if (!v) return;
 
-		let services;
-
-		form.services instanceof RadioNodeList
-			? (services = this.createServicesStr(form.services))
-			: (services = form.services.value);
+		let services = this.createServicesStr(grummer.currentServices);
+		// form.services instanceof RadioNodeList
+		// 	? (services = this.createServicesStr(form.services))
+		// 	: (services = form.services.value);
 
 		const [day, month, year] = form.date.value.split('.');
 
@@ -141,15 +140,17 @@ grummer.popupMain = {
 
 		if (files.length) {
 			if (files.length === 1) {
-				const photoResponse = grummer.tlg.sendPhoto(files[0], csrf);
+				const photoResponse = await grummer.tlg.sendPhoto(files[0], csrf);
 				console.log('photoResponse', photoResponse);
 			} else {
-				const photosResponse = grummer.tlg.sendPhotos(files, csrf);
+				const photosResponse = await grummer.tlg.sendPhotos(files, csrf);
 				console.log('photosResponse', photosResponse);
 			}
 		}
 
 		this.removeAllRenderedImages();
+
+		grummer.currentServices = [];
 
 		if (msgResponse)
 			setTimeout(() => {
@@ -171,23 +172,16 @@ grummer.popupMain = {
 		event.stopPropagation();
 	},
 	onUploadImages(el) {
-		const imgs = Array.from(el.files)
-			.slice(0, 4 - this.images.length)
-			.filter(img => {
-				for (let i = 0; i < this.images.length; i++) {
-					if (img.name === this.images[i].name) {
-						return false;
-					}
-				}
-
-				return true;
-			});
+		const imgs = Array.from(el.files).filter((img, idx) => {
+			const isImageUploaded = this.images.find(
+				({name}) => name === img.name,
+			);
+			return !isImageUploaded;
+		});
 
 		if (!imgs.length) return;
 
-		this.images = [...this.images, ...imgs];
-
-		// console.log('this.images', this.images);
+		this.images = [...this.images, ...imgs].slice(0, 4);
 
 		const dt = new DataTransfer();
 		imgs.forEach(img => dt.items.add(img));
@@ -240,8 +234,9 @@ grummer.popupMain = {
 		$(event.target).parent('._popup-main__form-image-wrapper').remove();
 	},
 	removeAllRenderedImages() {
+		this.images = [];
 		$('._popup-main__form-image-wrapper').remove();
-		this.images = []
+		$('._popup-main__form-img-loader').removeClass('active');
 	},
 
 	changeCounter(fieldInput) {
