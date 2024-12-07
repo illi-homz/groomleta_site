@@ -127,11 +127,10 @@ class ServiceRecordAdmin(admin.ModelAdmin):
 
 @admin.register(models.Master)
 class MasterAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'lastname', 'phone', 'avatar', 'post']
-    list_editable = ['username', 'lastname', 'phone', 'post']
+    list_display = ['id', 'username', 'lastname', 'phone', 'avatar', 'post', 'is_active']
+    list_editable = ['username', 'lastname', 'phone', 'post', 'is_active']
     search_fields = ['username', 'lastname', 'phone']
     readonly_fields = ['create_date', 'update_date']
-    exclude = ('is_active',)
     list_per_page = 20
     ordering = ('id',)
     actions = [dublicate_ad]
