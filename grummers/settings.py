@@ -157,6 +157,7 @@ CSRF_USE_SESSIONS = True
 CSRF_TRUSTED_ORIGINS = [
     'http://188.68.220.145',
     'https://groomleta.ru',
+    'https://www.groomleta.ru',
     'http://127.0.0.1:8080',
     'http://localhost:8080',
     'http://192.168.1.38',
