@@ -39,7 +39,14 @@ DEBUG = bool(int(env('IS_DEBUG')))
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://grummers-test.herokuapp.com']
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'http://188.68.220.145',
+    'https://groomleta.ru',
+    'https://www.groomleta.ru',
+    'http://127.0.0.1:8080',
+    'http://localhost:8080',
+]
 
 INSTALLED_APPS = [
     'django_crontab',
