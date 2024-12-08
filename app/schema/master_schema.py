@@ -141,7 +141,7 @@ class Query(graphene.ObjectType):
 
     @login_required
     def resolve_all_masters(root, info, **kwargs):
-        return models.Master.objects.all()
+        return models.Master.objects.get_all()
 
     @login_required
     def resolve_master_by_id(root, info, id, orders_page, orders_per_page):

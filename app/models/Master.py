@@ -6,6 +6,9 @@ from django.core.files import File
 
 
 class MasterManager(models.Manager):
+    def get_all(self):
+        return super(MasterManager, self).get_queryset().all()
+    
     def get_queryset(self):
         return super(MasterManager, self).get_queryset().filter(is_active=True)
 
