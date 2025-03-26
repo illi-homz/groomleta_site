@@ -66,7 +66,7 @@ class BreedAdmin(admin.ModelAdmin):
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'breed', 'category', 'animal', 'price', 'image_tag', 'is_notificate', 'show')
     list_editable = ['title', 'breed', 'animal', 'price', 'is_notificate', 'show']
-    list_filter = ['title', 'animal', 'category']
+    list_filter = ['title', 'breed', 'animal', 'category']
     search_fields = ['title']
     exclude = ('is_active',)
     actions = [dublicate_ad]
