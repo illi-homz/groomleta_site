@@ -60,6 +60,7 @@ class Service(models.Model):
     )
     is_active = models.BooleanField(default=True)
     is_notificate = models.BooleanField(verbose_name='Уведомлять?', default=True)
+    show = models.BooleanField(verbose_name='Отображать', default=True)
 
     objects = ServiceManager()
 
